@@ -1,0 +1,43 @@
+/* Style for each option in the list */
+#custom-select-list li {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+}
+
+#custom-select-list li:last-child {
+  border-bottom: none;
+}
+
+/* Hover state for options */
+#custom-select-list li:hover {
+  background-color: #f0f0f0;
+}
+
+/* Hide options list by default */
+.hidden-all {
+  display: none;
+}
+.add-item-form {
+  margin-top: 20px;
+}
+
+.add-item-form input[type="text"] {
+  padding: 10px;
+  margin: 0 10px 0 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.add-item-form button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-item-form button:hover {
+  background-color: #0056b3;
+}
