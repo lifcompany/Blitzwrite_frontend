@@ -7,7 +7,6 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Header from "../component/header";
-import Toggle from "./toggle";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setVersionId,
@@ -98,8 +97,6 @@ const apiUrl = process.env.REACT_APP_API_URL;
         <h1 className=" heading font text-[calc(10px+2vmin)] font-semibold mt-28 mb-16">
           記事の生成
         </h1>
-        <Toggle className="absolute top-8 right-10" />
-
         <FormControl className="flex w-[300px] sm:w-136" variant="outlined">
           <InputLabel id="category-select-label">Version</InputLabel>
           <Select
