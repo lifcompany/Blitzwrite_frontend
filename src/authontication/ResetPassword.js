@@ -6,11 +6,11 @@ const ResetPassword = () => {
             <div className="flex flex-col flex-grow bg-bottom bg-no-repeat bg-contain"
                 style={{ backgroundImage: 'url(https://monovm.com/dashboard/vendors/metronic/media/illustrations/dozzy-1/4.png)' }}>
                 <div className="flex flex-col items-center justify-center flex-grow p-10 pb-20">
-                    <a href="https://monovm.com/" className="mb-12">
+                    <a href="#" className="mb-12">
                         <img alt="Logo" src="images/logo.svg" className="h-10" />
                     </a>
                     <div className="w-full max-w-[500px] bg-white rounded-lg shadow-lg p-10 px-20">
-                        <form className="w-full" noValidate id="sign_in_form" method="post" action="https://monovm.com/dashboard/login">
+                        <form className="w-full" noValidate id="sign_in_form" method="post" action="#">
                             <input type="hidden" name="_token" value="yor8hTMkxkJkfuqJpfYHYokR9mM7qIbwmb5WXzE8" />
                             <div className="mb-10 text-center">
                                 <h1 className="text-2xl font-bold text-gray-800 mb-3">パスワードの再設定</h1>
@@ -38,7 +38,7 @@ const ResetPassword = () => {
                 </div>
                 <div className="flex items-center justify-center py-10">
                     <div className="flex space-x-4 text-sm font-semibold text-gray-700">
-                        <a href="https://monovm.com/vps-server/" className="hover:text-blue-500">Copyright © 2024  </a>
+                        <a href="#" className="hover:text-blue-500">Copyright © 2024  </a>
                     </div>
                 </div>
             </div>
