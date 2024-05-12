@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { IconButton, Menu, MenuItem, Dialog, DialogTitle } from '@mui/material';
+import { IconButton, Menu, MenuItem, Dialog, DialogTitle } from "@mui/material";
 import WebOutlinedIcon from "@mui/icons-material/WebOutlined";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import SettingsIcon from "@mui/icons-material/Settings";
 const Header = () => {
   const navigate = useNavigate(); // Hook to get the navigate function
   const [anchorEl, setAnchorEl] = useState(null);
@@ -18,12 +19,12 @@ const Header = () => {
     setAnchorEl(null);
   };
 
-  const handleDialogOpen = () => {
+  const handleLogoutOpen = () => {
     setOpenDialog(true);
     handleMenuClose(); // Close the menu when dialog opens
   };
 
-  const handleDialogClose = () => {
+  const handelLogoutClose = () => {
     setOpenDialog(false);
   };
   return (
@@ -59,12 +60,6 @@ const Header = () => {
             一覧
           </a>
         </div>
-        <div className="flex items-center">
-          <AccountCircleOutlinedIcon
-            sx={{ fontSize: 40 }}
-            className=" text-gray-900"
-          />
-        </div>
         <div>
           <IconButton
             onClick={handleMenuOpen}
@@ -73,7 +68,10 @@ const Header = () => {
             aria-haspopup="true"
             color="inherit"
           >
-            <AccountCircleOutlinedIcon />
+          <AccountCircleOutlinedIcon
+            sx={{ fontSize: 40 }}
+            className=" text-gray-900"
+          />
           </IconButton>
           <Menu
             id="account-menu"
@@ -81,15 +79,17 @@ const Header = () => {
             open={Boolean(anchorEl)}
             onClose={handleMenuClose}
           >
-            <MenuItem onClick={handleDialogOpen}>Account Details</MenuItem>
-            <MenuItem>設定</MenuItem>
+            <MenuItem>
+              <SettingsIcon />
+              設定
+            </MenuItem>
             {/* <MenuItem>ログアウト</MenuItem> */}
-            <MenuItem>ログアウト</MenuItem>
+            <MenuItem onClick={handleLogoutOpen}>ログアウト</MenuItem>
           </Menu>
-          {/* <Dialog open={openDialog} onClose={handleDialogClose}>
-            <DialogTitle>Account Details</DialogTitle>
-            <p>Display account details or additional options here...</p>
-          </Dialog> */}
+          <Dialog open={openDialog} onClose={handelLogoutClose}>
+            <DialogTitle>Logout</DialogTitle>
+            <p>Really?</p>
+          </Dialog>
         </div>
       </nav>
     </header>
