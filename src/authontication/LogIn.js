@@ -40,7 +40,7 @@ const Login = () => {
         }}
       >
         <div className="flex flex-col items-center justify-center flex-grow p-10 pb-20">
-          <a href="https://monovm.com/" className="mb-12">
+          <a href="#" className="mb-12">
             <img alt="Logo" src="images/logo.svg" className="h-10" />
           </a>
           <div className="w-full max-w-[500px] bg-white rounded-lg shadow-lg p-10 px-20">
@@ -90,8 +90,7 @@ const Login = () => {
               <div className="text-center mt-6 text-sm text-gray-600 uppercase font-semibold">
                 または
               </div>
-              <div className="w-full py-3 flex items-center justify-center bg-gray-100 rounded-lg mt-3 hover:bg-gray-200 focus:outline-none"
-              >
+              <div className="w-full py-3 flex items-center justify-center bg-gray-100 rounded-lg mt-3 hover:bg-gray-200 focus:outline-none">
                 <img
                   alt="Google Icon"
                   src="images/google-icon.svg"
@@ -129,10 +128,7 @@ const Login = () => {
         </div>
         <div className="flex items-center justify-center py-10">
           <div className="flex space-x-4 text-sm font-semibold text-gray-700">
-            <a
-              href="https://monovm.com/vps-server/"
-              className="hover:text-blue-500"
-            >
+            <a href="#" className="hover:text-blue-500">
               Copyright © 2024{" "}
             </a>
           </div>
