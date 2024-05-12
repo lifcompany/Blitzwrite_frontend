@@ -31,7 +31,7 @@ const Header = () => {
             className="text-blue-500 hover:text-blue-700 hover:underline decoration-blue-700"
             rel="noopener noreferrer"
           >
-            スプレッドシート
+            一覧
           </a>
         </div>
       </nav>
