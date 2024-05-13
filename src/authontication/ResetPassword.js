@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const ResetPassword = () => {
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col h-screen">
       <div
@@ -11,9 +13,9 @@ const ResetPassword = () => {
         }}
       >
         <div className="flex flex-col items-center justify-center flex-grow p-10 pb-20">
-          <a href="#" className="mb-12">
-            <img alt="Logo" src="images/logo.svg" className="h-10" />
-          </a>
+          <div onClick={() => navigate("/home")} className="mb-12 cursor-pointer">
+            <img alt="Logo" src="images/logo.svg" className="h-12" />
+          </div>
           <div className="w-full max-w-[500px] bg-white rounded-lg shadow-lg p-10 px-20">
             <form
               className="w-full"
@@ -28,7 +30,7 @@ const ResetPassword = () => {
                 value="yor8hTMkxkJkfuqJpfYHYokR9mM7qIbwmb5WXzE8"
               />
               <div className="mb-10 text-center">
-                <h1 className="text-2xl font-bold text-gray-800 mb-3">
+                <h1 className="text-2xl font-bold text-gray-900 mb-3">
                   パスワードの再設定
                 </h1>
               </div>

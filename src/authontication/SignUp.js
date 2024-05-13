@@ -47,9 +47,9 @@ const SignUp = () => {
         }}
       >
         <div className="flex flex-col items-center justify-center flex-grow p-10 pb-20">
-          <a href="#" className="mb-12">
-            <img alt="Logo" src="images/logo.svg" className="h-10" />
-          </a>
+        <div onClick={() => navigate("/home")} className="mb-12 cursor-pointer">
+            <img alt="Logo" src="images/logo.svg" className="h-12" />
+          </div>
           <div className="w-full max-w-[500px] bg-white rounded-lg shadow-lg p-10 px-20">
             <div className="w-full" noValidate id="sign_in_form">
               <input
@@ -82,7 +82,7 @@ const SignUp = () => {
                   autoComplete="off"
                 />
               </div> */}
-              <div className="mb-6 border-b-2 border-gray-200">
+              <div className="mb-6">
                 <TextField
                   id="password"
                   name="password"

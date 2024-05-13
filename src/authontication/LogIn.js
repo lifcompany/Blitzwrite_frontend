@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { InputAdornment, IconButton, TextField } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 const Login = () => {
   const navigate = useNavigate(); // Hook to get the navigate function
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
   const handleLogin = () => {
     // Handle login with Google
     if (!window.gapi) {
@@ -32,6 +36,19 @@ const Login = () => {
         });
     });
   };
+  const handleEmailChange = (event) => {
+    const newEmail = event.target.value;
+    setEmail(newEmail);
+  };
+
+  const handlePasswordChange = (event) => {
+    const newPassword = event.target.value;
+    setPassword(newPassword);
+  };
+
+  const handleTogglePassword = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
   return (
     <div className="flex flex-col h-screen">
       <div
@@ -42,9 +59,12 @@ const Login = () => {
         }}
       >
         <div className="flex flex-col items-center justify-center flex-grow p-10 pb-20">
-          <a href="#" className="mb-12">
-            <img alt="Logo" src="images/logo.svg" className="h-10" />
-          </a>
+          <div
+            onClick={() => navigate("/home")}
+            className="mb-12 cursor-pointer"
+          >
+            <img alt="Logo" src="images/logo.svg" className="h-12" />
+          </div>
           <div className="w-full max-w-[500px] bg-white rounded-lg shadow-lg p-10 px-20">
             <div className="w-full" noValidate id="sign_in_form">
               <input
@@ -58,28 +78,64 @@ const Login = () => {
                 </h1>
               </div>
               <div className="mb-6">
-                <input
+                <TextField
                   id="email"
                   name="email"
-                  type="text"
-                  className="w-full px-4 py-3  border-b-2 border-gray-200 focus:outline-none focus:border-gray-500"
-                  placeholder="メールアドレス"
-                  autoComplete="off"
+                  fullWidth
+                  variant="standard"
+                  placeholder="パスワード"
+                  value={email}
+                  onChange={handleEmailChange}
+                  sx={{
+                    "& .MuiInputBase-input": {
+                      width: "100%",
+                      paddingX: "16px",
+                      paddingY: "12px",
+                    },
+                    "& .MuiFormHelperText-root": {
+                      fontSize: "14px",
+                      color: "#dc3545",
+                    },
+                  }}
                 />
               </div>
+
               <div className="mb-6">
-                <input
+                <TextField
                   id="password"
                   name="password"
-                  type="password"
-                  className="w-full px-4 py-3 border-b-2 border-gray-200 focus:outline-none focus:border-gray-500"
+                  type={showPassword ? "text" : "password"}
+                  fullWidth
+                  variant="standard"
                   placeholder="パスワード"
-                  autoComplete="off"
+                  value={password}
+                  onChange={handlePasswordChange}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton onClick={handleTogglePassword} edge="end">
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    "& .MuiInputBase-input": {
+                      width: "100%", // Full width
+                      paddingX: "16px", // Horizontal padding
+                      paddingY: "12px", // Vertical padding
+                    },
+                    "& .MuiFormHelperText-root": {
+                      fontSize: "14px", // Helper text font size
+                      color: "#dc3545", // Helper text color (error message)
+                    },
+                  }}
                 />
               </div>
+
               <div className="flex justify-between mt-4 mb-6 text-gray-700 font-semibold text-sm">
                 <div
-                  onClick={()=>navigate("/forgot_password")}
+                  onClick={() => navigate("/forgot_password")}
                   className="text-blue-500 font-semibold cursor-pointer"
                 >
                   パスワードを忘れた

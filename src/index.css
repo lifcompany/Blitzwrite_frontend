@@ -4,3 +4,11 @@
 .css-953pxc-MuiInputBase-root-MuiInput-root::before{
     border: none !important;
   }
+
+.css-4oe8v1-MuiFormControl-root-MuiTextField-root .MuiFormHelperText-root {
+    font-size: 12px !important;
+}
+
+.css-4oe8v1-MuiFormControl-root-MuiTextField-root {
+    border-bottom: 2px solid #e7e7e7 !important;
+}
