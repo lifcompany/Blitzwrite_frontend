@@ -130,20 +130,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
               mr: 2,
             }}
           >
-            開始する
-          </Button>
-          <Button
-            variant="contained"
-            color="error"
-            onClick={handleStop}
-            sx={{
-              fontWeight: "bold",
-              py: 1,
-              px: 2,
-              ml: 2,
-            }}
-          >
-            停止する
+            作成を開始する
           </Button>
         </div>
         {/* <Button startIcon={<StarIcon />}>Favorite</Button> */}

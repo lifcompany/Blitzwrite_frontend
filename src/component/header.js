@@ -79,8 +79,8 @@ const Header = () => {
             open={Boolean(anchorEl)}
             onClose={handleMenuClose}
           >
-            <MenuItem>
-              <SettingsIcon />
+            <MenuItem onClick={() => navigate("/setting")}>
+              <SettingsIcon className=" text-gray-700" />
               設定
             </MenuItem>
             {/* <MenuItem>ログアウト</MenuItem> */}

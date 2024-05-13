@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate(); // Hook to get the navigate function
   const handleLogin = () => {
     // Handle login with Google
     if (!window.gapi) {
@@ -76,13 +78,16 @@ const Login = () => {
                 />
               </div>
               <div className="flex justify-between mt-4 mb-6 text-gray-700 font-semibold text-sm">
-                <a href="#" className="text-blue-500 font-semibold ">
+                <div
+                  onClick={()=>navigate("/forgot_password")}
+                  className="text-blue-500 font-semibold cursor-pointer"
+                >
                   パスワードを忘れた
-                </a>
+                </div>
               </div>
               <button
                 type="submit"
-                className="w-full py-3 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-700 focus:outline-none focus:bg-blue-700"
+                className="w-full py-3 bg-[#0F1740] text-white font-bold rounded-lg hover:bg-[#22294e] focus:outline-none focus:bg-[#0e1225]"
               >
                 <span className="inline-block mr-2">ログインする</span>
                 <span className="inline-block spinner-border spinner-border-sm align-middle"></span>
@@ -90,7 +95,7 @@ const Login = () => {
               <div className="text-center mt-6 text-sm text-gray-600 uppercase font-semibold">
                 または
               </div>
-              <div className="w-full py-3 flex items-center justify-center bg-gray-100 rounded-lg mt-3 hover:bg-gray-200 focus:outline-none">
+              <div className="w-full py-3 flex items-center justify-center bg-gray-100 rounded-[3rem] mt-3 hover:bg-gray-200 focus:outline-none">
                 <img
                   alt="Google Icon"
                   src="images/google-icon.svg"
@@ -101,7 +106,7 @@ const Login = () => {
                 </span>
               </div>
               <div
-                className="w-full py-3 flex items-center justify-center bg-white border border-gray-300 rounded-2xl mt-3 hover:bg-gray-100 focus:outline-none"
+                className="w-full py-3 flex items-center justify-center bg-white border border-gray-300 rounded-[3rem] mt-3 hover:bg-gray-100 focus:outline-none"
                 onClick={handleLogin}
               >
                 <img
@@ -113,13 +118,8 @@ const Login = () => {
                   Googleでログイン
                 </span>
               </div>
-              <div className="flex justify-center mt-6 space-x-4 text-sm font-semibold text-gray-700">
-                <a href="#" className="hover:text-blue-500 m-auto">
-                  アカウントの作成はこちら
-                </a>
-              </div>
               <div className="flex justify-center mt-4 text-gray-700 font-semibold text-sm">
-                <a href="#" className="text-blue-500 font-semibold ">
+                <a href="/register" className="text-blue-500 font-semibold ">
                   アカウントの作成はこちら
                 </a>
               </div>
@@ -128,7 +128,7 @@ const Login = () => {
         </div>
         <div className="flex items-center justify-center py-10">
           <div className="flex space-x-4 text-sm font-semibold text-gray-700">
-            <a href="#" className="hover:text-blue-500">
+            <a href="/register" className="hover:text-blue-500">
               Copyright © 2024{" "}
             </a>
           </div>

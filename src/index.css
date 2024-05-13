@@ -1,3 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.css-953pxc-MuiInputBase-root-MuiInput-root::before{
+    border: none !important;
+  }
