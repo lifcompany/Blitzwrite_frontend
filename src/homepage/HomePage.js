@@ -1,7 +1,7 @@
 import Button from "@mui/material/Button";
 import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
-import WebOutlinedIcon from '@mui/icons-material/WebOutlined';
+import WebOutlinedIcon from "@mui/icons-material/WebOutlined";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -27,8 +27,17 @@ const HomePage = () => {
   const [notification, setNotification] = useState("");
   const [models, setModels] = useState([]);
   const [selectedModelId, setSelectedModelId] = useState(versionId);
+  const [selectedCategory, setSelectedCategory] = useState("all");
 
-const apiUrl = process.env.REACT_APP_API_URL;
+  function handleSelectedCategory(event) {
+    setSelectedCategory(event.target.value);
+  }
+  const categories = [
+    { slug: "shiraishi", title: "LastName" },
+    { slug: "Masayuki", title: "FirstName" },
+  ];
+
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const get_model_list = useCallback(() => {
     console.log(apiUrl);
@@ -56,7 +65,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
       .then((response) => {
         console.log(response);
         setLoading(false);
-        setNotification("出力が成功しました")
+        setNotification("出力が成功しました");
       })
       .catch((error) => {
         setError(error.response.data.error);
@@ -71,7 +80,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
       .then((response) => {
         console.log(response.data);
         setLoading(false);
-        setNotification("正常に停止しました")
+        setNotification("正常に停止しました");
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -93,20 +102,25 @@ const apiUrl = process.env.REACT_APP_API_URL;
   return (
     <div className="text-center pb-12">
       <Header />
-      <div className="py-12 relative">
-        <h1 className=" heading font text-[calc(10px+2vmin)] font-semibold mt-28 mb-16">
+      <div className="relative flex flex-col justify-between items-start pl-80">
+        <h1 className=" heading font text-[calc(10px+2vmin)] font-semibold mt-28">
           記事の生成
         </h1>
-        <FormControl className="flex w-[300px] sm:w-136" variant="outlined">
-          <InputLabel id="category-select-label">Version</InputLabel>
+        <h2 className=" heading font text-[calc(2vmin)] font-semibold mt-20 mb-16">
+          バージョンの選択
+        </h2>
+        <FormControl className="flex w-[320px] sm:w-136" variant="outlined">
+          <InputLabel id="category-select-label" className=" text-[1.3rem]">
+            バージョン
+          </InputLabel>
           <Select
+            className=" text-[1.3rem]"
             labelId="category-select-label"
             id="category-select"
             label="Category"
             value={selectedModelId}
             onChange={handleSelectedModel}
           >
-            {/* Add this line */}
             {models.map((model) => (
               <MenuItem value={model._id} key={model._id}>
                 {model.display_name}
@@ -114,20 +128,47 @@ const apiUrl = process.env.REACT_APP_API_URL;
             ))}
           </Select>
         </FormControl>
-
-        <div className=" h-10">
-          {loading ? <p>Loading...</p> : ""}
+        <div className="mt-5">
+          <FormControl className="flex  w-[320px] sm:w-136" variant="outlined">
+            <InputLabel id="category-select-label">バージョン</InputLabel>
+            <Select
+              labelId="category-select-label"
+              id="category-select"
+              label="Category"
+              value={selectedCategory}
+              onChange={handleSelectedCategory}
+            >
+              <MenuItem value="all">GPT-4-Turbo</MenuItem>
+              {categories.map((category, index) => (
+                <MenuItem value={category.slug} key={index}>
+                  {category.title}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </div>
+
+        <div className=" h-10">{loading ? <p>Loading...</p> : ""}</div>
         <div className=" py-12">
           <Button
+            // className="py-3 bg-[#0F1740] text-white font-bold rounded-lg hover:bg-[#22294e] focus:outline-none focus:bg-[#0e1225]"
             variant="contained"
-            color="primary"
             onClick={handleStart}
             sx={{
+              backgroundColor: "#0F1740",
+              color: "white",
               fontWeight: "bold",
-              py: 1,
-              px: 2,
-              mr: 2,
+              paddingY: 2,
+              paddingLeft: 2,
+              paddingRight: 2,
+              borderRadius: "lg",
+              "&:hover": {
+                backgroundColor: "#22294e",
+              },
+              "&:focus": {
+                outline: "none",
+                backgroundColor: "#0e1225",
+              },
             }}
           >
             作成を開始する
@@ -141,8 +182,8 @@ const apiUrl = process.env.REACT_APP_API_URL;
         View_model : {versionName} <br />
         Id : {versionId}
       </h5>
-      <Notification content= {notification} />
-      <Error content={error}/>
+      <Notification content={notification} />
+      <Error content={error} />
     </div>
   );
 };
