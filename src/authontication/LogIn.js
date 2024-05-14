@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import { InputAdornment, IconButton, TextField } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 const Login = () => {
@@ -48,6 +49,24 @@ const Login = () => {
 
   const handleTogglePassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form submitted with", email, password);
+    const signin_data = {
+      email: email,
+      password: password,
+    };
+    axios
+      .post("http://localhost:8000/api/authentication/login/", signin_data)
+      .then((response) => {
+        console.log("Server response:", response.data);
+        navigate("/home");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
   return (
     <div className="flex flex-col h-screen">
@@ -144,6 +163,7 @@ const Login = () => {
               <button
                 type="submit"
                 className="w-full py-3 bg-[#0F1740] text-white font-bold rounded-lg hover:bg-[#22294e] focus:outline-none focus:bg-[#0e1225]"
+                onClick={handleSubmit}
               >
                 <span className="inline-block mr-2">ログインする</span>
                 <span className="inline-block spinner-border spinner-border-sm align-middle"></span>

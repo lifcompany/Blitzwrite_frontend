@@ -6,6 +6,7 @@ import LogIn from "./authontication/LogIn";
 import SignUp from "./authontication/SignUp";
 import ForgotPassword from "./authontication/ForgotPassword";
 import ResetPassword from "./authontication/ResetPassword";
+import EmailVerification from "./authontication/EmailVerification";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/register" element={<SignUp />} />
+        <Route path="/mail-verify" element={<EmailVerification />} />
         <Route path="/forgot_password" element={<ForgotPassword />} />
         <Route path="/reset_password" element={<ResetPassword />} />
         <Route path="/home" element={<HomePage />} />
