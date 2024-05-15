@@ -15,18 +15,18 @@ import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import NoAccountsIcon from '@mui/icons-material/NoAccounts';
 // import { selectUser } from 'app/store/userSlice';
 
-function UserMenu(props) {
+function SettingMenu(props) {
   //   const user = useSelector(selectUser);
   const user = { displayName: "白石昌之", role: "User", photoURL: "" };
   const navigate = useNavigate();
-  const [userMenu, setUserMenu] = useState(null);
+  const [settingMenu, setSettingMenu] = useState(null);
 
-  const userMenuClick = (event) => {
-    setUserMenu(event.currentTarget);
+  const settingMenuClick = (event) => {
+    setSettingMenu(event.currentTarget);
   };
 
-  const userMenuClose = () => {
-    setUserMenu(null);
+  const settingMenuClose = () => {
+    setSettingMenu(null);
   };
   const handleLogout = () => {
     navigate("/sign-out");
@@ -35,41 +35,29 @@ function UserMenu(props) {
     <>
       <Button
         className=" min-h-14 min-w-14 px-0 md:px-4 py-0 md:py-2"
-        onClick={userMenuClick}
+        onClick={settingMenuClick}
         color="inherit"
       >
         <div className="hidden md:flex flex-col mx-1 items-end">
           <h2 className="font-bold flex">{user.displayName}</h2>
-          {/* <Typography
-            className=" text-[0.5rem] font-medium capitalize"
-            color="text.secondary"
-          >
-            {user.role.toString()}
-            {(!user.role ||
-              (Array.isArray(user.role) && user.role.length === 0)) &&
-              "Guest"}
-          </Typography> */}
         </div>
 
-        {user.photoURL ? (
-          <Avatar className="md:mx-1" alt="user photo" src={user.photoURL} />
-        ) : (
+
           <Avatar className="md:mx-1">{user.displayName[0]}</Avatar>
-        )}
+
       </Button>
 
-      <Popover
-        open={Boolean(userMenu)}
-        anchorEl={userMenu}
-        onClose={userMenuClose}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "center",
-        }}
+      <div
+        open={true}
+        onClose={settingMenuClose}
+        // anchorOrigin={{
+        //   vertical: "bottom",
+        //   horizontal: "center",
+        // }}
+        // transformOrigin={{
+        //   vertical: "top",
+        //   horizontal: "center",
+        // }}
         classes={{
           paper: "py-3",
         }}
@@ -94,7 +82,7 @@ function UserMenu(props) {
             <MenuItem
               component={Link}
               to="/setting"
-              onClick={userMenuClose}
+              onClick={settingMenuClose}
               role="button"
             >
               <ListItemIcon className="min-w-40">
@@ -105,7 +93,7 @@ function UserMenu(props) {
             <MenuItem
               component={Link}
               to="/setting"
-              onClick={userMenuClose}
+              onClick={settingMenuClose}
               role="button"
             >
               <ListItemIcon className="min-w-40">
@@ -128,9 +116,9 @@ function UserMenu(props) {
             </MenuItem>
           </>
         )}
-      </Popover>
+      </div>
     </>
   );
 }
 
-export default UserMenu;
+export default SettingMenu;
