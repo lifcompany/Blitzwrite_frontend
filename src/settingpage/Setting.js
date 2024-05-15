@@ -16,7 +16,7 @@ import {
 import Notification from "../component/notification";
 import Error from "../component/error";
 
-const HomePage = () => {
+const Setting = () => {
   const versionId = useSelector((state) => state.version.versionId);
   const versionName = useSelector((state) => state.version.versionName);
   const displayName = useSelector((state) => state.version.displayName);
@@ -188,4 +188,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Setting;
