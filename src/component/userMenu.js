@@ -38,9 +38,9 @@ function UserMenu(props) {
         onClick={userMenuClick}
         color="inherit"
       >
-        <div className="hidden md:flex flex-col mx-2 items-end">
+        <div className="hidden md:flex flex-col mx-1 items-end">
           <h2 className="font-bold flex">{user.displayName}</h2>
-          <Typography
+          {/* <Typography
             className=" text-[0.5rem] font-medium capitalize"
             color="text.secondary"
           >
@@ -48,13 +48,13 @@ function UserMenu(props) {
             {(!user.role ||
               (Array.isArray(user.role) && user.role.length === 0)) &&
               "Guest"}
-          </Typography>
+          </Typography> */}
         </div>
 
         {user.photoURL ? (
-          <Avatar className="md:mx-2" alt="user photo" src={user.photoURL} />
+          <Avatar className="md:mx-1" alt="user photo" src={user.photoURL} />
         ) : (
-          <Avatar className="md:mx-2">{user.displayName[0]}</Avatar>
+          <Avatar className="md:mx-1">{user.displayName[0]}</Avatar>
         )}
       </Button>
 
@@ -123,7 +123,7 @@ function UserMenu(props) {
               <ListItemIcon className="min-w-40">
                 <NoAccountsIcon />
               </ListItemIcon>
-              <ListItemText primary="アカウントの削除" />
+              <ListItemText primary="アカウント削除" />
             </MenuItem>
             <MenuItem
               component={NavLink}

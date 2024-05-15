@@ -36,7 +36,7 @@ const Header = () => {
             <img alt="Logo" src="images/logo.svg" className="h-10" />
           </Link>
         </h1>
-        <div className="flex items-center">
+        <div className="flex items-center gap-7">
           <div className="navbar flex items-center">
             <button
               onClick={() => navigate("/output")}
