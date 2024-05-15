@@ -114,7 +114,7 @@ function UserMenu(props) {
               <ListItemText primary="アカウント管理" />
             </MenuItem>
             <div className=" border-b-2 border-b-gray-300 w-[90%] my-3 m-auto"></div>
-            <MenuItem
+            {/* <MenuItem
               component={Link}
               to="/apps/profile"
               onClick={userMenuClose}
@@ -124,7 +124,7 @@ function UserMenu(props) {
                 <NoAccountsIcon />
               </ListItemIcon>
               <ListItemText primary="アカウント削除" />
-            </MenuItem>
+            </MenuItem> */}
             <MenuItem
               component={NavLink}
               to="/sign-out"
