@@ -7,16 +7,18 @@ import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import LogoutIcon from '@mui/icons-material/Logout';
-import SettingsIcon from '@mui/icons-material/Settings';
+import LogoutIcon from "@mui/icons-material/Logout";
+import SettingsIcon from "@mui/icons-material/Settings";
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import NoAccountsIcon from '@mui/icons-material/NoAccounts';
 // import { selectUser } from 'app/store/userSlice';
 
 function UserMenu(props) {
   //   const user = useSelector(selectUser);
-  const user = { displayName: "shiraishi", role: "Developer", photoURL: "",  };
-
+  const user = { displayName: "白石昌之", role: "User", photoURL: "" };
+  const navigate = useNavigate();
   const [userMenu, setUserMenu] = useState(null);
 
   const userMenuClick = (event) => {
@@ -26,7 +28,9 @@ function UserMenu(props) {
   const userMenuClose = () => {
     setUserMenu(null);
   };
-
+  const handleLogout = () => {
+    navigate("/sign-out");
+  };
   return (
     <>
       <Button
@@ -35,11 +39,9 @@ function UserMenu(props) {
         color="inherit"
       >
         <div className="hidden md:flex flex-col mx-2 items-end">
-          <Typography component="span" className="font-semibold flex">
-            {user.displayName}
-          </Typography>
+          <h2 className="font-bold flex">{user.displayName}</h2>
           <Typography
-            className=" text-[1.1rem] font-medium capitalize"
+            className=" text-[0.5rem] font-medium capitalize"
             color="text.secondary"
           >
             {user.role.toString()}
@@ -50,11 +52,7 @@ function UserMenu(props) {
         </div>
 
         {user.photoURL ? (
-          <Avatar
-            className="md:mx-2"
-            alt="user photo"
-            src={user.photoURL}
-          />
+          <Avatar className="md:mx-2" alt="user photo" src={user.photoURL} />
         ) : (
           <Avatar className="md:mx-2">{user.displayName[0]}</Avatar>
         )}
@@ -95,18 +93,7 @@ function UserMenu(props) {
           <>
             <MenuItem
               component={Link}
-              to="/apps/profile"
-              onClick={userMenuClose}
-              role="button"
-            >
-              <ListItemIcon className="min-w-40">
-                <AccountCircleOutlinedIcon />
-              </ListItemIcon>
-              <ListItemText primary="My Profile" />
-            </MenuItem>
-            <MenuItem
-              component={Link}
-              to="/apps/chat"
+              to="/setting"
               onClick={userMenuClose}
               role="button"
             >
@@ -116,10 +103,33 @@ function UserMenu(props) {
               <ListItemText primary="設定" />
             </MenuItem>
             <MenuItem
+              component={Link}
+              to="/setting"
+              onClick={userMenuClose}
+              role="button"
+            >
+              <ListItemIcon className="min-w-40">
+                <ManageAccountsIcon />
+              </ListItemIcon>
+              <ListItemText primary="アカウント管理" />
+            </MenuItem>
+            <div className=" border-b-2 border-b-gray-300 w-[90%] my-3 m-auto"></div>
+            <MenuItem
+              component={Link}
+              to="/apps/profile"
+              onClick={userMenuClose}
+              role="button"
+            >
+              <ListItemIcon className="min-w-40">
+                <NoAccountsIcon />
+              </ListItemIcon>
+              <ListItemText primary="アカウントの削除" />
+            </MenuItem>
+            <MenuItem
               component={NavLink}
               to="/sign-out"
               onClick={() => {
-                userMenuClose();
+                handleLogout();
               }}
             >
               <ListItemIcon className="min-w-40">

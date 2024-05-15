@@ -59,10 +59,30 @@ const Login = () => {
       password: password,
     };
     axios
-      .post("http://localhost:8000/api/authentication/login/", signin_data)
+      .post(
+        "http://127.0.0.1:8000/api/authentication/login/",
+        { signin_data },
+        {
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      )
       .then((response) => {
-        console.log("Server response:", response.data);
-        navigate("/home");
+        if (response.ok) {
+          // If login is successful, parse response data (e.g., access token)
+          const data = response.json();
+          const accessToken = data.accessToken;
+  
+          // Save access token to local storage or state (e.g., Redux)
+          localStorage.setItem('accessToken', accessToken);
+  
+          // Redirect user to the home page or perform other actions
+          navigate('/home')
+        } else {
+          // Handle login error (e.g., display error message)
+          console.log('Login failed');
+        }
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -170,16 +190,6 @@ const Login = () => {
               </button>
               <div className="text-center mt-6 text-sm text-gray-600 uppercase font-semibold">
                 または
-              </div>
-              <div className="w-full py-3 flex items-center justify-center bg-gray-100 rounded-[3rem] mt-3 hover:bg-gray-200 focus:outline-none">
-                <img
-                  alt="Google Icon"
-                  src="images/google-icon.svg"
-                  className="h-6 mr-3"
-                />
-                <span className="font-normal text-[#7e8299]">
-                  Googleでログイン
-                </span>
               </div>
               <div
                 className="w-full py-3 flex items-center justify-center bg-white border border-gray-300 rounded-[3rem] mt-3 hover:bg-gray-100 focus:outline-none"

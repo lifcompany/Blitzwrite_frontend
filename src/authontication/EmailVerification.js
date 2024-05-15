@@ -1,10 +1,10 @@
 // VerifyEmail.js
 import React, { useEffect } from "react";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
-
+import { useLocation, useNavigate } from "react-router-dom";
 const EmailVerification = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   useEffect(() => {
     const token = new URLSearchParams(location.search).get("token");
     if (token) {
@@ -21,7 +21,7 @@ const EmailVerification = () => {
             }
           );
           console.log(response.data);
-          // Display success message or redirect user
+          navigate("/home");
         } catch (error) {
           console.error(error);
           // Display error message
@@ -33,7 +33,7 @@ const EmailVerification = () => {
 
   return (
     <div>
-      <h2>Email Verification</h2>
+      <h2>メール認証</h2>
       {/* Display loading or error message */}
     </div>
   );

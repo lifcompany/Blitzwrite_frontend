@@ -7,6 +7,7 @@ import SignUp from "./authontication/SignUp";
 import ForgotPassword from "./authontication/ForgotPassword";
 import ResetPassword from "./authontication/ResetPassword";
 import EmailVerification from "./authontication/EmailVerification";
+import SignOutPage from "./authontication/SignOutPage";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/mail-verify" element={<EmailVerification />} />
         <Route path="/forgot_password" element={<ForgotPassword />} />
         <Route path="/reset_password" element={<ResetPassword />} />
+        <Route path="/sign-out" element={<SignOutPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/output" element={<Output />} />
         <Route path="/setting" element={<CustomSelect />} />

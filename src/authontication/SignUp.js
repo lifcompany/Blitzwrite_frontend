@@ -92,7 +92,7 @@ const SignUp = () => {
         .post("http://localhost:8000/api/authentication/register/", signup_data)
         .then((response) => {
           console.log("Server response:", response.data);
-          navigate("/home");
+          navigate("/login");
         })
         .catch((error) => {
           console.error("Error:", error);
