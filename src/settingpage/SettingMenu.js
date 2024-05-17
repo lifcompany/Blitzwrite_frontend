@@ -12,6 +12,7 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import LogoutIcon from "@mui/icons-material/Logout";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import CreditScoreOutlinedIcon from '@mui/icons-material/CreditScoreOutlined';
 import NoAccountsIcon from '@mui/icons-material/NoAccounts';
 // import { selectUser } from 'app/store/userSlice';
 
@@ -88,7 +89,7 @@ function SettingMenu(props) {
               <ListItemIcon className="min-w-40">
                 <SettingsIcon />
               </ListItemIcon>
-              <ListItemText primary="設定" />
+              <ListItemText primary="サイト" />
             </MenuItem>
             <MenuItem
               component={Link}
@@ -99,7 +100,29 @@ function SettingMenu(props) {
               <ListItemIcon className="min-w-40">
                 <ManageAccountsIcon />
               </ListItemIcon>
-              <ListItemText primary="アカウント管理" />
+              <ListItemText primary="API連携" />
+            </MenuItem>
+            <MenuItem
+              component={Link}
+              to="/setting"
+              onClick={settingMenuClose}
+              role="button"
+            >
+              <ListItemIcon className="min-w-40">
+                <CreditScoreOutlinedIcon />
+              </ListItemIcon>
+              <ListItemText primary="支払い" />
+            </MenuItem>
+            <MenuItem
+              component={Link}
+              to="/setting"
+              onClick={settingMenuClose}
+              role="button"
+            >
+              <ListItemIcon className="min-w-40">
+                <ManageAccountsIcon />
+              </ListItemIcon>
+              <ListItemText primary="アカウント" />
             </MenuItem>
             <div className=" border-b-2 border-b-gray-300 w-[90%] my-3 m-auto"></div>
             <MenuItem
@@ -112,7 +135,7 @@ function SettingMenu(props) {
               <ListItemIcon className="min-w-40">
                 <LogoutIcon />
               </ListItemIcon>
-              <ListItemText primary="ログアウト" />
+              <ListItemText primary="Delete Account" />
             </MenuItem>
           </>
         )}
