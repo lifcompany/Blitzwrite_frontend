@@ -2,6 +2,7 @@ import Button from "@mui/material/Button";
 import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import WebOutlinedIcon from "@mui/icons-material/WebOutlined";
+import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -105,7 +106,7 @@ const Setting = () => {
       <Header />
       <div className="flex flex-1  h-full">
         <div className=" w-72 border-r-2 border-gray-300 ">
-          <SettingMenu/>
+          <SettingMenu />
         </div>
         <div className="relative flex flex-col flex-1 items-start pl-40">
           <h1 className=" heading font text-[calc(10px+2vmin)] font-semibold mt-28">
@@ -153,6 +154,45 @@ const Setting = () => {
                   </MenuItem>
                 ))}
               </Select>
+            </FormControl>
+          </div>
+          <div className="mt-5">
+            <FormControl
+              className="flex flex-col gap-5 w-[320px] sm:w-136"
+              variant="outlined"
+            >
+              <TextField
+                label="サイト名"
+                placeholder="サイト名"
+                className="flex w-full sm:w-256 mx-8 my-10"
+                // value={searchText}
+                inputProps={{
+                  "aria-label": "Search",
+                }}
+                // onChange={handleSearchText}
+                variant="outlined"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+              <div>
+              <TextField
+                label="サイトのURL"
+                placeholder="URL"
+                className="flex w-full sm:w-256 mx-8 my-10"
+                // value={searchText}
+                inputProps={{
+                  "aria-label": "Search",
+                }}
+                // onChange={handleSearchText}
+                variant="outlined"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+              <p>https://から入力してください</p>
+              </div>
+              
             </FormControl>
           </div>
 
