@@ -40,15 +40,6 @@ function UserMenu(props) {
       >
         <div className="hidden md:flex flex-col mx-1 items-end">
           <h2 className="font-bold flex">{user.displayName}</h2>
-          {/* <Typography
-            className=" text-[0.5rem] font-medium capitalize"
-            color="text.secondary"
-          >
-            {user.role.toString()}
-            {(!user.role ||
-              (Array.isArray(user.role) && user.role.length === 0)) &&
-              "Guest"}
-          </Typography> */}
         </div>
 
         {user.photoURL ? (
@@ -93,7 +84,7 @@ function UserMenu(props) {
           <>
             <MenuItem
               component={Link}
-              to="/setting"
+              to="/setting-site"
               onClick={userMenuClose}
               role="button"
             >
@@ -104,7 +95,7 @@ function UserMenu(props) {
             </MenuItem>
             <MenuItem
               component={Link}
-              to="/setting"
+              to="/setting-account"
               onClick={userMenuClose}
               role="button"
             >

@@ -39,6 +39,13 @@ const Header = () => {
         <div className="flex items-center gap-7">
           <div className="navbar flex items-center">
             <button
+              onClick={() => navigate("/output")}
+              className="flex justify-center items-center gap-1 mr-4 p-2 bg-white rounded-md hover:bg-gray-200 text-gray-700 hover:text-gray-700 "
+            >
+              <WebOutlinedIcon />
+              車買取サービス
+            </button>
+            <button
               onClick={() => navigate("/setting")}
               className=" flex justify-center items-center gap-1 mr-4 p-2 bg-white rounded-md hover:bg-gray-200 text-gray-700 hover:text-gray-700  "
             >
@@ -63,7 +70,7 @@ const Header = () => {
               open={Boolean(anchorEl)}
               onClose={handleMenuClose}
             >
-              <MenuItem onClick={() => navigate("/setting")}>
+              <MenuItem onClick={() => navigate("/setting-site")}>
                 <SettingsIcon className=" text-gray-700" />
                 設定
               </MenuItem>

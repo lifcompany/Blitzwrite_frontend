@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { TextField, Button } from "@mui/material";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
@@ -12,6 +13,7 @@ function EditVersion(props) {
   const [modelName, setModelName] = useState("");
   const [endpoint, setEndpoint] = useState("");
   const [parameters, setParameters] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -70,75 +72,58 @@ function EditVersion(props) {
         className="bg-white shadow-lg rounded px-16 pt-10 pb-10 mb-4 w-full"
       >
         <div className="mb-4">
-          {editversionID ? (
-            <h1 className="block text-gray-700 text-2xl text-center font-bold mb-16">
-              モデルを編集する
-            </h1>
-          ) : (
-            <h1 className="block text-gray-700 text-2xl text-center font-bold mb-16">
-              新しいモデル
-            </h1>
-          )}
           <TextField
-            required
             id="display-name"
-            label="Display Name"
-            variant="outlined"
+            label="モデル名"
+            placeholder="モデル名"
             value={displayName}
-            onChange={(e) => setDisplayName(e.target.value)}
-            className="w-full"
-          />
-        </div>
-        <div className="mb-4">
-          <TextField
-            required
-            id="model-name"
-            label="Model Name "
+            className="flex w-full sm:w-256 mx-8 my-10"
+            // value={searchText}
+            inputProps={{
+              "aria-label": "Search",
+            }}
+            // onChange={handleSearchText}
             variant="outlined"
-            value={modelName}
-            onChange={(e) => setModelName(e.target.value)}
-            className="w-full"
+            InputLabelProps={{
+              shrink: true,
+            }}
+            onChange={(e) => setDisplayName(e.target.value)}
           />
         </div>
+
         <div className="mb-4">
           <TextField
             id="endpoint"
-            label="input endpoint"
-            placeholder="https://api.openai.com/v1/chat/completions"
+            label="エンドポイント"
+            placeholder="エンドポイント"
             variant="outlined"
             value={endpoint}
             onChange={(e) => setEndpoint(e.target.value)}
-            className="w-full"
-            InputProps={{
-              endAdornment: (
-                <Button color="primary" onClick={() => setEndpoint("")}>
-                  <DeleteOutlineOutlinedIcon />
-                </Button>
-              ),
+            className="flex w-full sm:w-256 mx-8 my-10"
+            inputProps={{
+              "aria-label": "Search",
+            }}
+            InputLabelProps={{
+              shrink: true,
             }}
           />
         </div>
         <div className="mb-6">
           <TextField
             id="parameters"
-            label="input parameters"
+            label="パラメータ"
+            placeholder="パラメータ"
+            className="flex w-full sm:w-256 mx-8 my-10"
             variant="outlined"
-            placeholder=" temperature=0.2,
-
-                        max_tokens=500,
-                        frequency_penalty=0.0,
-                        timeout=1200"
             value={parameters}
             onChange={(e) => setParameters(e.target.value)}
             multiline
             rows={6}
-            className="w-full"
-            InputProps={{
-              endAdornment: (
-                <Button color="primary" onClick={() => setParameters("")}>
-                  <DeleteOutlineOutlinedIcon />
-                </Button>
-              ),
+            inputProps={{
+              "aria-label": "Search",
+            }}
+            InputLabelProps={{
+              shrink: true,
             }}
           />
         </div>
@@ -152,7 +137,7 @@ function EditVersion(props) {
               onClick={add_new_version}
               startIcon={<SaveIcon />}
             >
-              更新
+              追加
             </Button>
           </div>
         ) : (
@@ -165,10 +150,16 @@ function EditVersion(props) {
               onClick={add_new_version}
               startIcon={<SaveIcon />}
             >
-              保存
+              編集
             </Button>
           </div>
         )}
+        <button
+            className="mt-4 text-blue-500 py-2 px-6 roundedtransition"
+            onClick={() => navigate("/")}
+          >
+            キャンセル
+          </button>
       </form>
     </div>
   );

@@ -8,6 +8,8 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Header from "../component/header";
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+
 import { useDispatch, useSelector } from "react-redux";
 import {
   setVersionId,
@@ -17,8 +19,9 @@ import {
 import Notification from "../component/notification";
 import Error from "../component/error";
 import SettingMenu from "./SettingMenu";
+import ToastNotification from "../component/ToastNotification";
 
-const Setting = () => {
+const SettingSite = () => {
   const versionId = useSelector((state) => state.version.versionId);
   const versionName = useSelector((state) => state.version.versionName);
   const displayName = useSelector((state) => state.version.displayName);
@@ -109,56 +112,16 @@ const Setting = () => {
           <SettingMenu />
         </div>
         <div className="relative flex flex-col flex-1 items-start pl-40">
-          <h1 className=" heading font text-[calc(10px+2vmin)] font-semibold mt-28">
-            記事の生成
+          <h1 className=" heading font text-[calc(10px+2vmin)] font-semibold mt-16">
+          サイト
           </h1>
-          <h2 className=" heading font text-[calc(2vmin)] font-semibold mt-20 mb-16">
-            バージョンの選択
-          </h2>
-          <FormControl className="flex w-[320px] sm:w-136" variant="outlined">
-            <InputLabel id="category-select-label" className=" text-[1.3rem]">
-              バージョン
-            </InputLabel>
-            <Select
-              className=" text-[1.3rem]"
-              labelId="category-select-label"
-              id="category-select"
-              label="Category"
-              value={selectedModelId}
-              onChange={handleSelectedModel}
-            >
-              {models.map((model) => (
-                <MenuItem value={model._id} key={model._id}>
-                  {model.display_name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+          <div className=" bg-[#E5F6FD] px-4 py-2 font text-[calc(2vmin)] text-[#014361] p-3 rounded-md mt-10 mb-8">
+            <InfoOutlinedIcon className="mr-2 text-[#0288D1]" />
+            現在、WordPressで作られたサイトしか連携出来ません。
+          </div>          
           <div className="mt-5">
             <FormControl
-              className="flex  w-[320px] sm:w-136"
-              variant="outlined"
-            >
-              <InputLabel id="category-select-label">バージョン</InputLabel>
-              <Select
-                labelId="category-select-label"
-                id="category-select"
-                label="Category"
-                value={selectedCategory}
-                onChange={handleSelectedCategory}
-              >
-                <MenuItem value="all">GPT-4-Turbo</MenuItem>
-                {categories.map((category, index) => (
-                  <MenuItem value={category.slug} key={index}>
-                    {category.title}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </div>
-          <div className="mt-5">
-            <FormControl
-              className="flex flex-col gap-5 w-[320px] sm:w-136"
+              className="flex flex-col gap-10 w-[320px] sm:w-136"
               variant="outlined"
             >
               <TextField
@@ -192,12 +155,40 @@ const Setting = () => {
               />
               <p>https://から入力してください</p>
               </div>
+              <TextField
+                label="サイトのログインID"
+                placeholder="ログインID"
+                className="flex w-full sm:w-256 mx-8 my-10"
+                // value={searchText}
+                inputProps={{
+                  "aria-label": "Search",
+                }}
+                // onChange={handleSearchText}
+                variant="outlined"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+              <TextField
+                label="サイトのログインパスワード"
+                placeholder="ログインパスワード"
+                className="flex w-full sm:w-256 mx-8 my-10"
+                // value={searchText}
+                inputProps={{
+                  "aria-label": "Search",
+                }}
+                // onChange={handleSearchText}
+                variant="outlined"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
               
             </FormControl>
           </div>
 
           <div className=" h-10">{loading ? <p>Loading...</p> : ""}</div>
-          <div className=" py-12">
+          <div className=" py-4">
             <Button
               // className="py-3 bg-[#0F1740] text-white font-bold rounded-lg hover:bg-[#22294e] focus:outline-none focus:bg-[#0e1225]"
               variant="contained"
@@ -207,8 +198,8 @@ const Setting = () => {
                 color: "white",
                 fontWeight: "bold",
                 paddingY: 2,
-                paddingLeft: 2,
-                paddingRight: 2,
+                paddingLeft: 4,
+                paddingRight: 4,
                 borderRadius: "lg",
                 "&:hover": {
                   backgroundColor: "#22294e",
@@ -219,17 +210,17 @@ const Setting = () => {
                 },
               }}
             >
-              作成を開始する
+              連携する
             </Button>
           </div>
           {/* <Button startIcon={<StarIcon />}>Favorite</Button> */}
         </div>
       </div>
-
+      <ToastNotification/>
       <Notification content={notification} />
       <Error content={error} />
     </div>
   );
 };
 
-export default Setting;
+export default SettingSite;

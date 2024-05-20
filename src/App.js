@@ -8,7 +8,8 @@ import ForgotPassword from "./authontication/ForgotPassword";
 import ResetPassword from "./authontication/ResetPassword";
 import EmailVerification from "./authontication/EmailVerification";
 import SignOutPage from "./authontication/SignOutPage";
-import Setting from "./settingpage/Setting";
+import SettingSite from "./settingpage/SettingSite";
+import SettingAPI from "./settingpage/SettingAPI";
 
 function App() {
   return (
@@ -24,7 +25,8 @@ function App() {
         <Route path="/sign-out" element={<SignOutPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/output" element={<Output />} />
-        <Route path="/setting" element={<Setting />} />
+        <Route path="/setting-site" element={<SettingSite />} />
+        <Route path="/setting-api" element={<SettingAPI />} />
         <Route path="/setting/customselect" element={<CustomSelect />} />
 
       </Routes>

@@ -65,7 +65,7 @@ function SettingMenu(props) {
           <>
             <MenuItem
               component={Link}
-              to="/setting"
+              to="/setting-site"
               onClick={settingMenuClose}
               role="button"
             >
@@ -76,7 +76,7 @@ function SettingMenu(props) {
             </MenuItem>
             <MenuItem
               component={Link}
-              to="/setting"
+              to="/setting-api"
               onClick={settingMenuClose}
               role="button"
             >
@@ -87,7 +87,7 @@ function SettingMenu(props) {
             </MenuItem>
             <MenuItem
               component={Link}
-              to="/setting"
+              to="/setting-payment"
               onClick={settingMenuClose}
               role="button"
             >
@@ -98,7 +98,7 @@ function SettingMenu(props) {
             </MenuItem>
             <MenuItem
               component={Link}
-              to="/setting"
+              to="/setting-account"
               onClick={settingMenuClose}
               role="button"
             >
