@@ -6,6 +6,7 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import { Button } from "@mui/material";
 import Notification from "../component/notification";
 import Error from "../component/error";
+import EditModel from "./EditModel";
 
 const CurrentVersion = (props) => {
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -54,28 +55,14 @@ const CurrentVersion = (props) => {
 
   return (
     <div className="items-center justify-center md:w-full shadow-lg border-2 rounded-md">
-      <Button
+      {/* <Button
         variant="contained"
         onClick={() => set_new_model(model._id)}
-        sx={{
-          backgroundColor: "#0F1740",
-          color: "white",
-          fontWeight: "bold",
-          paddingY: 2,
-          paddingLeft: 4,
-          paddingRight: 4,
-          borderRadius: "lg",
-          "&:hover": {
-            backgroundColor: "#22294e",
-          },
-          "&:focus": {
-            outline: "none",
-            backgroundColor: "#0e1225",
-          },
-        }}
       >
         モデルを追加
-      </Button>
+      </Button> */}
+
+      <EditModel/>
       <div className="bg-white p-12 w-full min-h-96">
         <h1 className="text-xl mb-4">モデル名</h1>
         <div className="overflow-y-auto min-h-72 my-8 max-h-80">
