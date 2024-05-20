@@ -17,6 +17,8 @@ import Error from "../component/error";
 import SettingMenu from "./SettingMenu";
 import CurrentVersion from "./CurrentVersion";
 import { useNavigate } from 'react-router-dom';
+import SimpleModal from "./EditModel";
+import EditModel from "./EditModel";
 
 const SettingAPI = () => {
   const versionId = useSelector((state) => state.version.versionId);
@@ -122,7 +124,7 @@ const SettingAPI = () => {
       </div>
       <Notification content={notification} />
       <Error content={error} />
-      <div className="mt-5 fixed w-96 h-96">
+      {/* <div className="mt-5 fixed w-96 h-96">
         <FormControl
           className="flex flex-col gap-10 w-[320px] sm:w-136"
           variant="outlined"
@@ -190,7 +192,8 @@ const SettingAPI = () => {
           >
             キャンセル
           </button>
-      </div>
+      </div> */}
+      <EditModel/>
     </div>
   );
 };
