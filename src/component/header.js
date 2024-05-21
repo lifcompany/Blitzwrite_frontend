@@ -43,7 +43,7 @@ const Header = () => {
               className="flex justify-center items-center gap-1 mr-4 p-2 bg-white rounded-md hover:bg-gray-200 text-gray-700 hover:text-gray-700 "
             >
               <WebOutlinedIcon />
-              車買取サービス
+              株式会社LIF
             </button>
             <button
               onClick={() => navigate("/setting")}

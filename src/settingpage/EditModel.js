@@ -77,7 +77,7 @@ const EditModel = (props) => {
   }, [editversionID]);
 
   return (
-    <div>
+    <div className=" p-6">
       <Button
         variant="contained"
         onClick={() => handleOpen()}

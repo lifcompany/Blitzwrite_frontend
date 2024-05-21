@@ -63,20 +63,20 @@ const CurrentVersion = (props) => {
       </Button> */}
 
       <EditModel/>
-      <div className="bg-white p-12 w-full min-h-96">
-        <h1 className="text-xl mb-4">モデル名</h1>
+      <div className="bg-white w-full min-h-96">
+        <h1 className="text-xl mb-4 px-8">モデル名</h1>
         <div className="overflow-y-auto min-h-72 my-8 max-h-80">
           {model.map((model) => (
             <div
               key={model._id}
-              className="flex justify-between items-center py-2 border-b px-3"
+              className="flex justify-between items-center py-5 border-b px-8 "
             >
               <div className="flex items-center">
-                <span className="text-gray-700">{model.display_name}</span>
+                <span className="text-gray-700 text-[calc(2vmin)]">{model.display_name}</span>
               </div>
               <div className="flex items-center">
                 <EditIcon
-                  className="text-gray-600 hover:text-gray-900 cursor-pointer mr-2 ml-5"
+                  className="text-gray-600 hover:text-gray-900 cursor-pointer mr-8 ml-5"
                   onClick={() => editModel(model._id)}
                 />
                 <DeleteOutlineOutlinedIcon

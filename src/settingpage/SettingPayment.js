@@ -1,11 +1,15 @@
 import Button from "@mui/material/Button";
 import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
+import WebOutlinedIcon from "@mui/icons-material/WebOutlined";
 import TextField from "@mui/material/TextField";
-import FormControl from "@mui/material/FormControl";
+import FormControl, { useFormControl } from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import Header from "../component/header";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
-import Header from "../component/header";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setVersionId,
@@ -15,12 +19,12 @@ import {
 import Notification from "../component/notification";
 import Error from "../component/error";
 import SettingMenu from "./SettingMenu";
-import CurrentVersion from "./CurrentVersion";
-import { useNavigate } from 'react-router-dom';
-import SimpleModal from "./EditModel";
-import EditModel from "./EditModel";
+import ToastNotification from "../component/ToastNotification";
 
-const SettingAPI = () => {
+import OutlinedInput from "@mui/material/OutlinedInput";
+import FormHelperText from "@mui/material/FormHelperText";
+
+const SettingPayment = () => {
   const versionId = useSelector((state) => state.version.versionId);
   const versionName = useSelector((state) => state.version.versionName);
   const displayName = useSelector((state) => state.version.displayName);
@@ -32,7 +36,7 @@ const SettingAPI = () => {
   const [models, setModels] = useState([]);
   const [selectedModelId, setSelectedModelId] = useState(versionId);
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const navigate = useNavigate();
+
   function handleSelectedCategory(event) {
     setSelectedCategory(event.target.value);
   }
@@ -102,30 +106,59 @@ const SettingAPI = () => {
     dispatch(setVersionName(model_name));
     dispatch(setDisplayName(display_name));
   }
-
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       <div className="flex flex-1  h-full">
-        <div className=" w-72 border-r-2 border-gray-300">
+        <div className=" w-72 border-r-2 border-gray-300 ">
           <SettingMenu />
         </div>
-        <div className="relative flex flex-col flex-1 items-start px-40">
+        <div className="relative flex flex-col flex-1 items-start pl-40">
           <h1 className=" heading font text-[calc(10px+2vmin)] font-semibold mt-16">
-            API連携
+            サイト
           </h1>
-          <div className=" bg-[#E5F6FD] px-4 py-2 font text-[calc(2vmin)] text-[#014361] p-3 rounded-md mt-10 mb-8">
-            <InfoOutlinedIcon className="mr-2 text-[#0288D1]" />
-            現在、chatGPTのみ連携可能です。
+          <h2 className=" heading font text-[calc(2vmin)] font-semibold mt-20 mb-16">
+            クレジットカード情報
+          </h2>
+          <div className="mt-5">
+            <form noValidate autoComplete="off">
+              <FormControl sx={{ width: "25ch" }}>
+                <OutlinedInput placeholder="Please enter text" />
+              </FormControl>
+            </form>
           </div>
-          <CurrentVersion />
           <div className=" h-10">{loading ? <p>Loading...</p> : ""}</div>
+          <div className=" py-4">
+            <Button
+              variant="contained"
+              onClick={handleStart}
+              sx={{
+                backgroundColor: "#0F1740",
+                color: "white",
+                fontWeight: "bold",
+                paddingY: 2,
+                paddingLeft: 4,
+                paddingRight: 4,
+                borderRadius: "lg",
+                "&:hover": {
+                  backgroundColor: "#22294e",
+                },
+                "&:focus": {
+                  outline: "none",
+                  backgroundColor: "#0e1225",
+                },
+              }}
+            >
+              支払い情報を登録
+            </Button>
+          </div>
         </div>
       </div>
+      <ToastNotification />
       <Notification content={notification} />
       <Error content={error} />
     </div>
   );
 };
 
-export default SettingAPI;
+export default SettingPayment;
