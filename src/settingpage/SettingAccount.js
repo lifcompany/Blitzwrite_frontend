@@ -3,12 +3,12 @@ import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import WebOutlinedIcon from "@mui/icons-material/WebOutlined";
 import TextField from "@mui/material/TextField";
-import FormControl, { useFormControl } from "@mui/material/FormControl";
+import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Header from "../component/header";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -21,11 +21,7 @@ import Error from "../component/error";
 import SettingMenu from "./SettingMenu";
 import ToastNotification from "../component/ToastNotification";
 
-import OutlinedInput from "@mui/material/OutlinedInput";
-import FormHelperText from "@mui/material/FormHelperText";
-import PaymentModal from "./PaymentModal";
-
-const SettingPayment = () => {
+const SettingSite = () => {
   const versionId = useSelector((state) => state.version.versionId);
   const versionName = useSelector((state) => state.version.versionName);
   const displayName = useSelector((state) => state.version.displayName);
@@ -107,6 +103,7 @@ const SettingPayment = () => {
     dispatch(setVersionName(model_name));
     dispatch(setDisplayName(display_name));
   }
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -116,29 +113,65 @@ const SettingPayment = () => {
         </div>
         <div className="relative flex flex-col flex-1 items-start pl-40">
           <h1 className=" heading font text-[calc(10px+2vmin)] font-semibold mt-16">
-            支払い
+          アカウント
           </h1>
-          <h2 className=" heading font text-[calc(2vmin)] font-semibold mt-10 mb-10">
-            クレジットカード情報
-          </h2>
+          <div className=" bg-[#E5F6FD] px-4 py-2 font text-[calc(2vmin)] text-[#014361] p-3 rounded-md mt-10 mb-8">
+            <InfoOutlinedIcon className="mr-2 text-[#0288D1]" />
+            現在、WordPressで作られたサイトしか連携出来ません。
+          </div>          
           <div className="mt-5">
-            <form noValidate autoComplete="off">
-              <FormControl sx={{ width: "25ch" }}>
-                <OutlinedInput placeholder="支払い情報がありません" />
-              </FormControl>
-            </form>
+            <FormControl
+              className="flex flex-col gap-10 w-[320px] sm:w-136"
+              variant="outlined"
+            >
+              <TextField
+                label="メールアドレス"
+                placeholder="test@example.jp"
+                className="flex w-full sm:w-256 mx-8 my-10"
+                // value={searchText}
+                inputProps={{
+                  "aria-label": "Search",
+                }}
+                // onChange={handleSearchText}
+                variant="outlined"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            </FormControl>
           </div>
-          <div className=" h-10">{loading ? <p>Loading...</p> : ""}</div>
+
           <div className=" py-4">
-            <PaymentModal/>
+            <Button
+              variant="contained"
+              onClick={handleStart}
+              sx={{
+                backgroundColor: "#ffffff",
+                color: "#CD2424",
+                fontWeight: "bold",
+                paddingY: 2,
+                paddingLeft: 4,
+                paddingRight: 4,
+                borderRadius: "lg",
+                "&:hover": {
+                  backgroundColor: "#efeeee",
+                },
+                "&:focus": {
+                  outline: "none",
+                  backgroundColor: "#cbc9c9",
+                },
+              }}
+            >
+              サービスの退会
+            </Button>
           </div>
         </div>
       </div>
-      <ToastNotification />
+      <ToastNotification/>
       <Notification content={notification} />
       <Error content={error} />
     </div>
   );
 };
 
-export default SettingPayment;
+export default SettingSite;

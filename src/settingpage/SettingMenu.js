@@ -9,8 +9,8 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import LogoutIcon from "@mui/icons-material/Logout";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import CreditScoreOutlinedIcon from "@mui/icons-material/CreditScoreOutlined";
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import ApiOutlinedIcon from '@mui/icons-material/ApiOutlined';
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import ApiOutlinedIcon from "@mui/icons-material/ApiOutlined";
 
 function SettingMenu(props) {
   const user = { displayName: "白石昌之", role: "User", photoURL: "" };
@@ -68,6 +68,9 @@ function SettingMenu(props) {
               to="/setting-site"
               onClick={settingMenuClose}
               role="button"
+              sx={{
+                padding: "16px",
+              }}
             >
               <ListItemIcon className="min-w-40">
                 <HomeOutlinedIcon />
@@ -79,6 +82,9 @@ function SettingMenu(props) {
               to="/setting-api"
               onClick={settingMenuClose}
               role="button"
+              sx={{
+                padding: "16px",
+              }}
             >
               <ListItemIcon className="min-w-40">
                 <ApiOutlinedIcon />
@@ -90,6 +96,9 @@ function SettingMenu(props) {
               to="/setting-payment"
               onClick={settingMenuClose}
               role="button"
+              sx={{
+                padding: "16px",
+              }}
             >
               <ListItemIcon className="min-w-40">
                 <CreditScoreOutlinedIcon />
@@ -101,6 +110,9 @@ function SettingMenu(props) {
               to="/setting-account"
               onClick={settingMenuClose}
               role="button"
+              sx={{
+                padding: "16px",
+              }}
             >
               <ListItemIcon className="min-w-40">
                 <ManageAccountsIcon />

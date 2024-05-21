@@ -107,6 +107,9 @@ const EditModel = (props) => {
         aria-describedby="modal-description"
       >
         <Box sx={style}>
+          <h2 className=" heading font text-[calc(2vmin)] font-semibold mt-10 mb-10">
+            モデルの追加
+          </h2>
           <div className="mb-4">
             <TextField
               id="display-name"

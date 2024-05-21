@@ -11,6 +11,7 @@ import SignOutPage from "./authontication/SignOutPage";
 import SettingSite from "./settingpage/SettingSite";
 import SettingAPI from "./settingpage/SettingAPI";
 import SettingPayment from "./settingpage/SettingPayment";
+import CreditCardModal from "./settingpage/SettingAccount";
 
 function App() {
   return (
@@ -29,6 +30,8 @@ function App() {
         <Route path="/setting-site" element={<SettingSite />} />
         <Route path="/setting-payment" element={<SettingPayment />} />
         <Route path="/setting-api" element={<SettingAPI />} />
+        <Route path="/setting-account" element={<CreditCardModal />} />
+        <Route path="/setting-account-delete" element={<CreditCardModal />} />
         <Route path="/setting/customselect" element={<CustomSelect />} />
 
       </Routes>
