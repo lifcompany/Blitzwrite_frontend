@@ -31,7 +31,7 @@ function App() {
         <Route path="/setting-payment" element={<SettingPayment />} />
         <Route path="/setting-api" element={<SettingAPI />} />
         <Route path="/setting-account" element={<CreditCardModal />} />
-        <Route path="/setting-account-delete" element={<CreditCardModal />} />
+        {/* <Route path="/setting-account-delete" element={<Account />} /> */}
         <Route path="/setting/customselect" element={<CustomSelect />} />
 
       </Routes>

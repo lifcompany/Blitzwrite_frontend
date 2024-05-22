@@ -1,7 +1,18 @@
 // src/SimpleModal.js
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, Button, Modal, TextField, Grid } from "@mui/material";
+import {
+  Box,
+  Button,
+  Modal,
+  TextField,
+  Grid,
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  Checkbox,
+  FormLabel,
+} from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -52,10 +63,34 @@ const AccountModal = (props) => {
   const navigate = useNavigate();
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   console.log({ modelName, endpoint, parameters });
-  // };
+
+  const [checkedItems, setCheckedItems] = useState({
+    item1: false,
+    item2: false,
+    item3: false,
+    item4: false,
+    item5: false,
+  });
+
+  const handleChange = (event) => {
+    setCheckedItems({
+      ...checkedItems,
+      [event.target.name]: event.target.checked,
+    });
+  };
+
+  const handleSubmit = async () => {
+    console.log(checkedItems);
+    try {
+      const response = await axios.post(
+        "https://your-backend-api.com/submit",
+        checkedItems
+      );
+      console.log("Response:", response.data);
+    } catch (error) {
+      console.error("Error submitting data:", error);
+    }
+  };
 
   const version_data = {
     display_name: displayName,
@@ -63,24 +98,6 @@ const AccountModal = (props) => {
     endpoint: endpoint,
     params: parameters,
     editversionID: editversionID,
-  };
-
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
-
-  const onSubmit = async (data) => {
-    console.log(data);
-    try {
-      const response = await axios.post("/api/your-endpoint", data);
-      console.log("Success:", response.data);
-    } catch (error) {
-      console.error("Error:", error);
-    }
   };
 
   const add_new_version = () => {
@@ -143,7 +160,7 @@ const AccountModal = (props) => {
           },
         }}
       >
-        支払い情報を登録
+        サービスの退会
       </Button>
       <Modal
         open={open}
@@ -152,80 +169,90 @@ const AccountModal = (props) => {
         aria-describedby="modal-description"
       >
         <Box sx={style}>
-          <h2 className=" heading font text-[calc(2vmin)] font-semibold mt-10 mb-10">
-            クレジットカードの登録
+          <h1 className=" heading font text-[calc(8px+2vmin)] font-semibold mb-8">
+            サービスの退会
+          </h1>
+          <h2 className=" heading font text-[calc(2vmin)] font-semibold mb-5">
+            サービスを退会するとデータが消えてしまいます。
           </h2>
-          <Box sx={{ display: "flex", justifyContent: "space-around", mb: 2 }}>
-            <img src={visaLogo} alt="Visa" width="70" />
-            <img src={mastercardLogo} alt="MasterCard" width="70" />
-            <img src={jcbLogo} alt="JCB" width="70" />
-            <img src={amexLogo} alt="Amex" width="70" />
-          </Box>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mb-4">
-              <Controller
-                name="cardNumber"
-                control={control}
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    id="cardNumber"
-                    label="カード番号"
-                    placeholder="4242 **** **** **** ****"
-                    // value={displayName}
-                    className="flex w-full sm:w-256 mx-8 my-10"
-                    inputProps={{
-                      "aria-label": "Search",
-                    }}
-                    variant="outlined"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    // onChange={(e) => setDisplayName(e.target.value)}
-                    error={!!errors.cardNumber}
-                    helperText={
-                      errors.cardNumber ? errors.cardNumber.message : ""
-                    }
+          <h2 className=" heading font mb-5">退会理由を教えてください</h2>
+          {/* <form onSubmit={handleSubmit(onSubmit)}> */}
+          <FormControl component="fieldset">
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={checkedItems.item1}
+                    onChange={handleChange}
+                    name="item1"
                   />
-                )}
+                }
+                label="サービスを使わなくなった"
               />
-            </div>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={checkedItems.item2}
+                    onChange={handleChange}
+                    name="item2"
+                  />
+                }
+                label="機能やUIが使いにくい"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={checkedItems.item3}
+                    onChange={handleChange}
+                    name="item3"
+                  />
+                }
+                label="料金が見合わない"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={checkedItems.item4}
+                    onChange={handleChange}
+                    name="item4"
+                  />
+                }
+                label="コンテンツの質が低い"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={checkedItems.item5}
+                    onChange={handleChange}
+                    name="item5"
+                  />
+                }
+                label="その他"
+              />
+            </FormGroup>
+            <FormLabel component="legend">複数回答可能</FormLabel>
+          </FormControl>
 
-
-            <div className="flex justify-end items-center gap-5">
-              {editversionID ? (
-                <div className="flex items-center justify-between">
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    className="w-full py-2"
-                    // onClick={add_new_version}
-                  >
-                    追加
-                  </Button>
-                </div>
-              ) : (
-                <div className="flex items-center justify-between">
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    className="w-300 py-2"
-                    // onClick={add_new_version}
-                  >
-                    追加
-                  </Button>
-                </div>
-              )}
-              <button
-                className=" text-blue-500 roundedtransition"
-                onClick={() => navigate("/")}
+          <div className="flex justify-end items-center gap-5 mt-5">
+            <div className="flex items-center justify-between">
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                className="w-full py-2"
+                onClick={handleSubmit}
               >
-                キャンセル
-              </button>
+                退会する
+              </Button>
             </div>
-          </form>
+            <button
+              className=" text-blue-500 roundedtransition"
+              onClick={() => navigate("/")}
+            >
+              キャンセル
+            </button>
+          </div>
+          {/* </form> */}
         </Box>
       </Modal>
     </div>

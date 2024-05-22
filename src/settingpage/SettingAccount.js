@@ -20,6 +20,7 @@ import Notification from "../component/notification";
 import Error from "../component/error";
 import SettingMenu from "./SettingMenu";
 import ToastNotification from "../component/ToastNotification";
+import AccountModal from "./AccountModal";
 
 const SettingSite = () => {
   const versionId = useSelector((state) => state.version.versionId);
@@ -164,6 +165,7 @@ const SettingSite = () => {
             >
               サービスの退会
             </Button>
+            <AccountModal/>
           </div>
         </div>
       </div>
