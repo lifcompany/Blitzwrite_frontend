@@ -55,13 +55,6 @@ const CurrentVersion = (props) => {
 
   return (
     <div className="items-center justify-center md:w-full shadow-lg border-2 rounded-md">
-      {/* <Button
-        variant="contained"
-        onClick={() => set_new_model(model._id)}
-      >
-        モデルを追加
-      </Button> */}
-
       <EditModel/>
       <div className="bg-white w-full min-h-96">
         <h1 className="text-xl mb-4 px-8">モデル名</h1>
