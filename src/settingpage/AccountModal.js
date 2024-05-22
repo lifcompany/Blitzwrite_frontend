@@ -11,7 +11,6 @@ import {
   Checkbox,
   FormLabel,
 } from "@mui/material";
-import * as yup from "yup";
 import axios from "axios";
 const style = {
   position: "absolute",
