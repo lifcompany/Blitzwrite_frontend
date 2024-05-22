@@ -5,22 +5,14 @@ import {
   Box,
   Button,
   Modal,
-  TextField,
-  Grid,
   FormControl,
   FormControlLabel,
   FormGroup,
   Checkbox,
   FormLabel,
 } from "@mui/material";
-import { useForm, Controller } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
-import visaLogo from "../../src/assets/visa.png"; // Add your card images in assets
-import mastercardLogo from "../../src/assets/mastercard.png";
-import jcbLogo from "../../src/assets/amex.png";
-import amexLogo from "../../src/assets/jcb.png";
 const style = {
   position: "absolute",
   top: "50%",
@@ -32,25 +24,6 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-
-const schema = yup.object().shape({
-  cardNumber: yup
-    .string()
-    .matches(/^[0-9]{16}$/, "Card number must be 16 digits")
-    .required("Card number is required"),
-  expiryDate: yup
-    .string()
-    .matches(
-      /^(0[1-9]|1[0-2])\/?([0-9]{2})$/,
-      "Expiry date must be in MM/YY format"
-    )
-    .required("Expiry date is required"),
-  cvv: yup
-    .string()
-    .matches(/^[0-9]{3,4}$/, "CVV must be 3 or 4 digits")
-    .required("CVV is required"),
-  cardHolderName: yup.string().required("Card holder name is required"),
-});
 
 const AccountModal = (props) => {
   const apiUrl = process.env.REACT_APP_API_URL;
@@ -87,6 +60,7 @@ const AccountModal = (props) => {
         checkedItems
       );
       console.log("Response:", response.data);
+      navigate('/')
     } catch (error) {
       console.error("Error submitting data:", error);
     }
@@ -116,28 +90,6 @@ const AccountModal = (props) => {
         });
     }
   };
-
-  // useEffect(() => {
-  //   console.log("ddd:", editversionID);
-  //   axios
-  //     .post(`${apiUrl}/get_edit_version`, {
-  //       editversionID: editversionID,
-  //     })
-  //     .then((response) => {
-  //       setDisplayName(response.data["display_name"]);
-  //       setModelName(response.data["model_name"]);
-  //       setEndpoint(response.data["endpoint"]);
-  //       setParameters(response.data["params"]);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error:", error);
-  //       setDisplayName("");
-  //       setModelName("");
-  //       setEndpoint("");
-  //       setParameters("");
-  //     });
-  // }, [editversionID]);
-
   return (
     <div className="pt-2">
       <Button
@@ -176,7 +128,6 @@ const AccountModal = (props) => {
             サービスを退会するとデータが消えてしまいます。
           </h2>
           <h2 className=" heading font mb-5">退会理由を教えてください</h2>
-          {/* <form onSubmit={handleSubmit(onSubmit)}> */}
           <FormControl component="fieldset">
             <FormGroup>
               <FormControlLabel
@@ -252,7 +203,6 @@ const AccountModal = (props) => {
               キャンセル
             </button>
           </div>
-          {/* </form> */}
         </Box>
       </Modal>
     </div>
