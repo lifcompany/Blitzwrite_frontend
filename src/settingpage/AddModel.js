@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, Modal, TextField } from "@mui/material";
 import axios from "axios";
+import Notification from "../component/notification";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -22,6 +24,8 @@ const AddModel = (props) => {
   const [modelName, setModelName] = useState("");
   const [endpoint, setEndpoint] = useState("");
   const [parameters, setParameters] = useState("");
+  const [notification, setNotification] = useState("");
+
   const navigate = useNavigate();
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -46,6 +50,11 @@ const AddModel = (props) => {
         .then((response) => {
           // props.setIsTriggered();
           console.log(response.data.message);
+          setNotification("モデルを追加しました");
+          setTimeout(() => {
+            handleClose();
+          }, 500);
+
         })
         .catch((error) => {
           console.error("Error:", error);
@@ -182,6 +191,7 @@ const AddModel = (props) => {
           </div>
         </Box>
       </Modal>
+      <Notification content={notification} />
     </div>
   );
 };

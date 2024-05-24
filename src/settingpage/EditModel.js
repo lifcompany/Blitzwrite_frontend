@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { Box, Button, Modal, TextField } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
+import Notification from "../component/notification";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -23,6 +25,8 @@ const EditModel = (props) => {
   const [modelName, setModelName] = useState("");
   const [endpoint, setEndpoint] = useState("");
   const [parameters, setParameters] = useState("");
+  const [notification, setNotification] = useState("");
+
   const navigate = useNavigate();
   const handleClose = () => setOpen(false);
   const model_data = {
@@ -40,6 +44,10 @@ const EditModel = (props) => {
         .then((response) => {
           // props.setIsTriggered();
           console.log(response.data.message);
+          setNotification("モデルを更新しました");
+          setTimeout(() => {
+            handleClose();
+          }, 500);
         })
         .catch((error) => {
           console.error("Error:", error);
@@ -159,6 +167,7 @@ const EditModel = (props) => {
           </div>
         </Box>
       </Modal>
+      <Notification content={notification} />
     </div>
   );
 };
