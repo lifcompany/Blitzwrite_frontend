@@ -17,8 +17,6 @@ import Error from "../component/error";
 import SettingMenu from "./SettingMenu";
 import CurrentVersion from "./CurrentVersion";
 import { useNavigate } from 'react-router-dom';
-import SimpleModal from "./EditModel";
-import EditModel from "./EditModel";
 
 const SettingAPI = () => {
   const versionId = useSelector((state) => state.version.versionId);
