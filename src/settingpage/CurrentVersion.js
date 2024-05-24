@@ -17,10 +17,10 @@ const CurrentVersion = (props) => {
     console.log("Editing model with ID:", modelId);
     setEditVersionID(modelId);
   };
-  const deleteModel = (delete_Id) => {
+  const deleteModel = (model_name) => {
     setNotification("");
     axios
-      .post(`${apiUrl}/api/setting/delete_model/`, { id: "delete_Id" })
+      .post(`${apiUrl}/api/setting/delete_model/`, { model_name: model_name })
       .then((response) => {
         get_model_list();
         setNotification("正常に削除されました。");
@@ -74,7 +74,7 @@ const CurrentVersion = (props) => {
                 <EditModel model_name={model.model_name}/>
                 <DeleteOutlineOutlinedIcon
                   className="text-gray-600 hover:text-gray-900 cursor-pointer"
-                  onClick={() => deleteModel(model._id)}
+                  onClick={() => deleteModel(model.model_name)}
                 />
               </div>
             </div>
