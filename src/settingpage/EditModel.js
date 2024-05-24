@@ -25,11 +25,6 @@ const EditModel = (props) => {
   const [parameters, setParameters] = useState("");
   const navigate = useNavigate();
   const handleClose = () => setOpen(false);
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log({ modelName, endpoint, parameters });
-  };
-
   const model_data = {
     model_name: modelName,
     endpoint: endpoint,
@@ -74,29 +69,7 @@ const EditModel = (props) => {
   useEffect(() => {}, [editModalName]);
 
   return (
-    <div className=" p-3">
-      {/* <Button
-        variant="contained"
-        onClick={() => handleOpen()}
-        sx={{
-          backgroundColor: "#0F1740",
-          color: "white",
-          fontWeight: "bold",
-          paddingY: 2,
-          paddingLeft: 4,
-          paddingRight: 4,
-          borderRadius: "lg",
-          "&:hover": {
-            backgroundColor: "#22294e",
-          },
-          "&:focus": {
-            outline: "none",
-            backgroundColor: "#0e1225",
-          },
-        }}
-      >
-        モデルを追加
-      </Button> */}
+    <div className=" p-1">
       <EditIcon
         className="text-gray-600 hover:text-gray-900 cursor-pointer mr-8 ml-5"
         onClick={() => handleOpen()}
