@@ -17,7 +17,8 @@ import ToastNotification from "../component/ToastNotification";
 
 const SettingSite = () => {
   const versionId = useSelector((state) => state.version.versionId);
-  const versionName = useSelector((state) => state.version.versionName);
+  const selectedSiteName = useSelector((state) => state.version.versionName);
+  
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
