@@ -6,12 +6,12 @@ export const SiteSlice = createSlice({
         siteName: ''
     },
     reducers: {
-        setSiteName:(state, action) => {
+        setSiteNameSlice:(state, action) => {
             state.siteName = action.payload
         }
     }
 })
 
-export const { setSiteName} = SiteSlice.actions
+export const { setSiteNameSlice} = SiteSlice.actions
 
 export default SiteSlice.reducer
