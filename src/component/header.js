@@ -12,9 +12,7 @@ const Header = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
 
-
   const selectedSiteName = useSelector((state) => state.site.siteName);
-
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -42,13 +40,18 @@ const Header = () => {
         </h1>
         <div className="flex items-center gap-7">
           <div className="navbar flex items-center">
-            <button
-              onClick={() => navigate("/output")}
-              className="flex justify-center items-center gap-1 mr-4 p-2 bg-white rounded-md hover:bg-gray-200 text-gray-700 hover:text-gray-700 "
-            >
-              <WebOutlinedIcon />
-              {selectedSiteName}
-            </button>
+            {selectedSiteName ? (
+              <button
+                onClick={() => navigate("/output")}
+                className="flex justify-center items-center gap-1 mr-4 p-2 bg-white rounded-md hover:bg-gray-200 text-gray-700 hover:text-gray-700 "
+              >
+                <WebOutlinedIcon />
+                {selectedSiteName}
+              </button>
+            ) : (
+              ""
+            )}
+
             <button
               onClick={() => navigate("/setting")}
               className=" flex justify-center items-center gap-1 mr-4 p-2 bg-white rounded-md hover:bg-gray-200 text-gray-700 hover:text-gray-700  "

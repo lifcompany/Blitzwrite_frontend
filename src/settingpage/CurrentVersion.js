@@ -19,7 +19,7 @@ const CurrentVersion = (props) => {
   const deleteModel = (delete_Id) => {
     setNotification("");
     axios
-      .post(`${apiUrl}/delete_model`, { id: delete_Id })
+      .post(`${apiUrl}/api/setting/delete_model/`, { id: "delete_Id" })
       .then((response) => {
         get_model_list();
         setNotification("正常に削除されました。");
@@ -33,7 +33,7 @@ const CurrentVersion = (props) => {
 
   const get_model_list = useCallback(() => {
     axios
-      .get(`${apiUrl}/get_model_list`)
+      .get(`${apiUrl}/api/setting/get_model_list`)
       .then((response) => {
         setModel(response.data);
       })

@@ -19,7 +19,6 @@ const EditModel = (props) => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const editversionID = props.editversionID;
   const [open, setOpen] = useState(false);
-  const [displayName, setDisplayName] = useState("");
   const [modelName, setModelName] = useState("");
   const [endpoint, setEndpoint] = useState("");
   const [parameters, setParameters] = useState("");
@@ -32,7 +31,7 @@ const EditModel = (props) => {
   };
 
   const version_data = {
-    display_name: displayName,
+    display_name: "",
     model_name: modelName,
     endpoint: endpoint,
     params: parameters,
@@ -58,18 +57,16 @@ const EditModel = (props) => {
   useEffect(() => {
     console.log("ddd:", editversionID);
     axios
-      .post(`${apiUrl}/get_edit_version`, {
+      .post(`${apiUrl}/api/setting/get_edit_version`, {
         editversionID: editversionID,
       })
       .then((response) => {
-        setDisplayName(response.data["display_name"]);
         setModelName(response.data["model_name"]);
         setEndpoint(response.data["endpoint"]);
         setParameters(response.data["params"]);
       })
       .catch((error) => {
         console.error("Error:", error);
-        setDisplayName("");
         setModelName("");
         setEndpoint("");
         setParameters("");
@@ -112,21 +109,19 @@ const EditModel = (props) => {
           </h2>
           <div className="mb-4">
             <TextField
-              id="display-name"
+              id="model-name"
               label="モデル名"
               placeholder="モデル名"
-              value={displayName}
+              value={modelName}
               className="flex w-full sm:w-256 mx-8 my-10"
-              // value={searchText}
               inputProps={{
                 "aria-label": "Search",
               }}
-              // onChange={handleSearchText}
               variant="outlined"
               InputLabelProps={{
                 shrink: true,
               }}
-              onChange={(e) => setDisplayName(e.target.value)}
+              onChange={(e) => setModelName(e.target.value)}
             />
           </div>
 
@@ -167,7 +162,7 @@ const EditModel = (props) => {
             />
           </div>
           <div className="flex justify-end items-center gap-5">
-            {editversionID ? (
+
               <div className="flex items-center justify-between">
                 <Button
                   type="submit"
@@ -178,20 +173,7 @@ const EditModel = (props) => {
                 >
                   追加
                 </Button>
-              </div>
-            ) : (
-              <div className="flex items-center justify-between">
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  className="w-300 py-2"
-                  onClick={add_new_version}
-                >
-                  追加
-                </Button>
-              </div>
-            )}
+              </div>          
             <button
               className=" text-blue-500 roundedtransition"
               onClick={() => navigate("/")}

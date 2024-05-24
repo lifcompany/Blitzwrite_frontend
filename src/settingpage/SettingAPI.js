@@ -46,8 +46,9 @@ const SettingAPI = () => {
   const get_model_list = useCallback(() => {
     console.log(apiUrl);
     axios
-      .get(`${apiUrl}/get_model_list`)
+      .get(`${apiUrl}/api/setting/get_model_list`)
       .then((response) => {
+        console.log(response);
         setModels(response.data);
       })
       .catch((error) => {
@@ -65,7 +66,7 @@ const SettingAPI = () => {
     setError(null);
     console.log("Start button clicked");
     axios
-      .post(`${apiUrl}/run_script`, { versionId })
+      .post(`${apiUrl}/api/setting/run_script`, { versionId })
       .then((response) => {
         console.log(response);
         setLoading(false);
@@ -80,7 +81,7 @@ const SettingAPI = () => {
   const handleStop = () => {
     console.log("Start button clicked");
     axios
-      .post(`${apiUrl}/stop_script`)
+      .post(`${apiUrl}/api/setting/stop_script`)
       .then((response) => {
         console.log(response.data);
         setLoading(false);

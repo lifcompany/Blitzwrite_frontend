@@ -32,7 +32,7 @@ function EditVersion(props) {
       return;
     } else {
       axios
-        .post(`${apiUrl}/add_new_version`, version_data)
+        .post(`${apiUrl}/api/setting/add_new_version`, version_data)
         .then((response) => {
           props.setIsTriggered();
           console.log(response.data);
@@ -46,7 +46,7 @@ function EditVersion(props) {
   useEffect(() => {
     console.log("ddd:", editversionID);
     axios
-      .post(`${apiUrl}/get_edit_version`, {
+      .post(`${apiUrl}/api/setting/get_edit_version`, {
         editversionID: editversionID,
       })
       .then((response) => {

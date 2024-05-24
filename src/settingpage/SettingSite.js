@@ -18,10 +18,10 @@ const SettingSite = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [notification, setNotification] = useState("");
-  const [siteName, setSiteName] = useState([]);
-  const [siteUrl, setSiteUrl] = useState([]);
-  const [adminName, setAdminName] = useState([]);
-  const [adminPass, setAdminPass] = useState([]);
+  const [siteName, setSiteName] = useState('');
+  const [siteUrl, setSiteUrl] = useState('');
+  const [adminName, setAdminName] = useState('');
+  const [adminPass, setAdminPass] = useState('');
 
   const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -37,7 +37,7 @@ const SettingSite = () => {
     setLoading(true);
     setError(null);
     axios
-      .post(`${apiUrl}/run_script`, site_data)
+      .post(`${apiUrl}/api/setting/set_site/`, site_data)
       .then((response) => {
         setLoading(false);
         setNotification("出力が成功しました");
