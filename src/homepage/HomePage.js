@@ -42,7 +42,7 @@ const HomePage = () => {
   const get_model_list = useCallback(() => {
     console.log(apiUrl);
     axios
-      .get(`${apiUrl}/get_model_list`)
+      .get(`${apiUrl}/api/setting/get_model_list`)
       .then((response) => {
         setModels(response.data);
       })
@@ -94,6 +94,7 @@ const HomePage = () => {
     const display_name = model_item ? model_item.display_name : null;
     const model_name = model_item ? model_item.model_name : null;
     setSelectedModelId(model_id);
+    console.log("model_id:", model_id);
     dispatch(setVersionId(model_id));
     dispatch(setVersionName(model_name));
     dispatch(setDisplayName(display_name));

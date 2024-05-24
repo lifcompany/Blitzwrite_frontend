@@ -1,20 +1,14 @@
 import Button from "@mui/material/Button";
 import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
-import WebOutlinedIcon from "@mui/icons-material/WebOutlined";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
 import Header from "../component/header";
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
-  setVersionId,
-  setVersionName,
-  setDisplayName,
+  setSiteNameSlice
 } from "../features/common/VersionSlice";
 import Notification from "../component/notification";
 import Error from "../component/error";
@@ -24,13 +18,16 @@ import ToastNotification from "../component/ToastNotification";
 const SettingSite = () => {
   const versionId = useSelector((state) => state.version.versionId);
   const versionName = useSelector((state) => state.version.versionName);
-  const displayName = useSelector((state) => state.version.displayName);
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [notification, setNotification] = useState("");
-  const [models, setModels] = useState([]);
+  const [siteName, setSiteName] = useState([]);
+  const [siteUrl, setSiteUrl] = useState([]);
+  const [adminName, setAdminName] = useState([]);
+  const [adminPass, setAdminPass] = useState([]);
+
   const [selectedModelId, setSelectedModelId] = useState(versionId);
   const [selectedCategory, setSelectedCategory] = useState("all");
 
@@ -61,14 +58,20 @@ const SettingSite = () => {
     get_model_list();
   }, []);
 
-  const handleStart = () => {
+  
+  const site_data = {
+    site_name: siteName,
+    site_url: siteUrl,
+    admin_name: adminName,
+    admin_pass: adminPass,
+  };
+
+  const registerSite = () => {
     setLoading(true);
     setError(null);
-    console.log("Start button clicked");
     axios
-      .post(`${apiUrl}/run_script`, { versionId })
+      .post(`${apiUrl}/run_script`, site_data)
       .then((response) => {
-        console.log(response);
         setLoading(false);
         setNotification("出力が成功しました");
       })
@@ -98,10 +101,7 @@ const SettingSite = () => {
     const model_item = models.find((model) => model._id === model_id);
     const display_name = model_item ? model_item.display_name : null;
     const model_name = model_item ? model_item.model_name : null;
-    setSelectedModelId(model_id);
-    dispatch(setVersionId(model_id));
-    dispatch(setVersionName(model_name));
-    dispatch(setDisplayName(display_name));
+    dispatch(setSiteNameSlice(siteName));
   }
 
   return (
@@ -113,12 +113,12 @@ const SettingSite = () => {
         </div>
         <div className="relative flex flex-col flex-1 items-start pl-40">
           <h1 className=" heading font text-[calc(10px+2vmin)] font-semibold mt-16">
-          サイト
+            サイト
           </h1>
           <div className=" bg-[#E5F6FD] px-4 py-2 font text-[calc(2vmin)] text-[#014361] p-3 rounded-md mt-10 mb-8">
             <InfoOutlinedIcon className="mr-2 text-[#0288D1]" />
             現在、WordPressで作られたサイトしか連携出来ません。
-          </div>          
+          </div>
           <div className="mt-5">
             <FormControl
               className="flex flex-col gap-10 w-[320px] sm:w-136"
@@ -128,42 +128,43 @@ const SettingSite = () => {
                 label="サイト名"
                 placeholder="サイト名"
                 className="flex w-full sm:w-256 mx-8 my-10"
-                // value={searchText}
+                value={siteName}
                 inputProps={{
                   "aria-label": "Search",
                 }}
-                // onChange={handleSearchText}
+                onChange={(e) => setSiteName(e.target.value)}
                 variant="outlined"
                 InputLabelProps={{
                   shrink: true,
                 }}
               />
               <div>
-              <TextField
-                label="サイトのURL"
-                placeholder="URL"
-                className="flex w-full sm:w-256 mx-8 my-10"
-                // value={searchText}
-                inputProps={{
-                  "aria-label": "Search",
-                }}
-                // onChange={handleSearchText}
-                variant="outlined"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
-              <p>https://から入力してください</p>
+                <TextField
+                  label="サイトのURL"
+                  placeholder="URL"
+                  className="flex w-full sm:w-256 mx-8 my-10"
+                  value={siteUrl}
+                  inputProps={{
+                    "aria-label": "Search",
+                  }}
+                  onChange={(e) => setSiteUrl(e.target.value)}
+                  variant="outlined"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+                <p>https://から入力してください</p>
               </div>
               <TextField
                 label="サイトのログインID"
                 placeholder="ログインID"
                 className="flex w-full sm:w-256 mx-8 my-10"
-                // value={searchText}
+                value={adminName}
                 inputProps={{
                   "aria-label": "Search",
                 }}
-                // onChange={handleSearchText}
+                onChange={(e) => setAdminName(e.target.value)}
+
                 variant="outlined"
                 InputLabelProps={{
                   shrink: true,
@@ -173,17 +174,16 @@ const SettingSite = () => {
                 label="サイトのログインパスワード"
                 placeholder="ログインパスワード"
                 className="flex w-full sm:w-256 mx-8 my-10"
-                // value={searchText}
+                value={adminPass}
                 inputProps={{
                   "aria-label": "Search",
                 }}
-                // onChange={handleSearchText}
+                onChange={(e) => setAdminPass(e.target.value)}
                 variant="outlined"
                 InputLabelProps={{
                   shrink: true,
                 }}
               />
-              
             </FormControl>
           </div>
 
@@ -192,7 +192,7 @@ const SettingSite = () => {
             <Button
               // className="py-3 bg-[#0F1740] text-white font-bold rounded-lg hover:bg-[#22294e] focus:outline-none focus:bg-[#0e1225]"
               variant="contained"
-              onClick={handleStart}
+              onClick={registerSite}
               sx={{
                 backgroundColor: "#0F1740",
                 color: "white",
@@ -216,7 +216,7 @@ const SettingSite = () => {
           {/* <Button startIcon={<StarIcon />}>Favorite</Button> */}
         </div>
       </div>
-      <ToastNotification/>
+      <ToastNotification />
       <Notification content={notification} />
       <Error content={error} />
     </div>

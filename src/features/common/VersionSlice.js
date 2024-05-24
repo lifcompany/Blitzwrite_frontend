@@ -19,9 +19,12 @@ export const VersionSlice = createSlice({
             
             state.displayName = action.payload
         },
+        setSiteName:(state, action) => {
+            state.siteName = action.payload
+        }
     }
 })
 
-export const { setVersionId, setVersionName, setDisplayName} = VersionSlice.actions
+export const { setVersionId, setVersionName, setDisplayName, setSiteName} = VersionSlice.actions
 
 export default VersionSlice.reducer

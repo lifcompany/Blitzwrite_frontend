@@ -20,7 +20,7 @@ const Login = () => {
       const auth2 = window.gapi.auth2.init({
         client_id:
           "412305795434-v38u701gekbk82o0i5eg7bsnjtuqhc1o.apps.googleusercontent.com",
-        scope: "email profile", // Adjust scopes as needed
+        scope: "email profile",
         // redirect_uri: "http://localhost:3000/home", // Ensure this matches the authorized redirect URI
       });
 
@@ -29,8 +29,6 @@ const Login = () => {
         .then((googleUser) => {
           const idToken = googleUser.getAuthResponse().id_token;
           console.log("ID Token:", idToken);
-          // Send the ID token to your backend for further processing
-          // (e.g., authentication and user creation)
         })
         .catch((error) => {
           console.error("Google Sign-In Error:", error);
@@ -69,20 +67,11 @@ const Login = () => {
         }
       )
       .then((response) => {
-        if (response.ok) {
-          // If login is successful, parse response data (e.g., access token)
-          const data = response.json();
-          const accessToken = data.accessToken;
-  
-          // Save access token to local storage or state (e.g., Redux)
-          localStorage.setItem('accessToken', accessToken);
-  
-          // Redirect user to the home page or perform other actions
-          navigate('/home')
-        } else {
-          // Handle login error (e.g., display error message)
-          console.log('Login failed');
-        }
+        console.log(response);
+        const data = response.json();
+        const accessToken = data.accessToken;
+        localStorage.setItem("accessToken", accessToken);
+        navigate("/home");
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -160,13 +149,13 @@ const Login = () => {
                   }}
                   sx={{
                     "& .MuiInputBase-input": {
-                      width: "100%", // Full width
-                      paddingX: "16px", // Horizontal padding
-                      paddingY: "12px", // Vertical padding
+                      width: "100%",
+                      paddingX: "16px",
+                      paddingY: "12px",
                     },
                     "& .MuiFormHelperText-root": {
-                      fontSize: "14px", // Helper text font size
-                      color: "#dc3545", // Helper text color (error message)
+                      fontSize: "14px",
+                      color: "#dc3545",
                     },
                   }}
                 />
