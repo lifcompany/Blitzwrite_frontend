@@ -1,4 +1,4 @@
-// src/EditModal.js
+// src/EditModel.js
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, Modal, TextField } from "@mui/material";
