@@ -58,8 +58,6 @@ const SettingSite = () => {
   }, []);
 
   useEffect(() => {
-    console.log(versionId, versionName);
-    get_model_list();
   }, []);
 
   const handleStart = () => {
@@ -143,28 +141,6 @@ const SettingSite = () => {
           </div>
 
           <div className=" py-4">
-            <Button
-              variant="contained"
-              onClick={handleStart}
-              sx={{
-                backgroundColor: "#ffffff",
-                color: "#CD2424",
-                fontWeight: "bold",
-                paddingY: 2,
-                paddingLeft: 4,
-                paddingRight: 4,
-                borderRadius: "lg",
-                "&:hover": {
-                  backgroundColor: "#efeeee",
-                },
-                "&:focus": {
-                  outline: "none",
-                  backgroundColor: "#cbc9c9",
-                },
-              }}
-            >
-              サービスの退会
-            </Button>
             <AccountModal/>
           </div>
         </div>
