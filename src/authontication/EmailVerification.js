@@ -8,7 +8,7 @@ const EmailVerification = () => {
   useEffect(() => {
     const token = new URLSearchParams(location.search).get("token");
     if (token) {
-      console.log(token);
+
       const verifyEmail = async () => {
         try {
           const response = await axios.post(
@@ -21,9 +21,9 @@ const EmailVerification = () => {
             }
           );
           console.log(response.data);
-          navigate("/home");
+          navigate("/login");
         } catch (error) {
-          console.error(error);
+          console.log(error);
           // Display error message
         }
       };

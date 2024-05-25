@@ -10,12 +10,13 @@ import visaLogo from "../../src/assets/visa.png"; // Add your card images in ass
 import mastercardLogo from "../../src/assets/mastercard.png";
 import jcbLogo from "../../src/assets/amex.png";
 import amexLogo from "../../src/assets/jcb.png";
+import PaymentPage from "./PaymentPage";
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 550,
+  width: 700,
   bgcolor: "background.paper",
   borderRadius: "5px",
   boxShadow: 24,
@@ -100,27 +101,6 @@ const PaymentModal = (props) => {
     }
   };
 
-  // useEffect(() => {
-  //   console.log("ddd:", editversionID);
-  //   axios
-  //     .post(`${apiUrl}/get_edit_version`, {
-  //       editversionID: editversionID,
-  //     })
-  //     .then((response) => {
-  //       setDisplayName(response.data["display_name"]);
-  //       setModelName(response.data["model_name"]);
-  //       setEndpoint(response.data["endpoint"]);
-  //       setParameters(response.data["params"]);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error:", error);
-  //       setDisplayName("");
-  //       setModelName("");
-  //       setEndpoint("");
-  //       setParameters("");
-  //     });
-  // }, [editversionID]);
-
   return (
     <div className="pt-2">
       <Button
@@ -152,7 +132,7 @@ const PaymentModal = (props) => {
         aria-describedby="modal-description"
       >
         <Box sx={style}>
-          <h2 className=" heading font text-[calc(2vmin)] font-semibold mt-10 mb-10">
+          {/* <h2 className=" heading font text-[calc(2vmin)] font-semibold mt-10 mb-10">
             クレジットカードの登録
           </h2>
           <Box sx={{ display: "flex", justifyContent: "space-around", mb: 2 }}>
@@ -292,7 +272,8 @@ const PaymentModal = (props) => {
                 キャンセル
               </button>
             </div>
-          </form>
+          </form> */}
+          <PaymentPage/>
         </Box>
       </Modal>
     </div>

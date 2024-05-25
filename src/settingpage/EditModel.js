@@ -160,7 +160,7 @@ const EditModel = (props) => {
             </div>
             <button
               className=" text-blue-500 roundedtransition"
-              onClick={() => navigate("/")}
+              onClick={() => handleClose()}
             >
               キャンセル
             </button>

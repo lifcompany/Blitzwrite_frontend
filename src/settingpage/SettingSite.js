@@ -40,7 +40,7 @@ const SettingSite = () => {
       .post(`${apiUrl}/api/setting/set_site/`, site_data)
       .then((response) => {
         setLoading(false);
-        setNotification("出力が成功しました");
+        setNotification("サイト連携が完了しました");
       })
       .catch((error) => {
         setError(error.response.data.error);

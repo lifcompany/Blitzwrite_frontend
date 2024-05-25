@@ -59,7 +59,7 @@ const Login = () => {
     axios
       .post(
         "http://127.0.0.1:8000/api/authentication/login/",
-        { signin_data },
+        signin_data ,
         {
           headers: {
             Accept: "application/json",
@@ -67,11 +67,12 @@ const Login = () => {
         }
       )
       .then((response) => {
-        console.log(response);
-        const data = response.json();
+        console.log(response.data);
+        const data = response.data;
         const accessToken = data.accessToken;
         localStorage.setItem("accessToken", accessToken);
         navigate("/home");
+
       })
       .catch((error) => {
         console.error("Error:", error);

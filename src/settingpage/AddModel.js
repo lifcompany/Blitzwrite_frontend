@@ -29,10 +29,7 @@ const AddModel = (props) => {
   const navigate = useNavigate();
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log({ modelName, endpoint, parameters });
-  };
+
 
   const model_data = {
     model_name: modelName,
@@ -184,7 +181,7 @@ const AddModel = (props) => {
               </div>          
             <button
               className=" text-blue-500 roundedtransition"
-              onClick={() => navigate("/")}
+              onClick={() => handleClose()}
             >
               キャンセル
             </button>

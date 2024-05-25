@@ -44,7 +44,7 @@ const SettingAPI = () => {
   const get_model_list = useCallback(() => {
     console.log(apiUrl);
     axios
-      .get(`${apiUrl}/api/setting/get_model_list`)
+      .get(`${apiUrl}/api/setting/get_model_list/`)
       .then((response) => {
         console.log(response);
         setModels(response.data);
