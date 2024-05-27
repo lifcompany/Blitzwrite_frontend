@@ -124,7 +124,7 @@ const HomePage = () => {
           >
             {models.map((model) => (
               <MenuItem value={model._id} key={model._id}>
-                {model.display_name}
+                {model.model_name}
               </MenuItem>
             ))}
           </Select>
