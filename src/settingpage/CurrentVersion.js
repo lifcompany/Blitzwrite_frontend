@@ -66,10 +66,6 @@ const CurrentVersion = (props) => {
                 <span className="text-gray-700 text-[calc(2vmin)]">{model.model_name}</span>
               </div>
               <div className="flex items-center">
-                {/* <EditIcon
-                  className="text-gray-600 hover:text-gray-900 cursor-pointer mr-8 ml-5"
-                  onClick={() => editModel(model._id)}
-                /> */}
                 <EditModel model_name={model.model_name}/>
                 <DeleteOutlineOutlinedIcon
                   className="text-gray-600 hover:text-gray-900 cursor-pointer"
