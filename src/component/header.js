@@ -55,7 +55,7 @@ const Header = () => {
             )}
 
             <button
-              onClick={() => navigate("/gen-media")}
+              onClick={() => navigate("/check-media")}
               className=" flex justify-center items-center gap-1 mr-4 p-2 bg-white rounded-md hover:bg-gray-200 text-gray-700 hover:text-gray-700  "
             >
               <MdEditDocument />
