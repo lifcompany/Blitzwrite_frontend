@@ -21,7 +21,7 @@ const Output = () => {
     setLoading(true);
     setError(null);
     axios
-      .get(`${apiUrl}/get_file_list`)
+      .get(`${apiUrl}/api/setting/get_file_list`)
       .then((response) => {
         setData(response.data);
         setLoading(false);
@@ -46,7 +46,7 @@ const Output = () => {
   const deleteFile = (filename) => {
     setNotification("")
     axios
-      .post(`${apiUrl}/delete_files`, { filename }) // Adjust the URL to your server
+      .post(`${apiUrl}/api/setting/delete_files`, { filename }) // Adjust the URL to your server
       .then((response) => {
         get_file_list();
         setNotification("正常に削除されました。")

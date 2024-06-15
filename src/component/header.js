@@ -3,7 +3,9 @@ import { useNavigate, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Menu, MenuItem, Dialog, DialogTitle } from "@mui/material";
 import WebOutlinedIcon from "@mui/icons-material/WebOutlined";
+import { MdEditDocument } from "react-icons/md";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
+import { MdOutlineArticle } from "react-icons/md";
 import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
 import SettingsIcon from "@mui/icons-material/Settings";
 import UserMenu from "./userMenu";
@@ -32,13 +34,13 @@ const Header = () => {
   };
   return (
     <header>
-      <nav className="flex items-center bg-gray-200 h-20 border-b-2 border-gray-200 px-20">
-        <h1 className="text-2xl font-bold  flex-1">
-          <Link to="/home" className="text-2xl mb-5 font-bold">
-            <img alt="Logo" src="images/logo.svg" className="h-10" />
-          </Link>
-        </h1>
+      <nav className="flex justify-between items-center bg-gray-200 h-20 border-b-2 border-gray-200 px-20">
         <div className="flex items-center gap-7">
+          <h1 className="text-2xl font-bold  flex-1">
+            <Link to="/home" className="text-2xl mb-5 font-bold">
+              <img alt="Logo" src="images/logo.svg" className="h-10" />
+            </Link>
+          </h1>
           <div className="navbar flex items-center">
             {selectedSiteName ? (
               <button
@@ -53,10 +55,10 @@ const Header = () => {
             )}
 
             <button
-              onClick={() => navigate("/setting")}
+              onClick={() => navigate("/gen-media")}
               className=" flex justify-center items-center gap-1 mr-4 p-2 bg-white rounded-md hover:bg-gray-200 text-gray-700 hover:text-gray-700  "
             >
-              <SaveAsIcon />
+              <MdEditDocument />
               作成
             </button>
             <a
@@ -65,10 +67,12 @@ const Header = () => {
               className=" flex justify-center items-center gap-1 mr-4 p-2 bg-white rounded-md hover:bg-gray-200 text-gray-700 hover:text-gray-700 "
               rel="noopener noreferrer"
             >
-              <ArticleOutlinedIcon />
+              <MdOutlineArticle />
               一覧
             </a>
           </div>
+        </div>
+        <div className="flex items-center gap-7">
           <div>
             <UserMenu />
             <Menu

@@ -32,10 +32,6 @@ const HomePage = () => {
   function handleSelectedCategory(event) {
     setSelectedCategory(event.target.value);
   }
-  const categories = [
-    { slug: "gpt-3.5-turbo", title: "GPT-3.5" },
-    { slug: "gpt-4", title: "GPT-4" },
-  ];
 
   const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -129,26 +125,6 @@ const HomePage = () => {
             ))}
           </Select>
         </FormControl>
-        <div className="mt-5">
-          <FormControl className="flex  w-[320px] sm:w-136" variant="outlined">
-            <InputLabel id="category-select-label">バージョン</InputLabel>
-            <Select
-              labelId="category-select-label"
-              id="category-select"
-              label="Category"
-              value={selectedCategory}
-              onChange={handleSelectedCategory}
-            >
-              <MenuItem value="all">GPT-4-Turbo</MenuItem>
-              {categories.map((category, index) => (
-                <MenuItem value={category.slug} key={index}>
-                  {category.title}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </div>
-
         <div className=" h-10">{loading ? <p>Loading...</p> : ""}</div>
         <div className=" py-12">
           <Button

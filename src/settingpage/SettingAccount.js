@@ -112,13 +112,9 @@ const SettingSite = () => {
         </div>
         <div className="relative flex flex-col flex-1 items-start pl-40">
           <h1 className=" heading font text-[calc(10px+2vmin)] font-semibold mt-16">
-          アカウント
+            アカウント
           </h1>
-          <div className=" bg-[#E5F6FD] px-4 py-2 font text-[calc(2vmin)] text-[#014361] p-3 rounded-md mt-10 mb-8">
-            <InfoOutlinedIcon className="mr-2 text-[#0288D1]" />
-            現在、WordPressで作られたサイトしか連携出来ません。
-          </div>          
-          <div className="mt-5">
+          <div className=" mt-16">
             <FormControl
               className="flex flex-col gap-10 w-[320px] sm:w-136"
               variant="outlined"
