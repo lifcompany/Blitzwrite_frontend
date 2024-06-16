@@ -13,7 +13,7 @@ const CheckMedia = () => {
         <div className="px-4 py-2 font text-[calc(2vmin)] text-[#014361] p-3 rounded-md mt-10 mb-8">
           メディア連携が出来ていません。先に
           <span className=" text-blue-600">
-            <a href="/">連携</a>
+            <a href="/set-media">連携</a>
           </span>
           をしてください
         </div>

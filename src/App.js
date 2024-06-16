@@ -16,6 +16,7 @@ import PaymentPage from "./settingpage/PaymentPage";
 import GenMedia from "./generation/SetMedia";
 import CheckMedia from "./generation/CheckMedia";
 import SetMedia from "./generation/SetMedia";
+import SearchComponent from "./generation/SearchComponent";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
         {/* Generate Article */}
         <Route path="/check-media" element={<CheckMedia />} />
         <Route path="/set-media" element={<SetMedia />} />
+        <Route path="/get-questions" element={<SearchComponent />} />
 
 
       </Routes>

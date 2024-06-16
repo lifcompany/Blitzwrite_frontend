@@ -1,24 +1,13 @@
-import Button from "@mui/material/Button";
-import React, { useEffect, useState, useCallback } from "react";
-import axios from "axios";
-import WebOutlinedIcon from "@mui/icons-material/WebOutlined";
-import TextField from "@mui/material/TextField";
-import FormControl, { useFormControl } from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
+import React, { useEffect, useState } from "react";
+import FormControl from "@mui/material/FormControl";
 import Header from "../component/header";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
-import { useDispatch, useSelector } from "react-redux";
 
 import Notification from "../component/notification";
 import Error from "../component/error";
 import SettingMenu from "./SettingMenu";
 import ToastNotification from "../component/ToastNotification";
-
 import OutlinedInput from "@mui/material/OutlinedInput";
-import FormHelperText from "@mui/material/FormHelperText";
 import PaymentModal from "./PaymentModal";
 
 const SettingPayment = () => {
@@ -27,14 +16,9 @@ const SettingPayment = () => {
   const [error, setError] = useState("");
   const [notification, setNotification] = useState("");
 
-  const apiUrl = process.env.REACT_APP_API_URL;
-
   useEffect(() => {
 
   },);
-
-
-
 
   return (
     <div className="min-h-screen flex flex-col">
