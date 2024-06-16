@@ -33,10 +33,10 @@ jobs:
 
           git pull origin main
           
-          cd ~/python/posttool/frontend
+          cd ~/python/Blitzwrite_frontend
           npm install
           npm run build
-          sudo rsync -av --delete ~/python/Blitzwrite_frontend/ /var/www/html/
+          sudo rsync -av --delete ~/python/Blitzwrite_frontend/build/ /var/www/html/
           
           sudo systemctl restart nginx
 

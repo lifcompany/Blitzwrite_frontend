@@ -5,11 +5,12 @@ const SearchComponent = () => {
     const [keyword, setKeyword] = useState('');
     const [questions, setQuestions] = useState([]);
     const [error, setError] = useState('');
-
+    const apiUrl = process.env.REACT_APP_API_URL;
     const handleSearch = async () => {
         console.log(keyword);
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/explorer/get_questions/', { keyword });
+            
+            const response = await axios.post(`${apiUrl}/api/explorer/get_questions/`, { keyword });
             setQuestions(response.data.questions);
             setError('');
         } catch (err) {

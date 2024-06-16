@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 const EmailVerification = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const apiUrl = process.env.REACT_APP_API_URL;
   useEffect(() => {
     const token = new URLSearchParams(location.search).get("token");
     if (token) {
@@ -12,7 +13,7 @@ const EmailVerification = () => {
       const verifyEmail = async () => {
         try {
           const response = await axios.post(
-            "http://127.0.0.1:8000/api/authentication/mail-verify/", {}, 
+            `${apiUrl}/api/authentication/mail-verify/`, {}, 
             {
               headers: {
                 Accept: "application/json",

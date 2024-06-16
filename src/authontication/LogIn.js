@@ -50,6 +50,7 @@ const Login = () => {
   };
 
   const handleSubmit = (e) => {
+    const apiUrl = process.env.REACT_APP_API_URL;
     e.preventDefault();
     console.log("Form submitted with", email, password);
     const signin_data = {
@@ -58,7 +59,7 @@ const Login = () => {
     };
     axios
       .post(
-        "http://127.0.0.1:8000/api/authentication/login/",
+        `${apiUrl}/api/authentication/login/`,
         signin_data ,
         {
           headers: {
