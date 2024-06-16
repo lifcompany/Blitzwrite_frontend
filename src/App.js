@@ -13,9 +13,9 @@ import SettingAPI from "./settingpage/SettingAPI";
 import SettingPayment from "./settingpage/SettingPayment";
 import CreditCardModal from "./settingpage/SettingAccount";
 import PaymentPage from "./settingpage/PaymentPage";
-import CheckMedia from "./generation/CheckMedia";
-import SetMedia from "./generation/SetMedia";
-import SearchComponent from "./generation/SearchComponent";
+// import CheckMedia from "./generation/CheckMedia";
+// import SetMedia from "./generation/SetMedia";
+// import SearchComponent from "./generation/SearchComponent";
 
 function App() {
   return (
@@ -40,9 +40,9 @@ function App() {
         <Route path="/setting/customselect" element={<CustomSelect />} />
 
         {/* Generate Article */}
-        <Route path="/check-media" element={<CheckMedia />} />
-        <Route path="/set-media" element={<SetMedia />} />
-        <Route path="/get-questions" element={<SearchComponent />} />
+        {/* <Route path="/check-media" element={<CheckMedia />} />
+        <Route path="/set-media" element={<SetMedia />} /> */}
+        {/* <Route path="/get-questions" element={<SearchComponent />} /> */}
 
 
       </Routes>
