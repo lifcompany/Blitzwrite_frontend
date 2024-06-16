@@ -1,6 +1,5 @@
 import React from "react";
 import Header from "../component/header";
-import SettingMenu from "../settingpage/SettingMenu";
 
 const CheckMedia = () => {
   return (

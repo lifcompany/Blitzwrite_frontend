@@ -10,7 +10,6 @@ import CloseIcon from '@mui/icons-material/Close';
 const SetMedia = () => {
   const [showClearIcon, setShowClearIcon] = useState("none");
   const [keyword, setKeyword] = useState("");
-  const [error, setError] = useState("");
 
   const handleChange = (event) => {
     const newKeyword = event.target.value;
@@ -29,11 +28,6 @@ const SetMedia = () => {
   const handleKeyDown = async (event) => {
     const inputkeyword = {
      keyword: event.target.value,
-    };
-    const model_data = {
-      model_name: "dd",
-      endpoint: "endpoint",
-      params: "parameters",
     };
     console.log("1111", keyword);
     if (event.key === "Enter") {
@@ -59,13 +53,12 @@ const SetMedia = () => {
 
 
       axios
-      .post(`${apiUrl}/api/generate/set_keyword/`,  model_data )
+      .post(`${apiUrl}/api/generate/set_keyword/`,  inputkeyword)
       .then((response) => {
         console.log(response);
       })
       .catch((error) => {
         console.log(error);
-        setError(error.response.data.error);
       });
     }
   };

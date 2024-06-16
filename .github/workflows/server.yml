@@ -12,33 +12,33 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Setup Production Environment Variables
-      run: |
-      echo "REACT_APP_API_URL=${{ secrets.PRODUCTION_API_URL }}" > .env
+    # - name: Setup Production Environment Variables
+    #   run: |
+    #   echo "REACT_APP_API_URL=${{ secrets.PRODUCTION_API_URL }}" > .env
 
-    - name: Setup SSH
-      uses: webfactory/ssh-agent@v0.5.3
-      with:
-        ssh-private-key: ${{ secrets.LIF_ID }}
+    # - name: Setup SSH
+    #   uses: webfactory/ssh-agent@v0.5.3
+    #   with:
+    #     ssh-private-key: ${{ secrets.LIF_ID }}
 
-    - name: Deploy to Server
-      run: |
-        ssh -o StrictHostKeyChecking=no ubuntu@133.242.160.145 << 'EOF'
-          cd ~/python/posttool
-          git remote set-url origin git@github.com:lifcompany/Blitzwrite_frontend.git
+    # - name: Deploy to Server
+    #   run: |
+    #     ssh -o StrictHostKeyChecking=no ubuntu@133.242.160.145 << 'EOF'
+    #       cd ~/python/posttool
+    #       git remote set-url origin git@github.com:lifcompany/Blitzwrite_frontend.git
 
-          eval $(ssh-agent -s)
-          ssh-add ~/.ssh/sm_automation.pem
-          ssh-add -l
+    #       eval $(ssh-agent -s)
+    #       ssh-add ~/.ssh/sm_automation.pem
+    #       ssh-add -l
 
-          git pull origin main
+    #       git pull origin main
           
-          cd ~/python/posttool/frontend
-          npm install
-          npm run build
-          sudo rsync -av --delete ~/python/Blitzwrite_frontend/ /var/www/html/
+    #       cd ~/python/posttool/frontend
+    #       npm install
+    #       npm run build
+    #       sudo rsync -av --delete ~/python/Blitzwrite_frontend/ /var/www/html/
           
-          sudo systemctl restart nginx
+    #       sudo systemctl restart nginx
 
-          echo "Deployment completed."
-        EOF
+    #       echo "Deployment completed."
+    #     EOF

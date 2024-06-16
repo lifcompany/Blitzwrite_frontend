@@ -13,7 +13,6 @@ import SettingAPI from "./settingpage/SettingAPI";
 import SettingPayment from "./settingpage/SettingPayment";
 import CreditCardModal from "./settingpage/SettingAccount";
 import PaymentPage from "./settingpage/PaymentPage";
-import GenMedia from "./generation/SetMedia";
 import CheckMedia from "./generation/CheckMedia";
 import SetMedia from "./generation/SetMedia";
 import SearchComponent from "./generation/SearchComponent";
