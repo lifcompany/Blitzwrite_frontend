@@ -4,6 +4,8 @@ import axios from "axios";
 import Button from "@mui/material/Button";
 import { InputAdornment, IconButton, TextField } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import Error from "../component/error";
+
 const handleLogin = () => {
     
   // Handle login with Google
@@ -21,6 +23,7 @@ const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [validPassword, setValidPassword] = useState(true);
   const [email, setEmail] = useState("");
+  
 //   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
@@ -96,7 +99,8 @@ const SignUp = () => {
           navigate("/login");
         })
         .catch((error) => {
-          console.error("Error:", error);
+          console.error("Error:", error.response.data.error);
+          
         });
     } else {
       console.log("Form is invalid. Showing error...");
@@ -244,6 +248,7 @@ const SignUp = () => {
           </div>
         </div>
       </div>
+      <Error content={error} />
     </div>
   );
 };

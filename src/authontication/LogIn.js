@@ -3,12 +3,14 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { InputAdornment, IconButton, TextField } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import Error from "../component/error";
 const Login = () => {
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [token, setToken] = useState("");
+  const [error, setError] = useState("");
 
   const handleLogin = () => {
     // Handle login with Google
@@ -216,6 +218,7 @@ const Login = () => {
           </div>
         </div>
       </div>
+      <Error content={error} />
     </div>
   );
 };
