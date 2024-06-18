@@ -80,6 +80,7 @@ const SignUp = () => {
     return true;
   };
   const handleSubmit = (e) => {
+    const apiUrl = process.env.REACT_APP_API_URL;
     e.preventDefault();
 
     if (validateForm()) {
@@ -89,7 +90,7 @@ const SignUp = () => {
         password: password,
       };
       axios
-        .post("http://localhost:8000/api/authentication/register/", signup_data)
+        .post(`${apiUrl}/api/authentication/register/`, signup_data)
         .then((response) => {
           console.log("Server response:", response.data);
           navigate("/login");
