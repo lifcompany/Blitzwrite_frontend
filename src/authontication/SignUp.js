@@ -83,6 +83,7 @@ const SignUp = () => {
     return true;
   };
   const handleSubmit = (e) => {
+    setError('');
     const apiUrl = process.env.REACT_APP_API_URL;
     e.preventDefault();
 
@@ -99,11 +100,10 @@ const SignUp = () => {
           navigate("/login");
         })
         .catch((error) => {
-          console.error("Error:", error.response.data.error);
-          
+          setError(error.response.data.error);
         });
     } else {
-      console.log("Form is invalid. Showing error...");
+      setError("Form is invalid. Showing error...");
     }
   };
 

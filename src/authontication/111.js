@@ -7,21 +7,25 @@ const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
-  const apiUrl = "http://133.242.160.145:8000/api/authentication/forget-password/";
 
   const handleSubmit = async (e) => {
+    const apiUrl = process.env.REACT_APP_API_URL;
     e.preventDefault();
     setMessage("");
     setError("");
-
-    try {
-      const response = await axios.post(apiUrl, { email });
-
-      if (response.status === 201) {
+try{
+    axios
+      .post(`${apiUrl}/api/authentication/forget-password/`, { email },{
+        headers: {
+            Accept: "application/json",
+          },
+      })
+      .then((response)=>{
         setMessage("認証リンクが送信されました。");
-      } else {
+      })
+      .catch((error)=>{
         setMessage("Resend verification link.");
-      }
+      })
     } catch (error) {
       if (error.response && error.response.data) {
         setError(error.response.data.error || "An unexpected error occurred.");

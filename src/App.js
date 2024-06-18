@@ -31,7 +31,7 @@ function App() {
         <Route path="/register" element={<SignUp />} />
         <Route path="/mail-verify" element={<EmailVerification />} />
         <Route path="/forgot_password" element={<ForgotPassword />} />
-        <Route path="/reset_password" element={<ResetPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/sign-out" element={<SignOutPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/output" element={<Output />} />

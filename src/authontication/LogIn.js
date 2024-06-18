@@ -54,6 +54,7 @@ const Login = () => {
   };
 
   const handleSubmit = (e) => {
+    setError('');
     const apiUrl = process.env.REACT_APP_API_URL;
     e.preventDefault();
     console.log("Form submitted with", email, password);
@@ -76,7 +77,7 @@ const Login = () => {
         navigate("/home");
       })
       .catch((error) => {
-        console.error("Error:", error);
+        setError(error.response.data.error);
       });
   };
   const isAuthenticated = () => {
