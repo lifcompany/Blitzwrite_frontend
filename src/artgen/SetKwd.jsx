@@ -107,7 +107,7 @@ const SetKwd = () => {
               {fakeButtons.map((button, index) => (
                 <button
                   key={index}
-                  className={` bg-gray-100 p-2 pl-3 pr-3 border rounded-2xl mr-3 mb-2 ${
+                  className={`p-2 pl-3 pr-3 border rounded-2xl mr-3 mb-2 ${
                     selectedResults.includes(button)
                       ? "bg-[#232E2F] text-white"
                       : "bg-gray-100 text-[#232E2F]"

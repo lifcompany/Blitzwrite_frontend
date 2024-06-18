@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { InputAdornment, IconButton, TextField } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 const Login = () => {
-  const navigate = useNavigate(); // Hook to get the navigate function
+  const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
+  const [token, setToken] = useState("");
+
   const handleLogin = () => {
     // Handle login with Google
     if (!window.gapi) {
@@ -58,27 +60,29 @@ const Login = () => {
       password: password,
     };
     axios
-      .post(
-        `${apiUrl}/api/authentication/login/`,
-        signin_data ,
-        {
-          headers: {
-            Accept: "application/json",
-          },
-        }
-      )
+      .post(`${apiUrl}/api/authentication/login/`, signin_data, {
+        headers: {
+          Accept: "application/json",
+        },
+      })
       .then((response) => {
         console.log(response.data);
         const data = response.data;
         const accessToken = data.accessToken;
+        setToken(accessToken);
         localStorage.setItem("accessToken", accessToken);
         navigate("/home");
-
       })
       .catch((error) => {
         console.error("Error:", error);
       });
   };
+  const isAuthenticated = () => {
+    return localStorage.getItem("accessToken") !== null;
+  };
+  useEffect(() => {
+    isAuthenticated() && navigate("/home");
+  }, [token]);
   return (
     <div className="flex flex-col h-screen">
       <div
@@ -121,6 +125,7 @@ const Login = () => {
                       width: "100%",
                       paddingX: "16px",
                       paddingY: "12px",
+                      
                     },
                     "& .MuiFormHelperText-root": {
                       fontSize: "14px",

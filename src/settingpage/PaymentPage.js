@@ -87,6 +87,9 @@ const PaymentPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (localStorage.getItem("accessToken") == null){
+      navigate("/login");
+    }
     const fetchClientSecret = async () => {
       const headers = {
           'Content-Type': 'application/json',

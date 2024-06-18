@@ -1,18 +1,18 @@
-import Button from "@mui/material/Button";
 import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
-import WebOutlinedIcon from "@mui/icons-material/WebOutlined";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import Header from "../component/header";
-import { useDispatch, useSelector } from "react-redux";
 import {
   setVersionId,
   setVersionName,
   setDisplayName,
 } from "../features/common/VersionSlice";
+import Header from "../component/header";
 import Notification from "../component/notification";
 import Error from "../component/error";
 
@@ -27,12 +27,8 @@ const HomePage = () => {
   const [notification, setNotification] = useState("");
   const [models, setModels] = useState([]);
   const [selectedModelId, setSelectedModelId] = useState(versionId);
-  const [selectedCategory, setSelectedCategory] = useState("all");
 
-  function handleSelectedCategory(event) {
-    setSelectedCategory(event.target.value);
-  }
-
+  const navigate = useNavigate();
   const apiUrl = process.env.REACT_APP_API_URL;
 
   const get_model_list = useCallback(() => {
@@ -48,7 +44,9 @@ const HomePage = () => {
   }, []);
 
   useEffect(() => {
-    console.log(versionId, versionName);
+    if (localStorage.getItem("accessToken") == null) {
+      navigate("/login");
+    }
     get_model_list();
   }, []);
 
@@ -128,7 +126,6 @@ const HomePage = () => {
         <div className=" h-10">{loading ? <p>Loading...</p> : ""}</div>
         <div className=" py-12">
           <Button
-            // className="py-3 bg-[#0F1740] text-white font-bold rounded-lg hover:bg-[#22294e] focus:outline-none focus:bg-[#0e1225]"
             variant="contained"
             onClick={handleStart}
             sx={{
@@ -151,7 +148,6 @@ const HomePage = () => {
             作成を開始する
           </Button>
         </div>
-        {/* <Button startIcon={<StarIcon />}>Favorite</Button> */}
       </div>
       <h5 className=" font-semibold mb-5 text-left fixed bottom-5 right-8 text-gray-400">
         Display Name : {displayName}
