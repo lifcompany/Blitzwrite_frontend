@@ -66,11 +66,11 @@ const Login = () => {
         },
       })
       .then((response) => {
-        console.log(response.data);
         const data = response.data;
         const accessToken = data.accessToken;
         setToken(accessToken);
         localStorage.setItem("accessToken", accessToken);
+        console.log(localStorage.getItem("accessToken"));
         navigate("/home");
       })
       .catch((error) => {

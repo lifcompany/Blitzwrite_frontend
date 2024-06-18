@@ -31,6 +31,10 @@ const HomePage = () => {
   const navigate = useNavigate();
   const apiUrl = process.env.REACT_APP_API_URL;
 
+  const isAuthenticated = () => {
+    return localStorage.getItem("accessToken") !== null;
+  };
+
   const get_model_list = useCallback(() => {
     console.log(apiUrl);
     axios
@@ -44,10 +48,9 @@ const HomePage = () => {
   }, []);
 
   useEffect(() => {
-    if (localStorage.getItem("accessToken") == null) {
-      navigate("/login");
-    }
+    isAuthenticated() ? (navigate('/home')):(navigate('/login'));
     get_model_list();
+    console.log(localStorage.getItem("accessToken"))
   }, []);
 
   const handleStart = () => {
