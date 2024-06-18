@@ -72,8 +72,8 @@ const SignUp = () => {
     // }
 
     // Password complexity validation (example: minimum 8 characters)
-    if (password.length < 8) {
-      setError("Password must be at least 8 characters long.");
+    if (!validPassword) {
+      setError("パスワードは8文字以上で、少なくとも小文字1文字、大文字1文字、数字1文字、記号1文字を含む必要があります。");
       return false;
     }
 
