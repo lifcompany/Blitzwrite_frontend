@@ -4,9 +4,7 @@ import { useSelector } from "react-redux";
 import { Menu, MenuItem, Dialog, DialogTitle } from "@mui/material";
 import WebOutlinedIcon from "@mui/icons-material/WebOutlined";
 import { MdEditDocument } from "react-icons/md";
-import SaveAsIcon from "@mui/icons-material/SaveAs";
 import { MdOutlineArticle } from "react-icons/md";
-import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
 import SettingsIcon from "@mui/icons-material/Settings";
 import UserMenu from "./userMenu";
 const Header = () => {
@@ -16,17 +14,13 @@ const Header = () => {
 
   const selectedSiteName = useSelector((state) => state.site.siteName);
 
-  const handleMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
 
   const handleLogoutOpen = () => {
     setOpenDialog(true);
-    handleMenuClose(); // Close the menu when dialog opens
+    handleMenuClose();
   };
 
   const handelLogoutClose = () => {
@@ -38,7 +32,7 @@ const Header = () => {
         <div className="flex items-center gap-7">
           <h1 className="text-2xl font-bold  flex-1">
             <Link to="/home" className="text-2xl mb-5 font-bold">
-              <img alt="Logo" src="images/logo.svg" className="h-10" />
+              <img src={`${process.env.PUBLIC_URL}/images/logo.svg`} className="h-10" alt="Logo" />
             </Link>
           </h1>
           <div className="navbar flex items-center">
@@ -55,7 +49,7 @@ const Header = () => {
             )}
 
             <button
-              onClick={() => navigate("/check-media")}
+              onClick={() => navigate("/artgen")}
               className=" flex justify-center items-center gap-1 mr-4 p-2 bg-white rounded-md hover:bg-gray-200 text-gray-700 hover:text-gray-700  "
             >
               <MdEditDocument />

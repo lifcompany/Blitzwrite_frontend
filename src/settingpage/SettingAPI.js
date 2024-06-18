@@ -113,7 +113,7 @@ const SettingAPI = () => {
           <h1 className=" heading font text-[calc(10px+2vmin)] font-semibold mt-16">
             API連携
           </h1>
-          <div className=" bg-[#E5F6FD] px-4 py-2 font text-[calc(2vmin)] text-[#014361] p-3 rounded-md mt-10 mb-8">
+          <div className=" bg-[#E5F6FD] py-2 font text-[calc(2vmin)] text-[#014361] rounded-md mt-10 mb-8">
             <InfoOutlinedIcon className="mr-2 text-[#0288D1]" />
             現在、chatGPTのみ連携可能です。
           </div>

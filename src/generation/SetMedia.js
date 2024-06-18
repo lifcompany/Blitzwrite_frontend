@@ -71,13 +71,14 @@ const SetMedia = () => {
           記事の作成
         </h1>
 
-        <div id="app" className="px-4 py-2 font text-[calc(2vmin)] text-[#014361] p-3 rounded-md mt-10 mb-8">
+        <div id="app" className="py-2 font text-[calc(2vmin)] text-[#014361] p-3 rounded-md mt-10 mb-8">
           <FormControl sx={{ width: "30ch" }}>
             <TextField
               // size="small"
               variant="outlined"
               onChange={handleChange}
               onKeyDown={handleKeyDown}
+              placeholder="キーワードを検索してください" 
               value={keyword}
               InputProps={{
                 startAdornment: (
@@ -89,7 +90,6 @@ const SetMedia = () => {
                   <InputAdornment
                     position="end"
                     style={{ display: showClearIcon }}
-                    placeholder="支払い情報がありません" 
                     onClick={handleClick}
                   >
                     <CloseIcon style={{ cursor: 'pointer' }} />

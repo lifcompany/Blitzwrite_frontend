@@ -14,14 +14,14 @@ import SettingPayment from "./settingpage/SettingPayment";
 import CreditCardModal from "./settingpage/SettingAccount";
 import PaymentPage from "./settingpage/PaymentPage";
 // import CheckMedia from "./generation/CheckMedia";
-// import SetMedia from "./generation/SetMedia";
-// import SearchComponent from "./generation/SearchComponent";
+import SetMedia from "./generation/SetMedia";
+import SearchComponent from "./generation/SearchComponent";
+import SeoGen from './artgen/SeoGen';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Redirect from '/' to '/login' */}
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/login" element={<LogIn />} />
         <Route path="/register" element={<SignUp />} />
@@ -40,9 +40,11 @@ function App() {
         <Route path="/setting/customselect" element={<CustomSelect />} />
 
         {/* Generate Article */}
-        {/* <Route path="/check-media" element={<CheckMedia />} />
-        <Route path="/set-media" element={<SetMedia />} /> */}
-        {/* <Route path="/get-questions" element={<SearchComponent />} /> */}
+        {/* <Route path="/check-media" element={<CheckMedia />} /> */}
+        <Route path="/set-media" element={<SetMedia />} />
+        <Route path="/get-questions" element={<SearchComponent />} />
+        
+        <Route path ='/artgen/*' element = {<SeoGen/>}/>
 
 
       </Routes>
