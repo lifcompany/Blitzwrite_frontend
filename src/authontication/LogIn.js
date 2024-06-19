@@ -93,6 +93,10 @@ const Login = () => {
           backgroundImage:
             "url(https://monovm.com/dashboard/vendors/metronic/media/illustrations/dozzy-1/4.png)",
         }}
+        // style={{
+        //   backgroundImage:
+        //     "url(/images/login_bg4.png)",
+        // }}
       >
         <div className="flex flex-col items-center justify-center flex-grow p-10 pb-20">
           <div

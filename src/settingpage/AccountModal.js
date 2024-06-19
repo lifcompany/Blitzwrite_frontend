@@ -84,6 +84,7 @@ console.log(email);
         }
       );
       console.log("Response:", response.data);
+      localStorage.removeItem('accessToken');
       navigate('/')
     } catch (error) {
       console.error("Error submitting data:", error);
