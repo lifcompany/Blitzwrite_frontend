@@ -17,6 +17,7 @@ import PaymentPage from "./settingpage/PaymentPage";
 import SetMedia from "./generation/SetMedia";
 import SearchComponent from "./generation/SearchComponent";
 import SeoGen from "./artgen/SeoGen";
+import ConfirmPayment from "./settingpage/ConfirmPayment";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route path="/output" element={<Output />} />
         <Route path="/setting-site" element={<SettingSite />} />
         <Route path="/setting-payment" element={<SettingPayment />} />
+        <Route path="/confirm-payment" element={<ConfirmPayment />} />
         <Route path="/setting-test" element={<PaymentPage />} />
         <Route path="/setting-api" element={<SettingAPI />} />
         <Route path="/setting-account" element={<CreditCardModal />} />

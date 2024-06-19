@@ -16,75 +16,74 @@ const stripePromise = loadStripe(
     locale: "ja",
   }
 );
-
-const Wrapper = () => {
-  const stripe = useStripe();
-  const elements = useElements();
-  const [errorMessage, setErrorMessage] = useState(null);
-  const navigate = useNavigate();
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    if (!stripe || !elements) {
-      return;
-    }
-
-    const result = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        return_url: "http://localhost:3000/confirm-payment",
-      },
-    });
-
-    if (result.error) {
-      setErrorMessage(result.error.message);
-    } else {
-      navigate("/success");
-    }
-  };
-
-  useEffect(() => {
-    if (errorMessage) {
-      alert(errorMessage);
-    }
-  }, [errorMessage]);
-
-  return (
-    <Container maxWidth="sm" style={{ marginTop: "10px" }}>
-      <h2 className=" heading font text-[calc(2vmin)] font-semibold mt-10 mb-10">
-        クレジットカードの登録
-      </h2>
-      <form onSubmit={handleSubmit}>
-        <PaymentElement />
-        <div className="flex justify-end items-center gap-5">
-          <div className="flex items-center justify-between">
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              style={{ marginTop: "10px" }}
-              className="w-full py-2"
-              // onClick={upadte_model}
-            >
-              編集
-            </Button>
-          </div>
-          <button
-            className=" text-blue-500 roundedtransition mt-[10px]"
-            // onClick={() => handleClose()}
-          >
-            キャンセル
-          </button>
-        </div>
-      </form>
-    </Container>
-  );
-};
-
-const PaymentPage = () => {
+const PaymentPage = ({setOpen} ) => {
   const [clientSecret, setClientSecret] = useState(null);
   const navigate = useNavigate();
+
+  const Wrapper = () => {
+    const stripe = useStripe();
+    const elements = useElements();
+    const [errorMessage, setErrorMessage] = useState(null);
+    const navigate = useNavigate();
+  
+    const handleSubmit = async (event) => {
+      event.preventDefault();
+  
+      if (!stripe || !elements) {
+        return;
+      }
+  
+      const result = await stripe.confirmPayment({
+        elements,
+        confirmParams: {
+          return_url: "http://133.242.160.145:3000/confirm-payment",
+        },
+      });
+  
+      if (result.error) {
+        setErrorMessage(result.error.message);
+      } else {
+        navigate("/success");
+      }
+    };
+  
+    useEffect(() => {
+      if (errorMessage) {
+        alert(errorMessage);
+      }
+    }, [errorMessage]);
+  
+    return (
+      <Container maxWidth="sm" style={{ marginTop: "10px"}}>
+        <h2 className=" heading font text-[calc(2vmin)] font-semibold mt-10 mb-10">
+          クレジットカードの登録
+        </h2>
+        <form onSubmit={handleSubmit}>
+          <PaymentElement />
+          <div className="flex justify-end items-center gap-5">
+            <div className="flex items-center justify-between">
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                style={{ marginTop: "10px" }}
+                className="w-full py-2"
+                // onClick={upadte_model}
+              >
+                編集
+              </Button>
+            </div>
+            <button
+              className=" text-blue-500 roundedtransition mt-[10px]"
+              onClick={() => setOpen(false)}
+            >
+              キャンセル
+            </button>
+          </div>
+        </form>
+      </Container>
+    );
+  };
 
   useEffect(() => {
     if (localStorage.getItem("accessToken") == null){

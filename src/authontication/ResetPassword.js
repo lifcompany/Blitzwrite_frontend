@@ -29,7 +29,6 @@ const ResetPassword = () => {
         {
           password: password,
           confirmPassword: confirmPassword,
-          token: token,
         },
         {
           headers: {

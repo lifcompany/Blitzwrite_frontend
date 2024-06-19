@@ -19,7 +19,6 @@ import {
 import Notification from "../component/notification";
 import Error from "../component/error";
 import SettingMenu from "./SettingMenu";
-import ToastNotification from "../component/ToastNotification";
 import AccountModal from "./AccountModal";
 
 const SettingSite = () => {
@@ -34,62 +33,33 @@ const SettingSite = () => {
   const [models, setModels] = useState([]);
   const [selectedModelId, setSelectedModelId] = useState(versionId);
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState(false);
 
   function handleSelectedCategory(event) {
     setSelectedCategory(event.target.value);
   }
+
+
   const categories = [
     { slug: "gpt-3.5-turbo", title: "GPT-3.5" },
     { slug: "gpt-4", title: "GPT-4" },
   ];
-
   const apiUrl = process.env.REACT_APP_API_URL;
-
-  const get_model_list = useCallback(() => {
-    console.log(apiUrl);
-    axios
-      .get(`${apiUrl}/get_model_list`)
-      .then((response) => {
-        setModels(response.data);
-      })
-      .catch((error) => {
-        setError(error.response.data.error);
-      });
-  }, []);
-
   useEffect(() => {
   }, []);
 
-  const handleStart = () => {
-    setLoading(true);
-    setError(null);
-    console.log("Start button clicked");
-    axios
-      .post(`${apiUrl}/run_script`, { versionId })
-      .then((response) => {
-        console.log(response);
-        setLoading(false);
-        setNotification("出力が成功しました");
-      })
-      .catch((error) => {
-        setError(error.response.data.error);
-        setLoading(false);
-      });
+
+  const validateEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
   };
 
-  const handleStop = () => {
-    console.log("Start button clicked");
-    axios
-      .post(`${apiUrl}/stop_script`)
-      .then((response) => {
-        console.log(response.data);
-        setLoading(false);
-        setNotification("正常に停止しました");
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        setError(error.response.data.error);
-      });
+
+  const handleEmailChange = (event) => {
+    const value = event.target.value;
+    setEmail(value);
+    setEmailError(value && !validateEmail(value));
   };
 
   function handleSelectedModel(event) {
@@ -127,7 +97,11 @@ const SettingSite = () => {
                 inputProps={{
                   "aria-label": "Search",
                 }}
-                // onChange={handleSearchText}
+                value={email}
+                onChange={handleEmailChange}
+                error={emailError}
+                helperText={emailError ? "無効なメールアドレス" : ""}
+
                 variant="outlined"
                 InputLabelProps={{
                   shrink: true,
@@ -137,11 +111,10 @@ const SettingSite = () => {
           </div>
 
           <div className=" py-4">
-            <AccountModal/>
+            <AccountModal email={email} error={emailError}/>
           </div>
         </div>
       </div>
-      <ToastNotification/>
       <Notification content={notification} />
       <Error content={error} />
     </div>

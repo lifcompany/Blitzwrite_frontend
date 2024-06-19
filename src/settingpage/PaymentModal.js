@@ -16,7 +16,6 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 700,
   bgcolor: "background.paper",
   borderRadius: "5px",
   boxShadow: 24,
@@ -273,7 +272,7 @@ const PaymentModal = (props) => {
               </button>
             </div>
           </form> */}
-          <PaymentPage/>
+          <PaymentPage setOpen={setOpen} />
         </Box>
       </Modal>
     </div>

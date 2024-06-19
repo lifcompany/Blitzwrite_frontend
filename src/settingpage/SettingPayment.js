@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import FormControl from "@mui/material/FormControl";
 import Header from "../component/header";
-
-
 import Notification from "../component/notification";
 import Error from "../component/error";
 import SettingMenu from "./SettingMenu";
-import ToastNotification from "../component/ToastNotification";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import PaymentModal from "./PaymentModal";
 
@@ -15,10 +13,27 @@ const SettingPayment = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [notification, setNotification] = useState("");
+  const [cardInfo, setCardInfo] = useState(null);
 
   useEffect(() => {
+    const apiUrl = process.env.REACT_APP_API_URL;
+    // Fetch user's card information from backend API
+    const fetchCardInfo = async () => {
+      try {
+        const response = await axios.get(`${apiUrl}/api/setting/get-user-card-info/`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        });
+        setCardInfo(response.data);
+      } catch (error) {
+        console.error("Error fetching card info:", error);
+        setError("カード情報を取得できませんでした。");
+      }
+    };
 
-  },);
+    fetchCardInfo();
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -37,7 +52,14 @@ const SettingPayment = () => {
           <div className="mt-5">
             <form noValidate autoComplete="off">
               <FormControl sx={{ width: "25ch" }}>
-                <OutlinedInput placeholder="支払い情報がありません" />
+              <OutlinedInput
+                value={
+                  cardInfo
+                    ? `${cardInfo.card_brand} ending in ${cardInfo.card_last4} (Exp: ${cardInfo.card_exp_month}/${cardInfo.card_exp_year})`
+                    : "支払い情報がありません"
+                }
+                disabled
+              />
               </FormControl>
             </form>
           </div>
@@ -47,7 +69,6 @@ const SettingPayment = () => {
           </div>
         </div>
       </div>
-      <ToastNotification />
       <Notification content={notification} />
       <Error content={error} />
     </div>

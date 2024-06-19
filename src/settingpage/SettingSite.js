@@ -9,7 +9,6 @@ import { setSiteNameSlice } from "../features/common/SiteSlice";
 import Notification from "../component/notification";
 import Error from "../component/error";
 import SettingMenu from "./SettingMenu";
-import ToastNotification from "../component/ToastNotification";
 import Header from "../component/header";
 
 const SettingSite = () => {
@@ -156,7 +155,6 @@ const SettingSite = () => {
           </div>
         </div>
       </div>
-      <ToastNotification />
       <Notification content={notification} />
       <Error content={error} />
     </div>

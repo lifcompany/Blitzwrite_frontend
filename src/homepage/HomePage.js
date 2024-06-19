@@ -156,7 +156,6 @@ const HomePage = () => {
         Display Name : {displayName}
         <br />
         View_model : {versionName} <br />
-        Id : {versionId}
       </h5>
       <Notification content={notification} />
       <Error content={error} />

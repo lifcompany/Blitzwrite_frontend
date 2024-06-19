@@ -26,15 +26,22 @@ const style = {
 
 const AccountModal = (props) => {
   const apiUrl = process.env.REACT_APP_API_URL;
-  const editversionID = props.editversionID;
+  const email = props.email;
+  const error = props.error;
   const [open, setOpen] = useState(false);
-  const [displayName, setDisplayName] = useState("");
-  const [modelName, setModelName] = useState("");
-  const [endpoint, setEndpoint] = useState("");
-  const [parameters, setParameters] = useState("");
   const navigate = useNavigate();
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = () => {
+    console.log(email, error);
+    if (email !== "" && error==false) {
+      setOpen(true);
+    } else {
+      console.log("ok");
+    }
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const [checkedItems, setCheckedItems] = useState({
     item1: false,
@@ -44,6 +51,14 @@ const AccountModal = (props) => {
     item5: false,
   });
 
+console.log(email);
+ 
+  useEffect(() => {
+    if (email === "" || error==true) {
+    } else {
+    }
+  }, [email]);
+
   const handleChange = (event) => {
     setCheckedItems({
       ...checkedItems,
@@ -52,41 +67,26 @@ const AccountModal = (props) => {
   };
 
   const handleSubmit = async () => {
+    const token = localStorage.getItem("accessToken");
+    console.log("token", token);
     console.log(checkedItems);
     try {
       const response = await axios.post(
-        "https://your-backend-api.com/submit",
-        checkedItems
+        `${apiUrl}/api/authentication/delete_account/`, 
+        {
+          email: email,
+        },
+        {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          }
+        }
       );
       console.log("Response:", response.data);
       navigate('/')
     } catch (error) {
       console.error("Error submitting data:", error);
-    }
-  };
-
-  const version_data = {
-    display_name: displayName,
-    model_name: modelName,
-    endpoint: endpoint,
-    params: parameters,
-    editversionID: editversionID,
-  };
-
-  const add_new_version = () => {
-    if (version_data.display_name === "" || version_data.model_name === "") {
-      console.log("Display name and model name must be provided.");
-      return;
-    } else {
-      axios
-        .post(`${apiUrl}/add_new_version`, version_data)
-        .then((response) => {
-          props.setIsTriggered();
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
     }
   };
   return (
@@ -197,7 +197,7 @@ const AccountModal = (props) => {
             </div>
             <button
               className=" text-blue-500 roundedtransition"
-              onClick={() => navigate("/")}
+              onClick={() => handleClose()}
             >
               キャンセル
             </button>

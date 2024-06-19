@@ -70,10 +70,9 @@ const Login = () => {
       })
       .then((response) => {
         const data = response.data;
-        const accessToken = data.accessToken;
+        const accessToken = data.result.token;
         setToken(accessToken);
         localStorage.setItem("accessToken", accessToken);
-        console.log(localStorage.getItem("accessToken"));
         navigate("/home");
       })
       .catch((error) => {
