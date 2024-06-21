@@ -23,8 +23,6 @@ const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [validPassword, setValidPassword] = useState(true);
   const [email, setEmail] = useState("");
-  
-//   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
 
