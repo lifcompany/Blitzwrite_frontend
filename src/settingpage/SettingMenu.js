@@ -4,7 +4,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import CreditScoreOutlinedIcon from "@mui/icons-material/CreditScoreOutlined";
@@ -13,7 +13,6 @@ import ApiOutlinedIcon from "@mui/icons-material/ApiOutlined";
 
 function SettingMenu(props) {
   const user = { displayName: "Santa", role: "User", photoURL: "" };
-  const navigate = useNavigate();
   const [settingMenu, setSettingMenu] = useState(null);
 
   const settingMenuClick = (event) => {
@@ -22,9 +21,6 @@ function SettingMenu(props) {
 
   const settingMenuClose = () => {
     setSettingMenu(null);
-  };
-  const handleLogout = () => {
-    navigate("/sign-out");
   };
   return (
     <>

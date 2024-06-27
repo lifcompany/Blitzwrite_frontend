@@ -4,15 +4,12 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuItem from "@mui/material/MenuItem";
 import Popover from "@mui/material/Popover";
-import Typography from "@mui/material/Typography";
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SettingsIcon from "@mui/icons-material/Settings";
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import NoAccountsIcon from '@mui/icons-material/NoAccounts';
 // import { selectUser } from 'app/store/userSlice';
 
 function UserMenu(props) {
