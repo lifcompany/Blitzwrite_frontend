@@ -7,7 +7,7 @@ const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
-  const apiUrl = "http://133.242.160.145:8000/api/authentication/forget-password/";
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,7 +15,7 @@ const ForgotPassword = () => {
     setError("");
 
     try {
-      const response = await axios.post(apiUrl, { email });
+      const response = await axios.post(`${apiUrl}/api/authentication/forget-password/`, { email });
 
       if (response.status === 201) {
         setMessage("認証リンクが送信されました。");

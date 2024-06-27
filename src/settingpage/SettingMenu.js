@@ -4,16 +4,15 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import LogoutIcon from "@mui/icons-material/Logout";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import CreditScoreOutlinedIcon from "@mui/icons-material/CreditScoreOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ApiOutlinedIcon from "@mui/icons-material/ApiOutlined";
 
 function SettingMenu(props) {
-  const user = { displayName: "白石昌之", role: "User", photoURL: "" };
+  const user = { displayName: "Santa", role: "User", photoURL: "" };
   const navigate = useNavigate();
   const [settingMenu, setSettingMenu] = useState(null);
 

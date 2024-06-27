@@ -17,7 +17,7 @@ import NoAccountsIcon from '@mui/icons-material/NoAccounts';
 
 function UserMenu(props) {
   //   const user = useSelector(selectUser);
-  const user = { displayName: "白石昌之", role: "User", photoURL: "" };
+  const user = { displayName: "Santa", role: "User", photoURL: "" };
   const navigate = useNavigate();
   const [userMenu, setUserMenu] = useState(null);
 

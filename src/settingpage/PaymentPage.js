@@ -25,7 +25,6 @@ const PaymentPage = ({setOpen} ) => {
     const elements = useElements();
     const [errorMessage, setErrorMessage] = useState(null);
     const navigate = useNavigate();
-  
     const handleSubmit = async (event) => {
       event.preventDefault();
   
@@ -36,7 +35,7 @@ const PaymentPage = ({setOpen} ) => {
       const result = await stripe.confirmPayment({
         elements,
         confirmParams: {
-          return_url: "http://133.242.160.145:3000/confirm-payment",
+          return_url: `${process.env.PUBLIC_URL}/confirm-payment`,
         },
       });
   
