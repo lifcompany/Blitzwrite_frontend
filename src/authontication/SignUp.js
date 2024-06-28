@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Button from "@mui/material/Button";
 import { InputAdornment, IconButton, TextField } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import Error from "../component/error";
+// import Notification from "../component/notification";
 
 const handleLogin = () => {
     
@@ -17,14 +17,18 @@ const handleLogin = () => {
   });
 };
 
-const SignUp = () => {
+const SignUp = (props) => {
   const navigate = useNavigate(); // Hook to get the navigate function
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [validPassword, setValidPassword] = useState(true);
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  // const [notification, setNotification] = useState("");
+
   const [rememberMe, setRememberMe] = useState(false);
+
+  const SetNotification = props.SetNotification;
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
 
@@ -56,7 +60,7 @@ const SignUp = () => {
     // Email validation
     const emailRegex = /\S+@\S+\.\S+/;
     if (!emailRegex.test(email)) {
-      setError("Please enter a valid email address.");
+      setError("有効なメールアドレスを入力してください。");
       return false;
     }
 
@@ -94,14 +98,15 @@ const SignUp = () => {
       axios
         .post(`${apiUrl}/api/authentication/register/`, signup_data)
         .then((response) => {
-          console.log("Server response:", response.data);
+          console.log("Server response:", response.data["success"]);
           navigate("/login");
+          SetNotification(response.data["success"]);
         })
         .catch((error) => {
           setError(error.response.data.error);
         });
     } else {
-      setError("Form is invalid. Showing error...");
+      setError("フォームが無効です。エラーが表示されています...");
     }
   };
 

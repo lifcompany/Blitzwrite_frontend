@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "./homepage/HomePage";
 import Output from "./output/output";
@@ -19,7 +20,9 @@ import SearchComponent from "./generation/SearchComponent";
 import SeoGen from "./artgen/SeoGen";
 import ConfirmPayment from "./settingpage/ConfirmPayment";
 
+
 function App() {
+  const [notification, SetNotification] =  useState("");
   return (
     <BrowserRouter>
       <Routes>
@@ -28,8 +31,8 @@ function App() {
           : <Route path="/login" element={<LogIn />} />
         } */}
         <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="/login" element={<LogIn />} />
-        <Route path="/register" element={<SignUp />} />
+        <Route path="/login" element={<LogIn content={notification}/>} />
+        <Route path="/register" element={<SignUp SetNotification={SetNotification} />} />
         <Route path="/mail-verify" element={<EmailVerification />} />
         <Route path="/forgot_password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />

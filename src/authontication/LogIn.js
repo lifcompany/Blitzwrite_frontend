@@ -4,13 +4,17 @@ import axios from "axios";
 import { InputAdornment, IconButton, TextField } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import Error from "../component/error";
-const Login = () => {
+import Notification from "../component/notification";
+
+const Login = (props) => {
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [token, setToken] = useState("");
   const [error, setError] = useState("");
+
+  const content = props.content ? props.content : "";
 
   const handleLogin = () => {
     // Handle login with Google
@@ -223,6 +227,7 @@ const Login = () => {
         </div>
       </div>
       <Error content={error} />
+      <Notification content={content} />
     </div>
   );
 };
