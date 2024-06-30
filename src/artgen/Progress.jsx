@@ -9,6 +9,12 @@ const Progress = () => {
   const [error, setError] = useState("");
   const [notification, setNotification] = useState("");
 
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+    setError("");
+  },[])
+
   useEffect(() => {
     const interval = setInterval(() => {
       if (progress < 100) {
@@ -24,9 +30,9 @@ const Progress = () => {
     }, 50);
 
     return () => clearInterval(interval);
-  }, [progress]);
+  }, [navigate, progress]);
 
-  const navigate = useNavigate();
+ 
 
   return (
     <div className="min-h-screen flex flex-col">
