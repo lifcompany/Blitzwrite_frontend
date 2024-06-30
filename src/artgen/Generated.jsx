@@ -65,7 +65,6 @@ const Generated = () => {
                 label="Antoine Llorca"
               />
             </FormGroup>
-            <FormHelperText>Be careful</FormHelperText>
           </FormControl>
         </div>
         <div className="w-full mt-8">
