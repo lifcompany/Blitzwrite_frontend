@@ -24,21 +24,43 @@ const SettingSite = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
-
+    const token = localStorage.getItem("accessToken");
+    axios
+      .get(`${apiUrl}/api/setting/get_site/`, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setSiteName(response.data.site_data[1]["site_name"]);
+        setSiteUrl(response.data.site_data[1]["site_url"]);
+        setAdminName(response.data.site_data[1]["admin_pass"]);
+        setAdminPass(response.data.site_data[1]["admin_name"]);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setError(error.response.data.error);
+        setLoading(false);
+      });
   }, []);
-
-  const site_data = {
-    site_name: siteName,
-    site_url: siteUrl,
-    admin_name: adminName,
-    admin_pass: adminPass,
-  };
-  const token = localStorage.getItem("accessToken");
 
   const registerSite = () => {
     dispatch(setSiteNameSlice(siteName));
     setLoading(true);
     setError(null);
+
+    const site_data = {
+      site_name: siteName,
+      site_url: siteUrl,
+      admin_name: adminName,
+      admin_pass: adminPass,
+    };
+
+    const token = localStorage.getItem("accessToken");
+
+    console.log(site_data);
     axios
       .post(`${apiUrl}/api/setting/set_site/`, site_data, {
         headers: {
@@ -122,6 +144,7 @@ const SettingSite = () => {
               />
               <TextField
                 label="サイトのログインパスワード"
+                type="password"
                 placeholder="ログインパスワード"
                 className="flex w-full sm:w-256 mx-8 my-10"
                 value={adminPass}
