@@ -28,7 +28,7 @@ const Header = () => {
   };
   return (
     <header>
-      <nav className="flex justify-between items-center bg-gray-200 h-20 border-b-2 border-gray-200 px-20">
+      <nav className="flex justify-between items-center bg-gray-100 h-20 px-20">
         <div className="flex items-center gap-7">
           <h1 className="text-2xl font-bold  flex-1">
             <Link to="/home" className="text-2xl mb-5 font-bold">
@@ -66,9 +66,9 @@ const Header = () => {
             </a>
           </div>
         </div>
-        <div className="flex items-center gap-7">
+        <div className="flex items-center gap-7 rounded-full">
           <div>
-            <UserMenu />
+            <UserMenu/>
             <Menu
               id="account-menu"
               anchorEl={anchorEl}

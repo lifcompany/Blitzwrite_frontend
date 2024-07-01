@@ -31,7 +31,12 @@ function UserMenu(props) {
   return (
     <>
       <Button
-        className=" min-h-14 min-w-14 px-0 md:px-4 py-0 md:py-2"
+        className=" min-h-14 min-w-14 px-0 md:px-4 py-0 md:py-2 bg-white"
+        sx={{
+        borderRadius: '90px',
+        backgroundColor: 'white',
+        border: '2px solid #E9EAEA',
+      }}
         onClick={userMenuClick}
         color="inherit"
       >
