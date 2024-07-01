@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import TextField from "@mui/material/TextField";
@@ -13,16 +13,19 @@ import Header from "../component/header";
 
 const SettingSite = () => {
   const dispatch = useDispatch();
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [notification, setNotification] = useState("");
-  const [siteName, setSiteName] = useState('');
-  const [siteUrl, setSiteUrl] = useState('');
-  const [adminName, setAdminName] = useState('');
-  const [adminPass, setAdminPass] = useState('');
+  const [siteName, setSiteName] = useState("");
+  const [siteUrl, setSiteUrl] = useState("");
+  const [adminName, setAdminName] = useState("");
+  const [adminPass, setAdminPass] = useState("");
 
   const apiUrl = process.env.REACT_APP_API_URL;
+
+  useEffect(() => {
+
+  }, []);
 
   const site_data = {
     site_name: siteName,
@@ -30,13 +33,19 @@ const SettingSite = () => {
     admin_name: adminName,
     admin_pass: adminPass,
   };
+  const token = localStorage.getItem("accessToken");
 
   const registerSite = () => {
     dispatch(setSiteNameSlice(siteName));
     setLoading(true);
     setError(null);
     axios
-      .post(`${apiUrl}/api/setting/set_site/`, site_data)
+      .post(`${apiUrl}/api/setting/set_site/`, site_data, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => {
         setLoading(false);
         setNotification("サイト連携が完了しました");
