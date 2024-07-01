@@ -20,8 +20,10 @@ const SetKwd = () => {
         .map((keyword) => {
           const fakeButtons = [];
           for (let i = 1; i <= 5; i++) {
-            fakeButtons.push(`${keyword} ${i}`);
+            fakeButtons.push(`${keyword}${i}`);
           }
+
+          console.log(fakeButtons);
           return fakeButtons;
         })
         .flat();
