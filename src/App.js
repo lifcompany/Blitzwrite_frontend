@@ -20,6 +20,7 @@ import ConfirmPayment from "./component/setting/payment/ConfirmPayment";
 import SettingPayment from "./settingpage/SettingPayment";
 import CreditCardModal from "./settingpage/SettingAccount";
 import PaymentPage from "./component/setting/payment/PaymentBox";
+import ClientErrorPage from "./page/error/ClientErrorPage";
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
         <Route path="/setting/customselect" element={<CustomSelect />} />
         <Route path="/get-keyword" element={<SearchKeyword />} />
         <Route path="/artgen/*" element={<GenRouter />} />
+        <Route path="/*" element={<ClientErrorPage />} />
       </Routes>
     </BrowserRouter>
   );

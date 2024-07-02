@@ -35,11 +35,11 @@ const Header = () => {
               <img src={`${process.env.PUBLIC_URL}/images/logo.svg`} className="h-10" alt="Logo" />
             </Link>
           </h1>
-          <div className="navbar flex items-center">
+          <div className="navbar flex items-center ml-5">
             {selectedSiteName ? (
               <button
                 onClick={() => navigate("/output")}
-                className="flex justify-center items-center gap-1 mr-4 p-2 bg-white rounded-md hover:bg-gray-200 text-gray-700 hover:text-gray-700 "
+                className="flex justify-center items-center gap-1 mr-4 py-2 px-4 border-2 border-gray-300 rounded-full hover:bg-gray-200 text-[#232E2F] hover:text-[#232E2F] font-bold"
               >
                 <WebOutlinedIcon />
                 {selectedSiteName}
@@ -50,15 +50,15 @@ const Header = () => {
 
             <button
               onClick={() => navigate("/artgen")}
-              className=" flex justify-center items-center gap-1 mr-4 p-2 bg-white rounded-md hover:bg-gray-200 text-gray-700 hover:text-gray-700  "
+              className=" flex justify-center items-center gap-1 mr-4 p-2 rounded-md hover:bg-gray-200 text-[#232E2F] hover:text-[#232E2F] font-bold "
             >
-              <MdEditDocument />
+              <MdEditDocument/>
               作成
             </button>
             <a
               href="https://docs.google.com/spreadsheets/d/1KBuz0tSocys6kA0en05gIjLO9U_ZUMWhVIK8ySZ8nXU/edit#gid=1894772142"
               target="_blank"
-              className=" flex justify-center items-center gap-1 mr-4 p-2 bg-white rounded-md hover:bg-gray-200 text-gray-700 hover:text-gray-700 "
+              className=" flex justify-center items-center gap-1 mr-4 p-2 bg-white rounded-md hover:bg-gray-200 text-[#232E2F] hover:text-[#232E2F] font-bold"
               rel="noopener noreferrer"
             >
               <MdOutlineArticle />

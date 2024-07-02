@@ -14,8 +14,6 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response && error.response.status === 401) {
-      // Redirect to the login page
-      // Optionally, you can clear the token from localStorage or any other state
       localStorage.removeItem("accessToken");
       window.location.href = "/login";
     }
