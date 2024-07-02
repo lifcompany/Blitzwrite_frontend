@@ -1,24 +1,26 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import HomePage from "./page/home/HomePage";
-import Output from "./page/output/output";
-import CustomSelect from "./settingpage/CustomSelect";
+
 import LogIn from "./authontication/LogIn";
 import SignUp from "./authontication/SignUp";
 import ForgotPassword from "./authontication/ForgotPassword";
 import ResetPassword from "./authontication/ResetPassword";
 import EmailVerification from "./authontication/EmailVerification";
 import SignOutPage from "./authontication/SignOutPage";
+
+import HomePage from "./page/home/HomePage";
+import Output from "./page/output/output";
+import SetMedia from "./page/generation/SetMedia";
+import SearchComponent from "./page/generation/SearchComponent";
+
 import SettingSite from "./settingpage/SettingSite";
+import CustomSelect from "./settingpage/CustomSelect";
 import SettingAPI from "./settingpage/SettingAPI";
+import ConfirmPayment from "./settingpage/ConfirmPayment";
 import SettingPayment from "./settingpage/SettingPayment";
 import CreditCardModal from "./settingpage/SettingAccount";
 import PaymentPage from "./settingpage/PaymentPage";
-// import CheckMedia from "./generation/CheckMedia";
-import SetMedia from "./page/generation/SetMedia";
-import SearchComponent from "./page/generation/SearchComponent";
 import SeoGen from "./artgen/SeoGen";
-import ConfirmPayment from "./settingpage/ConfirmPayment";
 
 
 function App() {
@@ -26,10 +28,6 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* {isAuthenticated() 
-          ? <Route path="/login" element={<Navigate to="/home" />} />
-          : <Route path="/login" element={<LogIn />} />
-        } */}
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/login" element={<LogIn content={notification}/>} />
         <Route path="/register" element={<SignUp SetNotification={SetNotification} />} />
@@ -45,10 +43,7 @@ function App() {
         <Route path="/setting-test" element={<PaymentPage />} />
         <Route path="/setting-api" element={<SettingAPI />} />
         <Route path="/setting-account" element={<CreditCardModal />} />
-        {/* <Route path="/setting-account-delete" element={<Account />} /> */}
         <Route path="/setting/customselect" element={<CustomSelect />} />
-        {/* Generate Article */}
-        {/* <Route path="/check-media" element={<CheckMedia />} /> */}
         <Route path="/set-media" element={<SetMedia />} />
         <Route path="/get-questions" element={<SearchComponent />} />
         <Route path="/artgen/*" element={<SeoGen />} />

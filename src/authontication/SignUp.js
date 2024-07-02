@@ -215,7 +215,7 @@ const SignUp = (props) => {
         </div>
         <div className="flex items-center justify-center py-2">
           <div className="flex space-x-4 text-sm font-semibold text-gray-700">
-            <a href="#" className="hover:text-blue-500">
+            <a href="/" className="hover:text-blue-500">
               Copyright © 2024{" "}
             </a>
           </div>

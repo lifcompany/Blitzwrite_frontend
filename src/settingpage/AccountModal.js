@@ -40,7 +40,7 @@ const AccountModal = (props) => {
   const navigate = useNavigate();
   const handleOpen = () => {
     console.log(email, error_status);
-    if (email !== "" && error_status==false) {
+    if (email !== "" && error_status===false) {
       setOpen(true);
     } else {
       console.log("ok");
@@ -63,7 +63,7 @@ const AccountModal = (props) => {
     if (email === "" || error_status === true) {
     } else {
     }
-  }, [email]);
+  }, [email, error_status]);
 
   const handleChange = (event) => {
     setCheckedItems({
