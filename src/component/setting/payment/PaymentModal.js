@@ -6,11 +6,7 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
-import visaLogo from "../../src/assets/visa.png"; // Add your card images in assets
-import mastercardLogo from "../../src/assets/mastercard.png";
-import jcbLogo from "../../src/assets/amex.png";
-import amexLogo from "../../src/assets/jcb.png";
-import PaymentPage from "./PaymentPage";
+import PaymentBox from "./PaymentBox";
 const style = {
   position: "absolute",
   top: "50%",
@@ -272,7 +268,7 @@ const PaymentModal = (props) => {
               </button>
             </div>
           </form> */}
-          <PaymentPage setOpen={setOpen} />
+          <PaymentBox setOpen={setOpen} />
         </Box>
       </Modal>
     </div>

@@ -16,7 +16,7 @@ const stripePromise = loadStripe(
     locale: "ja",
   }
 );
-const PaymentPage = ({setOpen} ) => {
+const PaymentBox = ({setOpen} ) => {
   const [clientSecret, setClientSecret] = useState(null);
   const navigate = useNavigate();
 
@@ -126,4 +126,4 @@ const PaymentPage = ({setOpen} ) => {
   );
 };
 
-export default PaymentPage;
+export default PaymentBox;

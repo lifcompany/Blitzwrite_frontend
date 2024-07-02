@@ -18,8 +18,8 @@ import {
 } from "../features/common/VersionSlice";
 import Notification from "../component/common/notification";
 import Error from "../component/common/error";
-import SettingMenu from "../component/setting/SettingMenu";
-import AccountModal from "./AccountModal";
+import SettingMenu from "../component/common/SettingMenu";
+import AccountModal from "../component/setting/account/AccountModal";
 
 const SettingSite = () => {
   const versionId = useSelector((state) => state.version.versionId);

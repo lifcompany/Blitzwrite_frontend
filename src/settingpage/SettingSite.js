@@ -9,7 +9,7 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { setSiteNameSlice } from "../features/common/SiteSlice";
 import Notification from "../component/common/notification";
 import Error from "../component/common/error";
-import SettingMenu from "../component/setting/SettingMenu";
+import SettingMenu from "../component/common/SettingMenu";
 import Header from "../component/common/header";
 import api from "../api";
 

@@ -12,8 +12,8 @@ import {
   FormLabel,
 } from "@mui/material";
 import axios from "axios";
-import Notification from "../component/common/notification";
-import Error from "../component/common/error";
+import Notification from "../../common/notification";
+import Error from "../../common/error";
 
 
 

@@ -2,8 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Notification from "../component/common/notification";
-import Error from "../component/common/error";
+import Notification from "../../common/notification";
+import Error from "../../common/error";
 const ConfirmPayment = () => {
   const location = useLocation();
   const navigate = useNavigate();

@@ -1,10 +1,9 @@
-// src/EditModel.js
+// src/EditModal.js
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, Modal, TextField } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
-import Notification from "../component/common/notification";
+import Notification from "../../common/notification";
 
 const style = {
   position: "absolute",
@@ -18,9 +17,9 @@ const style = {
   p: 4,
 };
 
-const EditModel = (props) => {
+const AddModel = (props) => {
   const apiUrl = process.env.REACT_APP_API_URL;
-  const editModalName = props.model_name;
+  const editversionID = props.editversionID;
   const [open, setOpen] = useState(false);
   const [modelName, setModelName] = useState("");
   const [endpoint, setEndpoint] = useState("");
@@ -28,26 +27,31 @@ const EditModel = (props) => {
   const [notification, setNotification] = useState("");
 
   const navigate = useNavigate();
+  const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+
   const model_data = {
     model_name: modelName,
     endpoint: endpoint,
     params: parameters,
+    editversionID: editversionID,
   };
-  const upadte_model = () => {
+  const add_new_version = () => {
     if (model_data.model_name === "") {
       console.log("Model name must be provided.");
       return;
     } else {
       axios
-        .post(`${apiUrl}/api/setting/update_model/`, model_data)
+        .post(`${apiUrl}/api/setting/add_new_version/`, model_data)
         .then((response) => {
           // props.setIsTriggered();
           console.log(response.data.message);
-          setNotification("モデルを更新しました");
+          setNotification("モデルを追加しました");
           setTimeout(() => {
             handleClose();
           }, 500);
+
         })
         .catch((error) => {
           console.error("Error:", error);
@@ -55,11 +59,11 @@ const EditModel = (props) => {
     }
   };
 
-  const handleOpen = () => {
-    setOpen(true);
+  useEffect(() => {
+    console.log("ddd:", editversionID);
     axios
       .post(`${apiUrl}/api/setting/get_edit_version/`, {
-        editModalName: editModalName,
+        editversionID: editversionID,
       })
       .then((response) => {
         setModelName(response.data["model_name"]);
@@ -72,16 +76,32 @@ const EditModel = (props) => {
         setEndpoint("");
         setParameters("");
       });
-  };
-
-  useEffect(() => {}, [editModalName]);
+  }, [editversionID]);
 
   return (
-    <div className=" p-1">
-      <EditIcon
-        className="text-gray-600 hover:text-gray-900 cursor-pointer mr-8 ml-5"
+    <div className=" p-6">
+      <Button
+        variant="contained"
         onClick={() => handleOpen()}
-      />
+        sx={{
+          backgroundColor: "#0F1740",
+          color: "white",
+          fontWeight: "bold",
+          paddingY: 2,
+          paddingLeft: 4,
+          paddingRight: 4,
+          borderRadius: "lg",
+          "&:hover": {
+            backgroundColor: "#22294e",
+          },
+          "&:focus": {
+            outline: "none",
+            backgroundColor: "#0e1225",
+          },
+        }}
+      >
+        モデルを追加
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -90,7 +110,7 @@ const EditModel = (props) => {
       >
         <Box sx={style}>
           <h2 className=" heading font text-[calc(2vmin)] font-semibold mt-10 mb-10">
-            モデルの編集
+            モデルの追加
           </h2>
           <div className="mb-4">
             <TextField
@@ -147,17 +167,18 @@ const EditModel = (props) => {
             />
           </div>
           <div className="flex justify-end items-center gap-5">
-            <div className="flex items-center justify-between">
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                className="w-full py-2"
-                onClick={upadte_model}
-              >
-                編集
-              </Button>
-            </div>
+
+              <div className="flex items-center justify-between">
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  className="w-full py-2"
+                  onClick={add_new_version}
+                >
+                  追加
+                </Button>
+              </div>          
             <button
               className=" text-blue-500 roundedtransition"
               onClick={() => handleClose()}
@@ -172,4 +193,4 @@ const EditModel = (props) => {
   );
 };
 
-export default EditModel;
+export default AddModel;

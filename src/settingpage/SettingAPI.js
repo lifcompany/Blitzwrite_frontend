@@ -14,8 +14,8 @@ import {
 } from "../features/common/VersionSlice";
 import Notification from "../component/common/notification";
 import Error from "../component/common/error";
-import SettingMenu from "../component/setting/SettingMenu";
-import CurrentVersion from "./CurrentVersion";
+import SettingMenu from "../component/common/SettingMenu";
+import CurrentVersion from "../component/setting/site/CurrentVersion";
 import { useNavigate } from 'react-router-dom';
 
 const SettingAPI = () => {

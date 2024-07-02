@@ -4,9 +4,9 @@ import FormControl from "@mui/material/FormControl";
 import Header from "../component/common/header";
 import Notification from "../component/common/notification";
 import Error from "../component/common/error";
-import SettingMenu from "../component/setting/SettingMenu";
+import SettingMenu from "../component/common/SettingMenu";
 import OutlinedInput from "@mui/material/OutlinedInput";
-import PaymentModal from "./PaymentModal";
+import PaymentModal from "../component/setting/payment/PaymentModal";
 
 const SettingPayment = () => {
 

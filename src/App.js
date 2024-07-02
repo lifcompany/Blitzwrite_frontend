@@ -14,12 +14,12 @@ import GenRouter from "./page/artgen/GenRouter";
 import SearchKeyword from "./page/kwdsuggestion/SearchKeyword";
 
 import SettingSite from "./settingpage/SettingSite";
-import CustomSelect from "./settingpage/CustomSelect";
+import CustomSelect from "./component/setting/site/CustomSelect";
 import SettingAPI from "./settingpage/SettingAPI";
-import ConfirmPayment from "./settingpage/ConfirmPayment";
+import ConfirmPayment from "./component/setting/payment/ConfirmPayment";
 import SettingPayment from "./settingpage/SettingPayment";
 import CreditCardModal from "./settingpage/SettingAccount";
-import PaymentPage from "./settingpage/PaymentPage";
+import PaymentPage from "./component/setting/payment/PaymentBox";
 
 
 function App() {
