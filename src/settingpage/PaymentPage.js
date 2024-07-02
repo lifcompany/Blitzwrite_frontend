@@ -40,10 +40,8 @@ const PaymentPage = ({setOpen} ) => {
       });
       if (result.error) {
       console.log(result);
-
         setErrorMessage(result.error.message);
       } else {
-        console.log("payment_ssssssssssssssssssssssss");
         navigate("/success");
       }
     };
