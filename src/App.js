@@ -14,7 +14,7 @@ import GenRouter from "./page/artgen/GenRouter";
 import SearchKeyword from "./page/kwdsuggestion/SearchKeyword";
 
 import SettingSite from "./settingpage/SettingSite";
-import CustomSelect from "./component/setting/site/CustomSelect";
+import CustomSelect from "./component/setting/chatgpt/CustomSelect";
 import SettingAPI from "./settingpage/SettingAPI";
 import ConfirmPayment from "./component/setting/payment/ConfirmPayment";
 import SettingPayment from "./settingpage/SettingPayment";

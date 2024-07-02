@@ -15,7 +15,7 @@ import {
 import Notification from "../component/common/notification";
 import Error from "../component/common/error";
 import SettingMenu from "../component/common/SettingMenu";
-import CurrentVersion from "../component/setting/site/CurrentVersion";
+import CurrentVersion from "../component/setting/chatgpt/CurrentVersion";
 import { useNavigate } from 'react-router-dom';
 
 const SettingAPI = () => {
