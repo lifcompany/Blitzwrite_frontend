@@ -6,7 +6,7 @@ import Generated from "./Generated";
 import CheckKwd from "./CheckKwd";
 
 
-const SeoGen = () => {
+const GenRouter = () => {
   return (
     <Routes>
       <Route path="/" element={<CheckKwd />} />
@@ -17,4 +17,4 @@ const SeoGen = () => {
   );
 };
 
-export default SeoGen;
+export default GenRouter;

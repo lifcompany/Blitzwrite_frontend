@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../component/common/header";
+import Header from "../../component/common/header";
 import FormControl from "@mui/material/FormControl";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";

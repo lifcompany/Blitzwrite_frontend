@@ -12,6 +12,7 @@ import HomePage from "./page/home/HomePage";
 import Output from "./page/output/output";
 import SetMedia from "./page/generation/SetMedia";
 import SearchComponent from "./page/generation/SearchComponent";
+import GenRouter from "./page/artgen/GenRouter";
 
 import SettingSite from "./settingpage/SettingSite";
 import CustomSelect from "./settingpage/CustomSelect";
@@ -20,7 +21,6 @@ import ConfirmPayment from "./settingpage/ConfirmPayment";
 import SettingPayment from "./settingpage/SettingPayment";
 import CreditCardModal from "./settingpage/SettingAccount";
 import PaymentPage from "./settingpage/PaymentPage";
-import SeoGen from "./artgen/SeoGen";
 
 
 function App() {
@@ -46,7 +46,7 @@ function App() {
         <Route path="/setting/customselect" element={<CustomSelect />} />
         <Route path="/set-media" element={<SetMedia />} />
         <Route path="/get-questions" element={<SearchComponent />} />
-        <Route path="/artgen/*" element={<SeoGen />} />
+        <Route path="/artgen/*" element={<GenRouter />} />
       </Routes>
     </BrowserRouter>
   );

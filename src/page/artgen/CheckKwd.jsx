@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../component/common/header";
+import Header from "../../component/common/header";
 
 const CheckKwd = () => {
   return (
