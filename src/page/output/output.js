@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Header from "../component/header";
+import Header from "../../component/common/header";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import BrowserUpdatedIcon from "@mui/icons-material/BrowserUpdated";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import Notification from "../component/notification";
-import Error from "../component/error";
+import Notification from "../../component/common/notification";
+import Error from "../../component/common/error";
 const Output = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);

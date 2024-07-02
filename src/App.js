@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import HomePage from "./homepage/HomePage";
-import Output from "./output/output";
+import HomePage from "./page/home/HomePage";
+import Output from "./page/output/output";
 import CustomSelect from "./settingpage/CustomSelect";
 import LogIn from "./authontication/LogIn";
 import SignUp from "./authontication/SignUp";
@@ -15,8 +15,8 @@ import SettingPayment from "./settingpage/SettingPayment";
 import CreditCardModal from "./settingpage/SettingAccount";
 import PaymentPage from "./settingpage/PaymentPage";
 // import CheckMedia from "./generation/CheckMedia";
-import SetMedia from "./generation/SetMedia";
-import SearchComponent from "./generation/SearchComponent";
+import SetMedia from "./page/generation/SetMedia";
+import SearchComponent from "./page/generation/SearchComponent";
 import SeoGen from "./artgen/SeoGen";
 import ConfirmPayment from "./settingpage/ConfirmPayment";
 

@@ -7,7 +7,7 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import Header from "../component/header";
+import Header from "../component/common/header";
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 import { useDispatch, useSelector } from "react-redux";
@@ -16,9 +16,9 @@ import {
   setVersionName,
   setDisplayName,
 } from "../features/common/VersionSlice";
-import Notification from "../component/notification";
-import Error from "../component/error";
-import SettingMenu from "./SettingMenu";
+import Notification from "../component/common/notification";
+import Error from "../component/common/error";
+import SettingMenu from "../component/setting/SettingMenu";
 import AccountModal from "./AccountModal";
 
 const SettingSite = () => {

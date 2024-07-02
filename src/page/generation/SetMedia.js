@@ -3,9 +3,9 @@ import axios from "axios";
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
-import Header from "../component/header";
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
+import Header from "../../component/common/header";
 
 const SetMedia = () => {
   const [showClearIcon, setShowClearIcon] = useState("none");

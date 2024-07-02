@@ -7,10 +7,10 @@ import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { setSiteNameSlice } from "../features/common/SiteSlice";
-import Notification from "../component/notification";
-import Error from "../component/error";
-import SettingMenu from "./SettingMenu";
-import Header from "../component/header";
+import Notification from "../component/common/notification";
+import Error from "../component/common/error";
+import SettingMenu from "../component/setting/SettingMenu";
+import Header from "../component/common/header";
 import api from "../api";
 
 const SettingSite = () => {

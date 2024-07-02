@@ -5,16 +5,16 @@ import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
-import Header from "../component/header";
+import Header from "../component/common/header";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setVersionId,
   setVersionName,
   setDisplayName,
 } from "../features/common/VersionSlice";
-import Notification from "../component/notification";
-import Error from "../component/error";
-import SettingMenu from "./SettingMenu";
+import Notification from "../component/common/notification";
+import Error from "../component/common/error";
+import SettingMenu from "../component/setting/SettingMenu";
 import CurrentVersion from "./CurrentVersion";
 import { useNavigate } from 'react-router-dom';
 

@@ -2,7 +2,7 @@ import _ from "lodash";
 import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import "./CustomSelect.css";
-import Header from "../component/header";
+import Header from "../component/common/header";
 import CurrentVersion from "./CurrentVersion";
 import EditVersion from "./EditVersion";
 

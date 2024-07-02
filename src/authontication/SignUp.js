@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { InputAdornment, IconButton, TextField } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import Error from "../component/error";
+import Error from "../component/common/error";
 // import Notification from "../component/notification";
 
 const handleLogin = () => {
@@ -18,20 +18,14 @@ const handleLogin = () => {
 };
 
 const SignUp = (props) => {
-  const navigate = useNavigate(); // Hook to get the navigate function
+  const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [validPassword, setValidPassword] = useState(true);
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   // const [notification, setNotification] = useState("");
-
-  const [rememberMe, setRememberMe] = useState(false);
-
   const SetNotification = props.SetNotification;
-
-  const handleSetRememberMe = () => setRememberMe(!rememberMe);
-
   const handlePasswordChange = (event) => {
     const newPassword = event.target.value;
     setPassword(newPassword);
@@ -63,20 +57,6 @@ const SignUp = (props) => {
       setError("有効なメールアドレスを入力してください。");
       return false;
     }
-
-    // // Required fields validation
-    // if (!email || !password || !confirmPassword) {
-    //   setError("All fields are required.");
-    //   return false;
-    // }
-
-    // // Password match validation
-    // if (password !== confirmPassword) {
-    //   setError("Passwords do not match.");
-    //   return false;
-    // }
-
-    // Password complexity validation (example: minimum 8 characters)
     if (!validPassword) {
       setError("パスワードは8文字以上で、少なくとも小文字1文字、大文字1文字、数字1文字、記号1文字を含む必要があります。");
       return false;
@@ -149,16 +129,6 @@ const SignUp = (props) => {
                   onChange={handleEmailChange}
                 />
               </div>
-              {/* <div className="mb-6">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  className="w-full px-4 py-3 border-b-2 border-gray-200 focus:outline-none focus:border-gray-500"
-                  placeholder="パスワード"
-                  autoComplete="off"
-                />
-              </div> */}
               <div className="mb-6">
                 <TextField
                   id="password"
@@ -169,7 +139,7 @@ const SignUp = (props) => {
                   placeholder="パスワード"
                   value={password}
                   onChange={handlePasswordChange}
-                  error={!validPassword && password.length > 0} // Show error if password is invalid and not empty
+                  error={!validPassword && password.length > 0}
                   helperText={
                     !validPassword && password.length > 0
                       ? "パスワードは8文字以上で、少なくとも小文字1文字、大文字1文字、数字1文字、記号1文字を含む必要があります。"

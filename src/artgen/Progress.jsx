@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../component/header";
-import Notification from "../component/notification";
-import Error from "../component/error";
+import Header from "../component/common/header";
+import Notification from "../component/common/notification";
+import Error from "../component/common/error";
 const Progress = () => {
   const [progress, setProgress] = useState(0);
   const [isDone, setIsDone] = useState(false);

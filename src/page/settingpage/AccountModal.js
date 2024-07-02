@@ -12,6 +12,11 @@ import {
   FormLabel,
 } from "@mui/material";
 import axios from "axios";
+import Notification from "../component/common/notification";
+import Error from "../component/common/error";
+
+
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -24,15 +29,18 @@ const style = {
   p: 4,
 };
 
+
 const AccountModal = (props) => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const email = props.email;
-  const error = props.error;
-  const [open, setOpen] = useState(false);
+  const error_status = props.error;
+  const [open, setOpen] = useState(false)
+  const [notification, setNotification] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const handleOpen = () => {
-    console.log(email, error);
-    if (email !== "" && error==false) {
+    console.log(email, error_status);
+    if (email !== "" && error_status==false) {
       setOpen(true);
     } else {
       console.log("ok");
@@ -51,10 +59,8 @@ const AccountModal = (props) => {
     item5: false,
   });
 
-console.log(email);
- 
   useEffect(() => {
-    if (email === "" || error==true) {
+    if (email === "" || error_status === true) {
     } else {
     }
   }, [email]);
@@ -67,14 +73,16 @@ console.log(email);
   };
 
   const handleSubmit = async () => {
+    setError(null);
     const token = localStorage.getItem("accessToken");
-    console.log("token", token);
     console.log(checkedItems);
+
     try {
       const response = await axios.post(
-        `${apiUrl}/api/authentication/delete_account/`, 
+        `${apiUrl}/api/authentication/delete_account/`,
         {
           email: email,
+          checkItems: checkedItems
         },
         {
           headers: {
@@ -87,7 +95,8 @@ console.log(email);
       localStorage.removeItem('accessToken');
       navigate('/')
     } catch (error) {
-      console.error("Error submitting data:", error);
+      console.error("Error submitting data:", error.response.data.error);
+      setError(error.response.data.error);
     }
   };
   return (
@@ -205,6 +214,8 @@ console.log(email);
           </div>
         </Box>
       </Modal>
+      <Notification content={notification} />
+      <Error content={error} />
     </div>
   );
 };

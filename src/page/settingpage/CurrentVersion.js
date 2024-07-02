@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import Notification from "../component/notification";
-import Error from "../component/error";
+import Notification from "../component/common/notification";
+import Error from "../component/common/error";
 import AddModel from "./AddModel";
 import EditModel from "./EditModel";
 

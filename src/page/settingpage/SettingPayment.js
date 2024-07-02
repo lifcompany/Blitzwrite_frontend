@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import FormControl from "@mui/material/FormControl";
-import Header from "../component/header";
-import Notification from "../component/notification";
-import Error from "../component/error";
-import SettingMenu from "./SettingMenu";
+import Header from "../component/common/header";
+import Notification from "../component/common/notification";
+import Error from "../component/common/error";
+import SettingMenu from "../component/setting/SettingMenu";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import PaymentModal from "./PaymentModal";
 

@@ -1,14 +1,11 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import Header from "../component/header";
-import FormLabel from "@mui/material/FormLabel";
+import Header from "../component/common/header";
 import FormControl from "@mui/material/FormControl";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
-import TrendingDownIcon from "@mui/icons-material/TrendingDown";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 
@@ -223,8 +220,6 @@ const Generated = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
-  const navigate = useNavigate();
 
   const handleChange = (event) => {
     setAuto(event.target.checked);

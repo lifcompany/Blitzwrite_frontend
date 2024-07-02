@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { InputAdornment, IconButton, TextField } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import Error from "../component/error";
-import Notification from "../component/notification";
+import Error from "../component/common/error";
+import Notification from "../component/common/notification";
 
 const Login = (props) => {
   const navigate = useNavigate();
@@ -88,7 +88,7 @@ const Login = (props) => {
   };
   useEffect(() => {
     isAuthenticated() && navigate("/home");
-  }, [token]);
+  }, [navigate, token]);
   return (
     <div className="flex flex-col h-screen">
       <div

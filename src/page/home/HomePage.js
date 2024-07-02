@@ -11,10 +11,10 @@ import {
   setVersionId,
   setVersionName,
   setDisplayName,
-} from "../features/common/VersionSlice";
-import Header from "../component/header";
-import Notification from "../component/notification";
-import Error from "../component/error";
+} from "../../features/common/VersionSlice";
+import Header from "../../component/common/header";
+import Notification from "../../component/common/notification";
+import Error from "../../component/common/error";
 
 const HomePage = () => {
   const versionId = useSelector((state) => state.version.versionId);

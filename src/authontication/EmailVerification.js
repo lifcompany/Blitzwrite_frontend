@@ -8,6 +8,7 @@ const EmailVerification = () => {
   const apiUrl = process.env.REACT_APP_API_URL;
   useEffect(() => {
     const token = new URLSearchParams(location.search).get("token");
+    console.log(token);
     if (token) {
 
       const verifyEmail = async () => {
@@ -30,7 +31,7 @@ const EmailVerification = () => {
       };
       verifyEmail();
     }
-  }, [location.search]);
+  }, [apiUrl, location.search, navigate]);
 
   return (
     <div>
