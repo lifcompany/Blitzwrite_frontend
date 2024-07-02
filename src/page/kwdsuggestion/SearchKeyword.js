@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const SearchComponent = () => {
+const SearchKeyword = () => {
     const [keyword, setKeyword] = useState('');
     const [questions, setQuestions] = useState([]);
     const [error, setError] = useState('');
@@ -41,4 +41,4 @@ const SearchComponent = () => {
     );
 };
 
-export default SearchComponent;
+export default SearchKeyword;

@@ -10,9 +10,8 @@ import SignOutPage from "./authontication/SignOutPage";
 
 import HomePage from "./page/home/HomePage";
 import Output from "./page/output/output";
-import SetMedia from "./page/generation/SetMedia";
-import SearchComponent from "./page/generation/SearchComponent";
 import GenRouter from "./page/artgen/GenRouter";
+import SearchKeyword from "./page/kwdsuggestion/SearchKeyword";
 
 import SettingSite from "./settingpage/SettingSite";
 import CustomSelect from "./settingpage/CustomSelect";
@@ -44,8 +43,7 @@ function App() {
         <Route path="/setting-api" element={<SettingAPI />} />
         <Route path="/setting-account" element={<CreditCardModal />} />
         <Route path="/setting/customselect" element={<CustomSelect />} />
-        <Route path="/set-media" element={<SetMedia />} />
-        <Route path="/get-questions" element={<SearchComponent />} />
+        <Route path="/get-keyword" element={<SearchKeyword />} />
         <Route path="/artgen/*" element={<GenRouter />} />
       </Routes>
     </BrowserRouter>
