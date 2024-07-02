@@ -38,10 +38,12 @@ const PaymentPage = ({setOpen} ) => {
           return_url: `${process.env.PUBLIC_URL}/confirm-payment`,
         },
       });
-  
       if (result.error) {
+      console.log(result);
+
         setErrorMessage(result.error.message);
       } else {
+        console.log("payment_ssssssssssssssssssssssss");
         navigate("/success");
       }
     };

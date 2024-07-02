@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import TextField from "@mui/material/TextField";
@@ -10,6 +11,7 @@ import Notification from "../component/notification";
 import Error from "../component/error";
 import SettingMenu from "./SettingMenu";
 import Header from "../component/header";
+import api from "../api";
 
 const SettingSite = () => {
   const dispatch = useDispatch();
@@ -23,12 +25,18 @@ const SettingSite = () => {
 
   const apiUrl = process.env.REACT_APP_API_URL;
 
+  const navigate = useNavigate();
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
-    axios
-      .get(`${apiUrl}/api/setting/get_site/`, {
+    if (!token) {
+      // Redirect to login if no token
+      navigate("/login");
+      return;
+    }
+    console.log(token);
+    api
+      .get("/api/setting/get_site/", {
         headers: {
-          Accept: "application/json",
           Authorization: `Bearer ${token}`,
         },
       })
@@ -37,11 +45,16 @@ const SettingSite = () => {
         setSiteUrl(response.data.site_data[1]["site_url"]);
         setAdminName(response.data.site_data[1]["admin_pass"]);
         setAdminPass(response.data.site_data[1]["admin_name"]);
+        dispatch(setSiteNameSlice(response.data.site_data[1]["site_name"]));
         setLoading(false);
       })
       .catch((error) => {
         console.log(error);
-        setError(error.response.data.error);
+        // setError(error.response.data.error);
+        setSiteName("");
+        setSiteUrl("");
+        setAdminName("");
+        setAdminPass("");
         setLoading(false);
       });
   }, []);
@@ -141,6 +154,8 @@ const SettingSite = () => {
                 InputLabelProps={{
                   shrink: true,
                 }}
+                autoComplete="off"
+                name="disable-autofill-username"
               />
               <TextField
                 label="サイトのログインパスワード"
@@ -156,6 +171,7 @@ const SettingSite = () => {
                 InputLabelProps={{
                   shrink: true,
                 }}
+                name="disable-autofill-password"
               />
             </FormControl>
           </div>

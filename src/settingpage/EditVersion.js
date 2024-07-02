@@ -46,7 +46,7 @@ function EditVersion(props) {
   useEffect(() => {
     console.log("ddd:", editversionID);
     axios
-      .post(`${apiUrl}/api/setting/get_edit_version`, {
+      .post(`${apiUrl}/api/setting/get_edit_version/`, {
         editversionID: editversionID,
       })
       .then((response) => {
