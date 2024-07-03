@@ -54,20 +54,21 @@ const HomePage = () => {
   }, []);
 
   const handleStart = () => {
+    navigate("/artgen/setkeyword")
     setLoading(true);
     setError(null);
     console.log("Start button clicked");
-    axios
-      .post(`${apiUrl}/run_script`, { versionId })
-      .then((response) => {
-        console.log(response);
-        setLoading(false);
-        setNotification("出力が成功しました");
-      })
-      .catch((error) => {
-        setError(error.response.data.error);
-        setLoading(false);
-      });
+    // axios
+    //   .post(`${apiUrl}/run_script`, { versionId })
+    //   .then((response) => {
+    //     console.log(response);
+    //     setLoading(false);
+    //     setNotification("出力が成功しました");
+    //   })
+    //   .catch((error) => {
+    //     setError(error.response.data.error);
+    //     setLoading(false);
+    //   });
   };
 
   const handleStop = () => {

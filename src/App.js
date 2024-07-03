@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import LogIn from "./authontication/LogIn";
@@ -11,6 +11,7 @@ import SignOutPage from "./authontication/SignOutPage";
 import HomePage from "./page/home/HomePage";
 import Output from "./page/output/output";
 import GenRouter from "./page/artgen/GenRouter";
+
 import SearchKeyword from "./page/kwdsuggestion/SearchKeyword";
 
 import SettingSite from "./settingpage/SettingSite";
@@ -19,12 +20,15 @@ import SettingAPI from "./settingpage/SettingAPI";
 import ConfirmPayment from "./component/setting/payment/ConfirmPayment";
 import SettingPayment from "./settingpage/SettingPayment";
 import CreditCardModal from "./settingpage/SettingAccount";
-import PaymentPage from "./component/setting/payment/PaymentBox";
+import PaymentBox from "./component/setting/payment/PaymentBox";
 import ClientErrorPage from "./page/error/ClientErrorPage";
 
 
 function App() {
   const [notification, SetNotification] =  useState("");
+  useEffect(() => {
+    console.log("App component mounted");
+  }, []);
   return (
     <BrowserRouter>
       <Routes>
@@ -40,7 +44,7 @@ function App() {
         <Route path="/setting-site" element={<SettingSite />} />
         <Route path="/setting-payment" element={<SettingPayment />} />
         <Route path="/confirm-payment" element={<ConfirmPayment />} />
-        <Route path="/setting-test" element={<PaymentPage />} />
+        <Route path="/setting-test" element={<PaymentBox />} />
         <Route path="/setting-api" element={<SettingAPI />} />
         <Route path="/setting-account" element={<CreditCardModal />} />
         <Route path="/setting/customselect" element={<CustomSelect />} />

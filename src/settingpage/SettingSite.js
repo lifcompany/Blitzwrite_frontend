@@ -41,11 +41,11 @@ const SettingSite = () => {
         },
       })
       .then((response) => {
-        setSiteName(response.data.site_data[1]["site_name"]);
-        setSiteUrl(response.data.site_data[1]["site_url"]);
-        setAdminName(response.data.site_data[1]["admin_name"]);
-        setAdminPass(response.data.site_data[1]["admin_pass"]);
-        dispatch(setSiteNameSlice(response.data.site_data[1]["site_name"]));
+        setSiteName(response.data.site_data[0]["site_name"]);
+        setSiteUrl(response.data.site_data[0]["site_url"]);
+        setAdminName(response.data.site_data[0]["admin_name"]);
+        setAdminPass(response.data.site_data[0]["admin_pass"]);
+        dispatch(setSiteNameSlice(response.data.site_data[0]["site_name"]));
         setLoading(false);
       })
       .catch((error) => {

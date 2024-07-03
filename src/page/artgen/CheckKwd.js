@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../../component/common/header";
+import { Outlet } from "react-router-dom";
 
 const CheckKwd = () => {
+  useEffect(() => {
+    console.log("GenRouter component mounted or updated");
+  }, []);
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -12,10 +16,11 @@ const CheckKwd = () => {
         <div className="py-2 font text-[calc(2vmin)] text-[#014361] rounded-md mt-10 mb-8">
           メディア連携が出来ていません。先に
           <span className=" text-blue-600">
-            <a href="/artgen/setkeyword">連携</a>
+            <a href="/setting-site">連携</a>
           </span>
           をしてください
         </div>
+        <Outlet/>
       </div>
     </div>
   );

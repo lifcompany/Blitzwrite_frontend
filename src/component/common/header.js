@@ -38,10 +38,10 @@ const Header = () => {
           <div className="navbar flex items-center ml-5">
             {selectedSiteName ? (
               <button
-                onClick={() => navigate("/output")}
+                onClick={() => navigate("/artgen/generated")}
                 className="flex justify-center items-center gap-1 mr-4 py-2 px-4 border-2 border-gray-300 rounded-full hover:bg-gray-200 text-[#232E2F] hover:text-[#232E2F] font-bold"
               >
-                <WebOutlinedIcon />
+                <WebOutlinedIcon style={{ fontSize: '25px' }} />
                 {selectedSiteName}
               </button>
             ) : (
@@ -49,19 +49,19 @@ const Header = () => {
             )}
 
             <button
-              onClick={() => navigate("/artgen")}
+              onClick={() => navigate("/artgen/setkeyword")}
               className=" flex justify-center items-center gap-1 mr-4 p-2 rounded-md hover:bg-gray-200 text-[#232E2F] hover:text-[#232E2F] font-bold "
             >
-              <MdEditDocument/>
+              <MdEditDocument style={{ fontSize: '25px' }}/>
               作成
             </button>
             <a
               href="https://docs.google.com/spreadsheets/d/1KBuz0tSocys6kA0en05gIjLO9U_ZUMWhVIK8ySZ8nXU/edit#gid=1894772142"
               target="_blank"
-              className=" flex justify-center items-center gap-1 mr-4 p-2 bg-white rounded-md hover:bg-gray-200 text-[#232E2F] hover:text-[#232E2F] font-bold"
+              className=" flex justify-center items-center gap-1 mr-4 p-2 rounded-md hover:bg-gray-200 text-[#232E2F] hover:text-[#232E2F] font-bold"
               rel="noopener noreferrer"
             >
-              <MdOutlineArticle />
+              <MdOutlineArticle style={{ fontSize: '25px' }}/>
               一覧
             </a>
           </div>
@@ -69,7 +69,7 @@ const Header = () => {
         <div className="flex items-center gap-7 rounded-full">
           <div>
             <UserMenu/>
-            <Menu
+            {/* <Menu
               id="account-menu"
               anchorEl={anchorEl}
               open={Boolean(anchorEl)}
@@ -80,7 +80,7 @@ const Header = () => {
                 設定
               </MenuItem>
               <MenuItem onClick={handleLogoutOpen}>ログアウト</MenuItem>
-            </Menu>
+            </Menu> */}
             <Dialog open={openDialog} onClose={handelLogoutClose}>
               <DialogTitle>Logout</DialogTitle>
               <p>Really?</p>

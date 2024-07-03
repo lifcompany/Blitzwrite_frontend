@@ -7,6 +7,7 @@ import Error from "../component/common/error";
 import SettingMenu from "../component/common/SettingMenu";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import PaymentModal from "../component/setting/payment/PaymentModal";
+// import PaymentCard from "../page/payment-card";
 
 const SettingPayment = () => {
 
@@ -67,6 +68,7 @@ const SettingPayment = () => {
           <div className=" py-4">
             <PaymentModal/>
           </div>
+          {/* <PaymentCard/> */}
         </div>
       </div>
       <Notification content={notification} />

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -12,6 +12,10 @@ const SetKwd = () => {
   const [fakeButtons, setFakeButtons] = useState([]);
   const [selectedResults, setSelectedResults] = useState([]);
   const [showClearIcon, setShowClearIcon] = useState("none");
+
+  useEffect(() => {
+    console.log("GenRouter component mounted or updated");
+  }, []);
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
@@ -51,11 +55,10 @@ const SetKwd = () => {
     });
   };
   const runProcess = (result) => {
-    if(selectedResults.length > 2){
-      navigate('/artgen/progress');
-    }
-    else{
-      window.alert('Please select the keywords')
+    if (selectedResults.length > 2) {
+      navigate("/artgen/progress");
+    } else {
+      window.alert("Please select the keywords");
     }
   };
 
@@ -139,6 +142,7 @@ const SetKwd = () => {
           </button>
         </div>
       </div>
+      <Outlet />
     </div>
   );
 };
