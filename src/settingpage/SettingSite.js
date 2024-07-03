@@ -5,6 +5,7 @@ import axios from "axios";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
+import getTitleAtUrl from 'get-title-at-url';
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { setSiteNameSlice } from "../features/common/SiteSlice";
 import Notification from "../component/common/notification";
@@ -22,6 +23,7 @@ const SettingSite = () => {
   const [siteUrl, setSiteUrl] = useState("");
   const [adminName, setAdminName] = useState("");
   const [adminPass, setAdminPass] = useState("");
+  const [siteTitle, setSiteTitle] = useState('');
 
   const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -59,8 +61,25 @@ const SettingSite = () => {
       });
   }, []);
 
-  const registerSite = () => {
+  const registerSite = async() => {
     dispatch(setSiteNameSlice(siteName));
+    setLoading(true);
+    if (siteUrl.trim() !== '') {
+      setLoading(true); // Start loading
+
+      try {
+        const { title } = await getTitleAtUrl(siteUrl);
+        console.log(title);
+        setSiteTitle(title);
+      } catch (error) {
+        console.error('Error fetching title:', error);
+        setSiteTitle('Error fetching title');
+      } finally {
+        setLoading(false); // Finish loading
+      }
+    }
+    console.log(siteTitle);
+
     setLoading(true);
     setError(null);
 
@@ -72,8 +91,6 @@ const SettingSite = () => {
     };
 
     const token = localStorage.getItem("accessToken");
-
-    console.log(site_data);
     axios
       .post(`${apiUrl}/api/setting/set_site/`, site_data, {
         headers: {
