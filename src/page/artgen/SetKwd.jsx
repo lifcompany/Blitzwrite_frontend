@@ -107,32 +107,6 @@ const SetKwd = () => {
             id="app"
             className="py-2 font text-[calc(2vmin)] text-[#014361] rounded-md mt-10 mb-8"
           >
-            {/* <FormControl sx={{ width: "30ch" }}>
-              <TextField
-                variant="outlined"
-                onChange={handleChange}
-                onKeyDown={handleKeyDown}
-                placeholder="キーワードを検索してください"
-                value={keyword}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon />
-                    </InputAdornment>
-                  ),
-                  endAdornment: (
-                    <InputAdornment
-                      position="end"
-                      style={{ display: showClearIcon }}
-                      onClick={handleCloseButton}
-                    >
-                      <CloseIcon style={{ cursor: "pointer" }} />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </FormControl> */}
-
             <div style={{ position: "relative", width: "30ch" }}>
               <TextField
                 variant="outlined"
