@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../../component/common/header";
 import Notification from "../../component/common/notification";
 import Error from "../../component/common/error";
@@ -9,11 +9,13 @@ const Progress = () => {
   const [error, setError] = useState("");
   const [notification, setNotification] = useState("");
 
+  const location = useLocation();
   const navigate = useNavigate();
+  const { selectedResults } = location.state || { selectedResults: [] };
 
-  useEffect(()=>{
-    setError("");
-  },[])
+  useEffect(() => {
+    console.log(selectedResults);
+  }, [selectedResults]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -22,7 +24,7 @@ const Progress = () => {
       } else {
         clearInterval(interval);
         setIsDone(true);
-        setNotification("Completed");
+        setNotification("完了");
         setTimeout(() => {
           navigate("/artgen/generated");
         }, 2000);

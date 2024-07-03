@@ -1,48 +1,40 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
-import Header from "../../component/common/header";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
+import Header from "../../component/common/header";
 
 const SetKwd = () => {
-  const [keyword, setKeyword] = useState("");
   const [fakeButtons, setFakeButtons] = useState([]);
   const [selectedResults, setSelectedResults] = useState([]);
-  const [showClearIcon, setShowClearIcon] = useState("none");
+  const [inputValue, setInputValue] = useState("");
+  const [showList, setShowList] = useState(false);
+  const [selectedItem, setSelectedItem] = useState("");
+  const [options, setOption] = useState([]);
+  const [suggestions, setSuggestions] = useState([]);
 
-  useEffect(() => {
-    console.log("GenRouter component mounted or updated");
-  }, []);
+  const navigate = useNavigate();
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
-      const keywords = keyword.split(",").filter(Boolean);
+      const keywords = inputValue.split(",").filter(Boolean);
       const buttons = keywords
         .map((keyword) => {
           const fakeButtons = [];
           for (let i = 1; i <= 5; i++) {
             fakeButtons.push(`${keyword}${i}`);
           }
-
-          console.log(fakeButtons);
           return fakeButtons;
         })
         .flat();
       setFakeButtons(buttons);
       setSelectedResults([]);
+      setShowList(false);
     }
-  };
-  const handleChange = (event) => {
-    const newKeyword = event.target.value;
-    setKeyword(newKeyword);
-    setShowClearIcon(newKeyword === "" ? "none" : "flex");
-  };
-  const handleClick = () => {
-    console.log("clicked the clear icon...");
-    setShowClearIcon("none");
   };
 
   const handleResultClick = (result) => {
@@ -56,13 +48,52 @@ const SetKwd = () => {
   };
   const runProcess = (result) => {
     if (selectedResults.length > 2) {
-      navigate("/artgen/progress");
+      navigate("/artgen/progress", { state: { selectedResults } });
     } else {
       window.alert("Please select the keywords");
     }
   };
 
-  const navigate = useNavigate();
+  // const options = ["Option 1", "Option 2", "Option 3"];
+  const apiUrl = process.env.REACT_APP_API_URL;
+
+  const handleChange = async (e) => {
+    setInputValue(e.target.value);
+    setShowList(e.target.value !== "");
+    const inputValue = e.target.value;
+
+    if (inputValue.length > 2) {
+      try {
+        const response = await axios.get(
+          `${apiUrl}/api/generate/auto-suggest`,
+          {
+            params: {
+              q: inputValue,
+              client: "chrome", // or 'chrome', 'toolbar', 'youtube', etc.
+            },
+          }
+        );
+        setOption(response.data[1])
+        setSuggestions(response.data[1]);
+      } catch (error) {
+        console.error("Error fetching suggestions:", error);
+        setSuggestions([]);
+      }
+    } else {
+      setSuggestions([]);
+    }
+  };
+
+  const handleSelectItem = (item) => {
+    setSelectedItem(item);
+    setInputValue(item);
+    setShowList(false);
+  };
+
+  const handleCloseButton = () => {
+    setInputValue("");
+    setShowList(false);
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -76,7 +107,7 @@ const SetKwd = () => {
             id="app"
             className="py-2 font text-[calc(2vmin)] text-[#014361] rounded-md mt-10 mb-8"
           >
-            <FormControl sx={{ width: "30ch" }}>
+            {/* <FormControl sx={{ width: "30ch" }}>
               <TextField
                 variant="outlined"
                 onChange={handleChange}
@@ -93,14 +124,62 @@ const SetKwd = () => {
                     <InputAdornment
                       position="end"
                       style={{ display: showClearIcon }}
-                      onClick={handleClick}
+                      onClick={handleCloseButton}
                     >
                       <CloseIcon style={{ cursor: "pointer" }} />
                     </InputAdornment>
                   ),
                 }}
               />
-            </FormControl>
+            </FormControl> */}
+
+            <div style={{ position: "relative", width: "30ch" }}>
+              <TextField
+                variant="outlined"
+                onChange={handleChange}
+                onKeyDown={handleKeyDown}
+                placeholder="キーワードを検索してください"
+                value={inputValue}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                  endAdornment: (
+                    <InputAdornment
+                      position="end"
+                      style={{
+                        cursor: "pointer",
+                        visibility: inputValue ? "visible" : "hidden",
+                      }}
+                    >
+                      <CloseIcon
+                        onClick={handleCloseButton}
+                        style={{ cursor: "pointer" }}
+                      />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              {showList && (
+                <ul
+                  className="absolute bg-white border border-gray-300 rounded-md shadow-lg mt-1 w-full z-10"
+                  style={{ top: "100%", left: 0 }}
+                >
+                  {options.map((option, index) => (
+                    <li
+                      key={index}
+                      className="cursor-pointer py-1 px-3 text-gray-800 hover:bg-gray-200"
+                      onClick={() => handleSelectItem(option)}
+                    >
+                      {option}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+
             {fakeButtons.length > 0 ? (
               <h2 className=" text-[#232E2F] mt-12 font-semibold">
                 キーワード候補：
