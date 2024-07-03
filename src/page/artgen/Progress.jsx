@@ -15,6 +15,7 @@ const Progress = () => {
 
   useEffect(() => {
     console.log(selectedResults);
+    
   }, [selectedResults]);
 
   useEffect(() => {
@@ -47,7 +48,7 @@ const Progress = () => {
           <div className="w-full m-auto bg-gray-100 rounded-sm p-10">
             <div className="w-full m-auto bg-gray-200 rounded-sm">
               <div
-                className="bg-[#222222] text-white rounded-sm h-5 "
+                className="bg-blue-700 text-white rounded-sm h-5 "
                 style={{ width: `${progress}%` }}
               ></div>
             </div>

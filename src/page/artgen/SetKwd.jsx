@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { Outlet, useNavigate, useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 import axios from "axios";
-import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
@@ -54,7 +53,6 @@ const SetKwd = () => {
     }
   };
 
-  // const options = ["Option 1", "Option 2", "Option 3"];
   const apiUrl = process.env.REACT_APP_API_URL;
 
   const handleChange = async (e) => {
