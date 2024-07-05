@@ -15,6 +15,7 @@ import {
 import Header from "../../component/common/header";
 import Notification from "../../component/common/notification";
 import Error from "../../component/common/error";
+import api from "../../api";
 
 const HomePage = () => {
   const versionId = useSelector((state) => state.version.versionId);
@@ -30,19 +31,26 @@ const HomePage = () => {
 
   const navigate = useNavigate();
   const apiUrl = process.env.REACT_APP_API_URL;
-
+  const token = localStorage.getItem("accessToken");
   const isAuthenticated = () => {
     return localStorage.getItem("accessToken") !== null;
   };
 
   const get_model_list = useCallback(() => {
     console.log(apiUrl);
-    axios
-      .get(`${apiUrl}/api/setting/get_model_list`)
+    api
+      .get(`${apiUrl}/api/setting/get_model_list`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => {
+        console.log(response);
         setModels(response.data);
       })
       .catch((error) => {
+        console.log(error);
+
         setError(error.response.data.error);
       });
   }, []);
@@ -101,11 +109,11 @@ const HomePage = () => {
   return (
     <div className="text-center pb-12">
       <Header />
-      <div className="relative flex flex-col justify-between items-start pl-80">
-        <h1 className=" heading font text-[calc(10px+2vmin)] font-semibold mt-28">
+      <div className="relative flex flex-col justify-between items-start text-gray-900 pl-80">
+        <h1 className="  heading font text-[calc(10px+2vmin)] font-semibold mt-28">
           記事の生成
         </h1>
-        <h2 className=" heading font text-[calc(2vmin)] font-semibold mt-20 mb-16">
+        <h2 className=" text-xl heading font text-[calc(2vmin)] font-semibold mt-14 mb-14">
           バージョンの選択
         </h2>
         <FormControl className="flex w-[320px] sm:w-136" variant="outlined">
@@ -128,7 +136,7 @@ const HomePage = () => {
           </Select>
         </FormControl>
         <div className=" h-10">{loading ? <p>Loading...</p> : ""}</div>
-        <div className=" py-12">
+        <div className=" py-6">
           <Button
             variant="contained"
             onClick={handleStart}
@@ -137,9 +145,10 @@ const HomePage = () => {
               color: "white",
               fontWeight: "bold",
               paddingY: 2,
-              paddingLeft: 2,
-              paddingRight: 2,
+              paddingLeft: 3,
+              paddingRight: 3,
               borderRadius: "lg",
+              fontSize:"18px",
               "&:hover": {
                 backgroundColor: "#22294e",
               },

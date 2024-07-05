@@ -22,7 +22,7 @@ import SettingPayment from "./settingpage/SettingPayment";
 import CreditCardModal from "./settingpage/SettingAccount";
 import PaymentBox from "./component/setting/payment/PaymentBox";
 import ClientErrorPage from "./page/error/ClientErrorPage";
-
+import './App.scss';
 
 function App() {
   const [notification, SetNotification] =  useState("");

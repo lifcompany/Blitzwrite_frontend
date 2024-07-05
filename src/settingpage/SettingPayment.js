@@ -7,7 +7,7 @@ import Error from "../component/common/error";
 import SettingMenu from "../component/common/SettingMenu";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import PaymentModal from "../component/setting/payment/PaymentModal";
-// import PaymentCard from "../page/payment-card";
+import PaymentCard from "../page/payment-card";
 
 const SettingPayment = () => {
 
@@ -43,8 +43,8 @@ const SettingPayment = () => {
         <div className=" w-72 border-r-2 border-gray-300 ">
           <SettingMenu />
         </div>
-        <div className="relative flex flex-col flex-1 items-start pl-40">
-          <h1 className=" heading font text-[calc(10px+2vmin)] font-semibold mt-16">
+        <div className="relative flex flex-col flex-1 items-start justify-center">
+          {/* <h1 className=" heading font text-[calc(10px+2vmin)] font-semibold mt-16">
             支払い
           </h1>
           <h2 className=" heading font text-[calc(2vmin)] font-semibold mt-10 mb-10">
@@ -67,8 +67,8 @@ const SettingPayment = () => {
           <div className=" h-10">{loading ? <p>Loading...</p> : ""}</div>
           <div className=" py-4">
             <PaymentModal/>
-          </div>
-          {/* <PaymentCard/> */}
+          </div> */}
+          <PaymentCard/>
         </div>
       </div>
       <Notification content={notification} />

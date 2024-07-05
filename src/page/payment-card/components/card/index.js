@@ -44,6 +44,7 @@ const Card = ({
         for (const [card, pattern] of Object.entries(CARDS)) {
             re = new RegExp(pattern);
             if (number.match(re) != null) {
+                console.log("11111111111111111111",card)
                 return card;
             }
         }

@@ -12,6 +12,8 @@ const CurrentVersion = (props) => {
   const [error, setError] = useState("");
 
   const setEditVersionID = props.seteditversionID;
+  const token = localStorage.getItem("accessToken");
+
   const editModel = (modelId) => {
     console.log("Editing model with ID:", modelId);
     setEditVersionID(modelId);
@@ -33,7 +35,11 @@ const CurrentVersion = (props) => {
 
   const get_model_list = useCallback(() => {
     axios
-      .get(`${apiUrl}/api/setting/get_model_list`)
+      .get(`${apiUrl}/api/setting/get_model_list`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => {
         setModel(response.data);
       })

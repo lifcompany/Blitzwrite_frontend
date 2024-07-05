@@ -5,7 +5,6 @@ import axios from "axios";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
-import getTitleAtUrl from 'get-title-at-url';
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { setSiteNameSlice } from "../features/common/SiteSlice";
 import Notification from "../component/common/notification";
@@ -23,10 +22,10 @@ const SettingSite = () => {
   const [siteUrl, setSiteUrl] = useState("");
   const [adminName, setAdminName] = useState("");
   const [adminPass, setAdminPass] = useState("");
-  const [siteTitle, setSiteTitle] = useState('');
+  const [siteTitle, setSiteTitle] = useState("");
 
   const apiUrl = process.env.REACT_APP_API_URL;
-
+  const token = localStorage.getItem("accessToken");
   const navigate = useNavigate();
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
@@ -47,7 +46,7 @@ const SettingSite = () => {
         setSiteUrl(response.data.site_data[0]["site_url"]);
         setAdminName(response.data.site_data[0]["admin_name"]);
         setAdminPass(response.data.site_data[0]["admin_pass"]);
-        dispatch(setSiteNameSlice(response.data.site_data[0]["site_name"]));
+        // dispatch(setSiteNameSlice(response.data.site_data[0]["site_name"]));
         setLoading(false);
       })
       .catch((error) => {
@@ -61,25 +60,28 @@ const SettingSite = () => {
       });
   }, []);
 
-  const registerSite = async() => {
-    dispatch(setSiteNameSlice(siteName));
-    setLoading(true);
-    if (siteUrl.trim() !== '') {
-      setLoading(true); // Start loading
-
-      try {
-        const { title } = await getTitleAtUrl(siteUrl);
-        console.log(title);
-        setSiteTitle(title);
-      } catch (error) {
-        console.error('Error fetching title:', error);
-        setSiteTitle('Error fetching title');
-      } finally {
-        setLoading(false); // Finish loading
-      }
-    }
-    console.log(siteTitle);
-
+  const registerSite = async () => {
+    setError(null);
+    const params = { siteUrl: siteUrl };
+    axios
+      .get(`${apiUrl}/api/setting/get-title/`, {
+        params: params,
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response?.data.title);
+        setSiteTitle(response?.data.title);
+        dispatch(setSiteNameSlice(response?.data.title));
+      })
+      .catch((error) => {
+        console.error("Error fetching site title:", error);
+        setError("Failed to fetch site title. Please check the URL.");
+      });
+      console.log("11111111111111111", siteTitle);
+    // dispatch(setSiteNameSlice(siteTitle));
     setLoading(true);
     setError(null);
 
@@ -90,7 +92,6 @@ const SettingSite = () => {
       admin_pass: adminPass,
     };
 
-    const token = localStorage.getItem("accessToken");
     axios
       .post(`${apiUrl}/api/setting/set_site/`, site_data, {
         headers: {

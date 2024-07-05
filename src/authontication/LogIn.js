@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { InputAdornment, IconButton, TextField } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import Error from "../component/common/error";
 import Notification from "../component/common/notification";
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
 
 const Login = (props) => {
   const navigate = useNavigate();
@@ -15,42 +17,88 @@ const Login = (props) => {
   const [error, setError] = useState("");
 
   const content = props.content ? props.content : "";
+  const apiUrl = process.env.REACT_APP_API_URL;
 
-  const handleLogin = () => {
-    // Handle login with Google
-    if (!window.gapi) {
-      alert("Google API not loaded. Please try again.");
-      return;
-    }
+  const handleLogin = () => {};
 
-    // Load Google Auth2 library and initialize
-    window.gapi.load("auth2", () => {
-      const auth2 = window.gapi.auth2.init({
-        client_id:
-          "412305795434-v38u701gekbk82o0i5eg7bsnjtuqhc1o.apps.googleusercontent.com",
-        scope: "email profile",
-        // redirect_uri: "http://localhost:3000/home", // Ensure this matches the authorized redirect URI
-      });
+  const [credentialResponse, setCredentialResponse] = useState(null);
 
-      auth2
-        .signIn()
-        .then((googleUser) => {
-          const idToken = googleUser.getAuthResponse().id_token;
-          console.log("ID Token:", idToken);
+  const user = useMemo(() => {
+    if (!credentialResponse?.credential) return null;
+    const user_info = jwtDecode(credentialResponse.credential);
+    return user_info;
+  }, [credentialResponse]);
+
+  const handleSuccess = (response) => {
+    setCredentialResponse(response);
+    checkUserRegistration(response);
+  };
+
+  const checkUserRegistration = (credentialResponse) => {
+    const { credential } = credentialResponse;
+    if (credential) {
+      const decodedToken = jwtDecode(credential);
+      console.log("Decoded Token:", decodedToken);
+      axios
+        .post(`${apiUrl}/api/authentication/check-registration`, { credential })
+        .then((response) => {
+          console.log("Backend Response:", response.data);
+          // Navigate user to home page upon successful login
+          navigate("/home");
         })
         .catch((error) => {
-          console.error("Google Sign-In Error:", error);
+          console.error("Backend Error:", error);
+          setError("Failed to login with Google");
         });
-    });
+    } else {
+      setError("Failed to get Google credentials");
+    }
+    console.log(credentialResponse);
+    // axios.post(`${apiUrl}/api/authentication/check-registration`, { googleToken })
+    //   .then((response) => {
+    //     const { registered, user } = response.data;
+    //     if (registered) {
+
+    //       handleRegisteredUserLogin(user);
+    //     } else {
+    //       handleNewUserRegistration(credentialResponse);
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error checking user registration:", error);
+    //   });
   };
+
+  const handleRegisteredUserLogin = (user) => {
+    localStorage.setItem("accessToken", user.accessToken);
+    navigate("/home");
+  };
+
+  const handleNewUserRegistration = (credentialResponse) => {
+    const googleToken = credentialResponse.token;
+    axios
+      .post(`${apiUrl}/api/authentication/google-register`, { googleToken })
+      .then((response) => {
+        const { user } = response.data;
+        // Optionally, you may want to log the user in after registration
+        handleRegisteredUserLogin(user);
+      })
+      .catch((error) => {
+        console.error("Error registering new user:", error);
+      });
+  };
+
+  const handleError = () => {
+    setError("Login Failed");
+    navigate("/login");
+  };
+
   const handleEmailChange = (event) => {
-    const newEmail = event.target.value;
-    setEmail(newEmail);
+    setEmail(event.target.value);
   };
 
   const handlePasswordChange = (event) => {
-    const newPassword = event.target.value;
-    setPassword(newPassword);
+    setPassword(event.target.value);
   };
 
   const handleTogglePassword = () => {
@@ -58,9 +106,9 @@ const Login = (props) => {
   };
 
   const handleSubmit = (e) => {
-    setError('');
-    const apiUrl = process.env.REACT_APP_API_URL;
     e.preventDefault();
+    setError("");
+    const apiUrl = process.env.REACT_APP_API_URL;
     console.log("Form submitted with", email, password);
     const signin_data = {
       email: email,
@@ -80,7 +128,7 @@ const Login = (props) => {
         navigate("/home");
       })
       .catch((error) => {
-        setError(error.response.data.error);
+        setError(error.response?.data?.error || "An error occurred");
       });
   };
   const isAuthenticated = () => {
@@ -97,10 +145,6 @@ const Login = (props) => {
           backgroundImage:
             "url(https://monovm.com/dashboard/vendors/metronic/media/illustrations/dozzy-1/4.png)",
         }}
-        // style={{
-        //   backgroundImage:
-        //     "url(/images/login_bg4.png)",
-        // }}
       >
         <div className="flex flex-col items-center justify-center flex-grow p-10 pb-20">
           <div
@@ -135,7 +179,6 @@ const Login = (props) => {
                       width: "100%",
                       paddingX: "16px",
                       paddingY: "12px",
-                      
                     },
                     "& .MuiFormHelperText-root": {
                       fontSize: "14px",
@@ -144,7 +187,6 @@ const Login = (props) => {
                   }}
                 />
               </div>
-
               <div className="mb-6">
                 <TextField
                   id="password"
@@ -177,7 +219,6 @@ const Login = (props) => {
                   }}
                 />
               </div>
-
               <div className="flex justify-between mt-4 mb-6 text-gray-700 font-semibold text-sm">
                 <div
                   onClick={() => navigate("/forgot_password")}
@@ -210,6 +251,27 @@ const Login = (props) => {
                   Googleでログイン
                 </span>
               </div>
+              <GoogleLogin
+                theme="filled_black"
+                shape="pill"
+                onSuccess={handleSuccess}
+                // onSuccess={(credentialResponse) => {
+                //   setCredentialResponse(credentialResponse);
+                //   const decodedUser = jwtDecode(credentialResponse.credential);
+                //   localStorage.setItem("user", JSON.stringify(decodedUser));
+                //   navigate("/home");
+                // }}
+                onError={handleError}
+              />
+              {/* <GoogleLogin
+                onSuccess={(credentialResponse) => {
+                  console.log(credentialResponse);
+                }}
+                onError={() => {
+                  console.log("Login Failed");
+                }}
+                useOneTap
+              /> */}
               <div className="flex justify-center mt-4 text-gray-700 font-semibold text-sm">
                 <a href="/register" className="text-blue-500 font-semibold ">
                   アカウントの作成はこちら

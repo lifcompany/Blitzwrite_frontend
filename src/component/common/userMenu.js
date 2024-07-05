@@ -112,14 +112,32 @@ export default function UserMenu() {
       >
         {user.role &&
           user.role.length > 0 && [
-            <MenuItem key="profile" onClick={handleClose}>
+            <MenuItem
+              key="profile"
+              onClick={handleClose}
+              component={Link}
+              to="/profile"
+              role="button"
+            >
               <Avatar /> プロフィール
             </MenuItem>,
-            <MenuItem key="my-account" onClick={handleClose}>
+            <MenuItem
+              key="my-account"
+              onClick={handleClose}
+              component={Link}
+              to="/my-account"
+              role="button"
+            >
               <Avatar /> マイアカウント
             </MenuItem>,
             <Divider key="divider" />,
-            <MenuItem key="add-account" onClick={handleClose}>
+            <MenuItem
+              key="add-account"
+              onClick={handleClose}
+              component={Link}
+              to="/add-account"
+              role="button"
+            >
               <ListItemIcon>
                 <PersonAdd fontSize="small" />
               </ListItemIcon>

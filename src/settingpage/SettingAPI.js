@@ -16,7 +16,8 @@ import Notification from "../component/common/notification";
 import Error from "../component/common/error";
 import SettingMenu from "../component/common/SettingMenu";
 import CurrentVersion from "../component/setting/chatgpt/CurrentVersion";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import api from "../api";
 
 const SettingAPI = () => {
   const versionId = useSelector((state) => state.version.versionId);
@@ -31,6 +32,7 @@ const SettingAPI = () => {
   const [selectedModelId, setSelectedModelId] = useState(versionId);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const navigate = useNavigate();
+
   function handleSelectedCategory(event) {
     setSelectedCategory(event.target.value);
   }
@@ -43,8 +45,14 @@ const SettingAPI = () => {
 
   const get_model_list = useCallback(() => {
     console.log(apiUrl);
-    axios
-      .get(`${apiUrl}/api/setting/get_model_list/`)
+    const token = localStorage.getItem("accessToken");
+
+    api
+      .get(`${apiUrl}/api/setting/get_model_list`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((response) => {
         console.log(response);
         setModels(response.data);

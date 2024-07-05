@@ -65,6 +65,7 @@ function SettingMenu(props) {
               role="button"
               sx={{
                 padding: "16px",
+                paddingLeft:"20px"
               }}
             >
               <ListItemIcon className="min-w-40">
@@ -79,6 +80,7 @@ function SettingMenu(props) {
               role="button"
               sx={{
                 padding: "16px",
+                paddingLeft:"20px"
               }}
             >
               <ListItemIcon className="min-w-40">
@@ -93,6 +95,7 @@ function SettingMenu(props) {
               role="button"
               sx={{
                 padding: "16px",
+                paddingLeft:"20px"
               }}
             >
               <ListItemIcon className="min-w-40">
@@ -107,6 +110,7 @@ function SettingMenu(props) {
               role="button"
               sx={{
                 padding: "16px",
+                paddingLeft:"20px"
               }}
             >
               <ListItemIcon className="min-w-40">
