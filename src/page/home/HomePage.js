@@ -32,12 +32,15 @@ const HomePage = () => {
   const navigate = useNavigate();
   const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem("accessToken");
+
   const isAuthenticated = () => {
     return localStorage.getItem("accessToken") !== null;
   };
 
   const get_model_list = useCallback(() => {
     console.log(apiUrl);
+    console.log(token);
+
     api
       .get(`${apiUrl}/api/setting/get_model_list`, {
         headers: {
@@ -56,13 +59,13 @@ const HomePage = () => {
   }, []);
 
   useEffect(() => {
-    isAuthenticated() ? (navigate('/home')):(navigate('/login'));
+    isAuthenticated() ? navigate("/home") : navigate("/login");
     get_model_list();
-    console.log(localStorage.getItem("accessToken"))
+    console.log(localStorage.getItem("accessToken"));
   }, []);
 
   const handleStart = () => {
-    navigate("/artgen/setkeyword")
+    navigate("/artgen/setkeyword");
     setLoading(true);
     setError(null);
     console.log("Start button clicked");
@@ -148,7 +151,7 @@ const HomePage = () => {
               paddingLeft: 3,
               paddingRight: 3,
               borderRadius: "lg",
-              fontSize:"18px",
+              fontSize: "18px",
               "&:hover": {
                 backgroundColor: "#22294e",
               },

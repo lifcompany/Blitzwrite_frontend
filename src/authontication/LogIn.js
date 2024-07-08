@@ -5,7 +5,8 @@ import { InputAdornment, IconButton, TextField } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import Error from "../component/common/error";
 import Notification from "../component/common/notification";
-import { GoogleLogin } from "@react-oauth/google";
+import { GoogleLogin, googleLogout } from "@react-oauth/google";
+import { useGoogleOneTapLogin, useGoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from "jwt-decode";
 
 const Login = (props) => {
@@ -15,11 +16,12 @@ const Login = (props) => {
   const [email, setEmail] = useState("");
   const [token, setToken] = useState("");
   const [error, setError] = useState("");
+  const [notification, setNotification] = useState("");
 
   const content = props.content ? props.content : "";
   const apiUrl = process.env.REACT_APP_API_URL;
 
-  const handleLogin = () => {};
+  const handleLogin = () => { };
 
   const [credentialResponse, setCredentialResponse] = useState(null);
 
@@ -29,6 +31,51 @@ const Login = (props) => {
     return user_info;
   }, [credentialResponse]);
 
+
+  const googlelogin = useGoogleLogin({
+
+    onSuccess: (credentialResponse) => {
+      const { access_token } = credentialResponse;
+      if (access_token) {
+          axios
+            .post(`${apiUrl}/api/authentication/check-google-registration/`, { access_token })
+            .then((response) => {
+              const data = response.data;
+              const accessToken = data.accessToken;
+              setToken(accessToken);
+              localStorage.setItem("accessToken", accessToken);
+              setNotification(data.message);
+              navigate("/home");
+            })
+            .catch((error) => {
+              console.error("Backend Error:", error);
+              setError(error.response.data.error);
+            });
+        } else {
+          setError("Failed to get Google credentials");
+        }
+        console.log(credentialResponse);
+        // axios.get('https://www.googleapis.com/userinfo/v2/me', {
+        //   headers: {
+        //     Authorization: `Bearer ${access_token}`,
+        //   },
+        // }).then(response => {
+        //   console.log('User Info:', response.data);
+
+        //   // Handle response data as needed
+        // }).catch(error => {
+        //   console.error('Error fetching user info:', error);
+        //   // Handle errors
+        // });
+      // }
+    },
+    onError: () => {
+      setError("Login Failed");
+      navigate("/login");
+    },
+  });
+
+
   const handleSuccess = (response) => {
     setCredentialResponse(response);
     checkUserRegistration(response);
@@ -36,57 +83,29 @@ const Login = (props) => {
 
   const checkUserRegistration = (credentialResponse) => {
     const { credential } = credentialResponse;
+    const { clientId } = credentialResponse;
     if (credential) {
-      const decodedToken = jwtDecode(credential);
-      console.log("Decoded Token:", decodedToken);
+      // const decodedToken = jwtDecode(credential);
       axios
-        .post(`${apiUrl}/api/authentication/check-registration`, { credential })
+        .post(`${apiUrl}/api/authentication/check-registration/`, { credential, clientId })
         .then((response) => {
-          console.log("Backend Response:", response.data);
-          // Navigate user to home page upon successful login
+          const data = response.data;
+          const accessToken = data.accessToken;
+          setToken(accessToken);
+          localStorage.setItem("accessToken", accessToken);
+          setNotification(data.message);
           navigate("/home");
         })
         .catch((error) => {
           console.error("Backend Error:", error);
-          setError("Failed to login with Google");
+          setError(error.response.data.error);
         });
     } else {
       setError("Failed to get Google credentials");
     }
     console.log(credentialResponse);
-    // axios.post(`${apiUrl}/api/authentication/check-registration`, { googleToken })
-    //   .then((response) => {
-    //     const { registered, user } = response.data;
-    //     if (registered) {
-
-    //       handleRegisteredUserLogin(user);
-    //     } else {
-    //       handleNewUserRegistration(credentialResponse);
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error checking user registration:", error);
-    //   });
   };
 
-  const handleRegisteredUserLogin = (user) => {
-    localStorage.setItem("accessToken", user.accessToken);
-    navigate("/home");
-  };
-
-  const handleNewUserRegistration = (credentialResponse) => {
-    const googleToken = credentialResponse.token;
-    axios
-      .post(`${apiUrl}/api/authentication/google-register`, { googleToken })
-      .then((response) => {
-        const { user } = response.data;
-        // Optionally, you may want to log the user in after registration
-        handleRegisteredUserLogin(user);
-      })
-      .catch((error) => {
-        console.error("Error registering new user:", error);
-      });
-  };
 
   const handleError = () => {
     setError("Login Failed");
@@ -239,39 +258,34 @@ const Login = (props) => {
                 または
               </div>
               <div
-                className="w-full py-3 flex items-center justify-center bg-white border border-gray-300 rounded-[3rem] mt-3 hover:bg-gray-100 focus:outline-none"
-                onClick={handleLogin}
+                className=" relative w-full py-2 flex items-center justify-center gap-5 cursor-pointer bg-white border border-gray-300 rounded-[3rem] mt-3 hover:bg-gray-100 focus:outline-none"
+                onClick={() => googlelogin()}
               >
                 <img
                   alt="Google Icon"
                   src="images/google-icon.svg"
                   className="h-6 mr-3"
                 />
+                <div className=" absolute left-1">
+                </div>
+
                 <span className="text-gray-700 font-bold">
                   Googleでログイン
                 </span>
+
               </div>
+              <div className="google-login-container">
               <GoogleLogin
-                theme="filled_black"
+                theme="filled_blue"
                 shape="pill"
+                locale="ja"
+                // cookiePolicy={'single_host_origin'}
                 onSuccess={handleSuccess}
-                // onSuccess={(credentialResponse) => {
-                //   setCredentialResponse(credentialResponse);
-                //   const decodedUser = jwtDecode(credentialResponse.credential);
-                //   localStorage.setItem("user", JSON.stringify(decodedUser));
-                //   navigate("/home");
-                // }}
                 onError={handleError}
-              />
-              {/* <GoogleLogin
-                onSuccess={(credentialResponse) => {
-                  console.log(credentialResponse);
-                }}
-                onError={() => {
-                  console.log("Login Failed");
-                }}
                 useOneTap
-              /> */}
+              />
+              </div>
+             
               <div className="flex justify-center mt-4 text-gray-700 font-semibold text-sm">
                 <a href="/register" className="text-blue-500 font-semibold ">
                   アカウントの作成はこちら

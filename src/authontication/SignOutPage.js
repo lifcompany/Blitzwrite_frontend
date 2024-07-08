@@ -2,12 +2,14 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import { useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
+import { googleLogout } from '@react-oauth/google';
 
 function SignOutPage() {
   const navigate =  useNavigate();
   useEffect(() => {
     setTimeout(() => {
       localStorage.removeItem("accessToken");
+      googleLogout();
       navigate('/')
     }, 2000);
   }, []);

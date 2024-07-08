@@ -18,3 +18,15 @@
 .css-14lo706>span{
     font-size: 1.25rem;
 }
+.google-login-button {
+    font-size: 20px !important; /* Increase the font size */
+    width: 300px; /* Optional: Set the width */
+    height: 50px; /* Optional: Set the height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .google-login-button div {
+    font-size: 20px !important; /* Ensure the font size applies to inner elements */
+  }
