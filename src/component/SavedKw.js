@@ -7,6 +7,39 @@ import Filter from './modals/Filter';
 const SavedKw = () => {
     const [filterShow, setFilterShow] = useState(false);
 
+    const keyword_data = [
+        {
+            "name": "Name1",
+            "volume": 12314,
+            "status": true,
+        },
+        {
+            "name": "Family",
+            "volume": 12314,
+            "status": true,
+        },
+        {
+            "name": "Friend",
+            "volume": 12314,
+            "status": false,
+        },
+        {
+            "name": "New car",
+            "volume": 12314,
+            "status": false,
+        },
+        {
+            "name": "Luxury",
+            "volume": 12314,
+            "status": false,
+        },
+        {
+            "name": "E-power",
+            "volume": 12314,
+            "status": false,
+        }
+    ];
+
     const toggleShow = useCallback(() => {
         setFilterShow((filterShow) => !filterShow);
     }, []);
@@ -42,86 +75,44 @@ const SavedKw = () => {
                     </thead>
 
                     <tbody className="divide-y divide-gray-200">
-                        <tr>
-                            <td className="px-4 py-2 font-medium text-gray-900 text-[14px]">
-                                <input type="checkbox" id="SelectAll" className="size-5 rounded border-gray-300" />
-                            </td>
-                            <td className="px-4 py-2 font-medium text-gray-900 text-[14px]">Name</td>
-                            <td className="px-4 py-2 font-medium text-gray-900 text-[14px]">Date of Birth</td>
-                            <td className="py-2">
-                                <Button outline label="未生成" />
-                            </td>
-                            <td className="py-2 ml-8">
-                                <div className="flex justify-around items-center">
-                                    <Button roundBtn label="記事生成" />
-                                    <FaEllipsisVertical size={20} />
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="px-4 py-2 font-medium text-gray-900 text-[14px]">
-                                <input type="checkbox" id="SelectAll" className="size-5 rounded border-gray-300" />
-                            </td>
-                            <td className="px-4 py-2 font-medium text-gray-900 text-[14px]">Name</td>
-                            <td className="px-4 py-2 font-medium text-gray-900 text-[14px]">Date of Birth</td>
-                            <td className="py-2">
-                                <Button outline label="未生成" />
-                            </td>
-                            <td className="py-2 ml-8">
-                                <div className="flex justify-around items-center">
-                                    <Button roundBtn label="記事生成" />
-                                    <FaEllipsisVertical size={20} />
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="px-4 py-2 font-medium text-gray-900 text-[14px]">
-                                <input type="checkbox" id="SelectAll" className="size-5 rounded border-gray-300" />
-                            </td>
-                            <td className="px-4 py-2 font-medium text-gray-900 text-[14px]">Name</td>
-                            <td className="px-4 py-2 font-medium text-gray-900 text-[14px]">Date of Birth</td>
-                            <td className="py-2">
-                                <Button outline label="未生成" />
-                            </td>
-                            <td className="py-2 ml-8">
-                                <div className="flex justify-around items-center">
-                                    <Button roundBtn label="記事生成" />
-                                    <FaEllipsisVertical size={20} />
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="px-4 py-2 font-medium text-gray-900 text-[14px]">
-                                <input type="checkbox" id="SelectAll" className="size-5 rounded border-gray-300" />
-                            </td>
-                            <td className="px-4 py-2 font-medium text-gray-900 text-[14px]">Name</td>
-                            <td className="px-4 py-2 font-medium text-gray-900 text-[14px]">Date of Birth</td>
-                            <td className="py-2">
-                                <Button outline label="未生成" />
-                            </td>
-                            <td className="py-2 ml-8">
-                                <div className="flex justify-around items-center">
-                                    <Button roundBtn label="記事生成" />
-                                    <FaEllipsisVertical size={20} />
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td className="px-4 py-2 font-medium text-gray-900 text-[14px]">
-                                <input type="checkbox" id="SelectAll" className="size-5 rounded border-gray-300" />
-                            </td>
-                            <td className="px-4 py-2 font-medium text-gray-900 text-[14px]">Name</td>
-                            <td className="px-4 py-2 font-medium text-gray-900 text-[14px]">Date of Birth</td>
-                            <td className="py-2">
-                                <Button outline label="未生成" />
-                            </td>
-                            <td className="py-2 ml-8">
-                                <div className="flex justify-around items-center">
-                                    <Button roundBtn label="記事生成" />
-                                    <FaEllipsisVertical size={20} />
-                                </div>
-                            </td>
-                        </tr>
+                        {keyword_data.map((keyword, index) => {
+                            return (
+                                <tr key={index}>
+                                    <td className="px-4 py-2 font-medium text-gray-900 text-[14px]">
+                                        <input type="checkbox" id="SelectAll" className="size-5 rounded border-gray-300" />
+                                    </td>
+                                    <td className="px-4 py-2 font-medium text-gray-900 text-[14px]">{keyword.name}</td>
+                                    <td className="px-4 py-2 font-medium text-gray-900 text-[14px]">{keyword.volume}</td>
+                                    {/* <td className="py-2">
+                                        <Button outline label="未生成" />
+                                    </td> */}
+                                    <td className="py-2">
+                                        {keyword.status ? (
+                                            <button
+                                                // onClick={() => handlePreview(index)}
+                                                className="h-fit px-[24px] py-[8px] leading-[14px] rounded-full bg-white bg-[#3BAAE2]/0 hover:bg-[#3BAAE2]/10 active:bg-[#3BAAE2]/20 border-[1px] border-[#3BAAE2] text-[#3DAAE2] font-bold text-[14px]"
+                                            >
+                                                生成済
+                                            </button>
+                                        ) : (
+                                            <button
+                                                // onClick={() => handlePreview(index)}
+                                                className="h-fit leading-[14px] bg-white text-center text-gray-900 hover:bg-[#5469D4]/80 active:bg-[#5469D4] hover:text-white border-[1px] border-gray-400 rounded-full px-[24px] py-[8px] font-bold text-[14px]"
+                                            >
+                                                未生成
+                                            </button>
+                                        )}
+                                    </td>
+                                    <td className="py-2 ml-8">
+                                        <div className="flex justify-around items-center">
+                                            <Button roundBtn label="記事生成" />
+                                            <FaEllipsisVertical size={20} />
+                                        </div>
+                                    </td>
+                                </tr>
+                            )
+
+                        })}
                     </tbody>
                 </table>
             </div>

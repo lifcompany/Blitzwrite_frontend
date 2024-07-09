@@ -32,20 +32,20 @@ const SetKwd = () => {
       const buttons = keywords
         .map((keyword) => {
           const fakeButtons = [];
-          // for (let i = 1; i <= 5; i++) {
-          //   fakeButtons.push(`${keyword}${i}`);
-          // }
-          axios
-          .post(`${apiUrl}/api/generate/keyword-suggest/`, { keyword: keyword })
-          .then((response) => {
-            // const data = response.data;
-            console.log(response);
+          for (let i = 1; i <= 5; i++) {
+            fakeButtons.push(`${keyword}${i}`);
+          }
+          // axios
+          // .post(`${apiUrl}/api/generate/keyword-suggest/`, { keyword: keyword })
+          // .then((response) => {
+          //   // const data = response.data;
+          //   console.log(response);
 
-          })
-          .catch((error) => {
-            console.error("Backend Error:", error);
-            setError(error.response.data.error);
-          });
+          // })
+          // .catch((error) => {
+          //   console.error("Backend Error:", error);
+          //   setError(error.response.data.error);
+          // });
           return fakeButtons;
         })
         .flat();
