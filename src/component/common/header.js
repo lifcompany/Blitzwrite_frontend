@@ -58,6 +58,14 @@ const Header = () => {
               <MdEditDocument style={{ fontSize: '30px' }}/>
               作成
             </button>
+            
+            <button
+              onClick={() => navigate("/keyword")}
+              className=" flex justify-center items-center gap-1 mr-4 p-2 rounded-md hover:bg-gray-200 text-[#232E2F] hover:text-[#232E2F] font-bold "
+            >
+              <MdEditDocument style={{ fontSize: '30px' }}/>
+              Keyword
+            </button>
             <a
               href="https://docs.google.com/spreadsheets/d/1KBuz0tSocys6kA0en05gIjLO9U_ZUMWhVIK8ySZ8nXU/edit#gid=1894772142"
               target="_blank"

@@ -6,6 +6,10 @@ import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
 import Header from "../../component/common/header";
+import Error from "../../component/common/error";
+import Notification from "../../component/common/notification";
+
+
 
 const SetKwd = () => {
   const [fakeButtons, setFakeButtons] = useState([]);
@@ -15,8 +19,12 @@ const SetKwd = () => {
   const [selectedItem, setSelectedItem] = useState("");
   const [options, setOption] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
+  const [error, setError] = useState("");
+
 
   const navigate = useNavigate();
+
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
@@ -24,9 +32,20 @@ const SetKwd = () => {
       const buttons = keywords
         .map((keyword) => {
           const fakeButtons = [];
-          for (let i = 1; i <= 5; i++) {
-            fakeButtons.push(`${keyword}${i}`);
-          }
+          // for (let i = 1; i <= 5; i++) {
+          //   fakeButtons.push(`${keyword}${i}`);
+          // }
+          axios
+          .post(`${apiUrl}/api/generate/keyword-suggest/`, { keyword: keyword })
+          .then((response) => {
+            // const data = response.data;
+            console.log(response);
+
+          })
+          .catch((error) => {
+            console.error("Backend Error:", error);
+            setError(error.response.data.error);
+          });
           return fakeButtons;
         })
         .flat();
@@ -52,8 +71,6 @@ const SetKwd = () => {
       window.alert("Please select the keywords");
     }
   };
-
-  const apiUrl = process.env.REACT_APP_API_URL;
 
   const handleChange = async (e) => {
     setInputValue(e.target.value);
@@ -194,6 +211,8 @@ const SetKwd = () => {
         </div>
       </div>
       <Outlet />
+      <Error content={error} />
+      {/* <Notification content={content} /> */}
     </div>
   );
 };
