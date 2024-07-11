@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../../component/common/header";
 import FormControl from "@mui/material/FormControl";
 import FormGroup from "@mui/material/FormGroup";
@@ -17,6 +17,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import Notification from "../../component/common/notification";
 
 const columns = [
   { id: "title", label: "タイトル", minWidth: 320 },
@@ -207,10 +208,14 @@ const rows = [
   ),
 ];
 
-const Generated = () => {
-  const [auto, setAuto] = React.useState(false);
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+const Generated = (props) => {
+  const [auto, setAuto] = useState(false);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [notification, setNotification] = useState("");
+
+
+  const content = props.content ? props.content : "";
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -326,6 +331,7 @@ const Generated = () => {
           />
         </Paper>
       </div>
+      <Notification content={content} />
     </div>
   );
 };

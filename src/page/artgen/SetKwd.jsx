@@ -32,20 +32,22 @@ const SetKwd = () => {
       const buttons = keywords
         .map((keyword) => {
           const fakeButtons = [];
-          for (let i = 1; i <= 5; i++) {
-            fakeButtons.push(`${keyword}${i}`);
-          }
-          // axios
-          // .post(`${apiUrl}/api/generate/keyword-suggest/`, { keyword: keyword })
-          // .then((response) => {
-          //   // const data = response.data;
-          //   console.log(response);
+          // for (let i = 1; i <= 5; i++) {
+          //   fakeButtons.push(`${keyword}${i}`);
+          // }
+          axios
+          .post(`${apiUrl}/api/generate/keyword-suggest/`, { keyword: keyword })
+          .then((response) => {
+            // const data = response.data;
+            console.log(response.data);
 
-          // })
-          // .catch((error) => {
-          //   console.error("Backend Error:", error);
-          //   setError(error.response.data.error);
-          // });
+            setSuggestions(response.data.suggestions)
+
+          })
+          .catch((error) => {
+            console.error("Backend Error:", error);
+            setError(error.response.data.error);
+          });
           return fakeButtons;
         })
         .flat();
@@ -89,7 +91,7 @@ const SetKwd = () => {
           }
         );
         setOption(response.data[1])
-        setSuggestions(response.data[1]);
+        // setSuggestions(response.data[1]);
       } catch (error) {
         console.error("Error fetching suggestions:", error);
         setSuggestions([]);
@@ -177,17 +179,17 @@ const SetKwd = () => {
               ""
             )}
             <div className="flex mt-4 flex-wrap">
-              {fakeButtons.map((button, index) => (
+              {suggestions.map((suggestion, index) => (
                 <button
                   key={index}
                   className={`p-2 pl-3 pr-3 border rounded-2xl mr-3 mb-2 ${
-                    selectedResults.includes(button)
+                    selectedResults.includes(suggestion.keyword)
                       ? "bg-[#232E2F] text-white"
                       : "bg-gray-100 text-[#232E2F]"
                   } hover:bg-[#232E2F] hover:text-white`}
-                  onClick={() => handleResultClick(button)}
+                  onClick={() => handleResultClick(suggestion.keyword)}
                 >
-                  {button}
+                  {suggestion.keyword}
                 </button>
               ))}
             </div>

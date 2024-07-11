@@ -47,46 +47,46 @@ const SavedKw = () => {
     return (
         <>
             {filterShow && <Filter onShow={filterShow} />}
-            <div className="overflow-x-auto relative">
-                <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
-                    <thead className="bg-gray-200 text-left">
+            <div className="overflow-x-auto relative rounded-xl">
+                <table className="min-w-full">
+                    <thead className="bg-white text-left p-2">
                         <tr>
-                            <th className="px-4 py-2 font-bold text-gray-900 text-xs text-left w-[4%]"></th>
-                            <th className="whitespace-nowrap px-4 py-2">
-                                <div className="flex flex-row justify-between items-center">
+                            <th className="px-8 py-3 font-bold text-gray-900 text-xs text-left w-[4%]">
+                                <input type="checkbox" id="SelectAll" className=" align-middle size-4 rounded border-gray-300" />
+                            </th>
+                            <th className="whitespace-nowrap px-8 py-2">
+                                <div className="flex flex-row gap-3">
                                     <p className="font-bold text-gray-900 text-xs">キーワード</p>
                                     <IoFilter onClick={toggleShow} className="cursor-pointer" />
+
                                 </div>
                             </th>
-                            <th className="whitespace-nowrap px-4 py-2">
-                                <div className="flex flex-row justify-between items-center">
+                            <th className="whitespace-nowrap px-8 py-2">
+                                <div className="flex flex-row gap-3">
                                     <p className="font-bold text-gray-900 text-xs">ボリューム</p>
                                     <IoFilter />
                                 </div>
                             </th>
-                            <th className="whitespace-nowrap px-4 py-2 text-left">
-                                <div className="flex flex-row justify-between items-center">
+                            <th className="whitespace-nowrap px-8 py-2  text-left">
+                                <div className="flex flex-row gap-3">
                                     <p className="font-bold text-gray-900 text-xs">記事生成ステータス</p>
                                     <IoFilter />
                                 </div>
                             </th>
-                            <th className="whitespace-nowrap px-4 py-2 font-bold text-gray-900 text-xs text-left"></th>
+                            <th className="whitespace-nowrap py-2 font-bold text-gray-900 text-xs text-left"></th>
                         </tr>
                     </thead>
 
-                    <tbody className="divide-y divide-gray-200">
+                    <tbody className="divide-y divide-gray-200 bg-gray-100">
                         {keyword_data.map((keyword, index) => {
                             return (
                                 <tr key={index}>
-                                    <td className="px-4 py-2 font-medium text-gray-900 text-[14px]">
-                                        <input type="checkbox" id="SelectAll" className="size-5 rounded border-gray-300" />
+                                    <td className="whitespace-nowrap px-8 py-2 font-medium text-gray-900 text-[14px]">
+                                        <input type="checkbox" id="SelectAll" className="align-middle size-4 rounded border-gray-300" />
                                     </td>
-                                    <td className="px-4 py-2 font-medium text-gray-900 text-[14px]">{keyword.name}</td>
-                                    <td className="px-4 py-2 font-medium text-gray-900 text-[14px]">{keyword.volume}</td>
-                                    {/* <td className="py-2">
-                                        <Button outline label="未生成" />
-                                    </td> */}
-                                    <td className="py-2">
+                                    <td className="whitespace-nowrap px-8 py-2 font-medium text-gray-900 text-[14px]">{keyword.name}</td>
+                                    <td className="whitespace-nowrap px-8 py-2 font-medium text-gray-900 text-[14px]">{keyword.volume}</td>
+                                    <td className="whitespace-nowrap py-2">
                                         {keyword.status ? (
                                             <button
                                                 // onClick={() => handlePreview(index)}
@@ -105,13 +105,12 @@ const SavedKw = () => {
                                     </td>
                                     <td className="py-2 ml-8">
                                         <div className="flex justify-around items-center">
-                                            <Button roundBtn label="記事生成" />
+                                            <Button common label="記事生成" />
                                             <FaEllipsisVertical size={20} />
                                         </div>
                                     </td>
                                 </tr>
                             )
-
                         })}
                     </tbody>
                 </table>

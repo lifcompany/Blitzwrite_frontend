@@ -3,19 +3,25 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../../component/common/header";
 import Notification from "../../component/common/notification";
 import Error from "../../component/common/error";
-const Progress = () => {
+import axios from "axios";
+import api from "../../api";
+const Progress = (props) => {
   const [progress, setProgress] = useState(0);
   const [isDone, setIsDone] = useState(false);
   const [error, setError] = useState("");
-  const [notification, setNotification] = useState("");
+  
+  const SetNotification = props.SetNotification;
 
   const location = useLocation();
   const navigate = useNavigate();
   const { selectedResults } = location.state || { selectedResults: [] };
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+  const token = localStorage.getItem("accessToken");
+
   useEffect(() => {
     console.log(selectedResults);
-    
+
   }, [selectedResults]);
 
   useEffect(() => {
@@ -25,9 +31,25 @@ const Progress = () => {
       } else {
         clearInterval(interval);
         setIsDone(true);
-        setNotification("完了");
+        SetNotification("完了");
+        api
+          .get(`${apiUrl}/api/generate/send-notification`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((response) => {
+            console.log(response);
+            SetNotification(response.data["success"]);
+          })
+          .catch((error) => {
+            console.log(error);
+            setError(error.response.data.error);
+          });
+
         setTimeout(() => {
           navigate("/artgen/generated");
+
         }, 2000);
       }
     }, 50);
@@ -35,7 +57,7 @@ const Progress = () => {
     return () => clearInterval(interval);
   }, [navigate, progress]);
 
- 
+
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -58,7 +80,7 @@ const Progress = () => {
           </div>
         </div>
       </div>
-      <Notification content={notification} />
+      {/* <Notification content={notification} /> */}
       <Error content={error} />
     </div>
   );

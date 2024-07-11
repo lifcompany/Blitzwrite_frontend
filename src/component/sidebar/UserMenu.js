@@ -1,13 +1,22 @@
 import React, { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import MenuItem from './MenuItem';
 
 const UserMenu = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const navigate = useNavigate
 
     const toggleOpen = useCallback(() => {
         setIsOpen((value) => !value);
     }, []);
 
+    const handlelogin = () => {
+        navigate('/login');
+    }
+
+    const handleregister = () => {
+        navigate('/register');
+    }
     return (
         <>
             <div
@@ -33,9 +42,9 @@ const UserMenu = () => {
             {isOpen && (
                 <div className="absolute rounded-md shadow-lg bg-[#F7FAFC] overflow-hidden md:right-8 top-14 text-sm z-50 text-gray-900">
                     <div className="flex flex-col cursor-pointer">
-                        <MenuItem onClick={() => {}} label="Log in" />
+                        <MenuItem onClick={handlelogin} label="Log in" />
                         <hr />
-                        <MenuItem onClick={() => {}} label="Register" />
+                        <MenuItem onClick={handleregister} label="Register" />
                         <MenuItem onClick={() => {}} label="Payment" />
                     </div>
                 </div>

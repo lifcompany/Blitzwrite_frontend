@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -11,6 +11,7 @@ import ClientErrorPage from "../error/ClientErrorPage";
 const GenRouter = () => {
   const selectedSiteName = useSelector((state) => state.site.siteName);
   const navigate = useNavigate("");
+  const [notification, SetNotification] =  useState("");
 
   useEffect(() => {
     if (!selectedSiteName) {
@@ -22,8 +23,8 @@ const GenRouter = () => {
     <Routes>
       <Route path="/" element={<CheckKwd />} />
       <Route path="/setkeyword" element={<SetKwd />} />
-      <Route path="/progress" element={<Progress />} />
-      <Route path="/generated" element={<Generated />} />
+      <Route path="/progress" element={<Progress SetNotification={SetNotification} />} />
+      <Route path="/generated" element={<Generated content={notification}/>} />
       <Route path="*" element={<ClientErrorPage />} />
     </Routes>
   );

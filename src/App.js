@@ -24,6 +24,7 @@ import PaymentBox from "./component/setting/payment/PaymentBox";
 import ClientErrorPage from "./page/error/ClientErrorPage";
 import KeywordRouter from "./page/keyword/KeywordRouter";
 import './App.scss';
+import Test from "./page/keyword/Test";
 
 
 function App() {
@@ -53,6 +54,7 @@ function App() {
         <Route path="/get-keyword" element={<SearchKeyword />} />
         <Route path="/artgen/*" element={<GenRouter />} />
         <Route path="/keyword/*" element={<KeywordRouter />} />
+        <Route path="/test" element={<Test />} />
         {/* <Route path="/title-generation" element={<TitleGen />} />
         <Route path="/edit-article" element={<EditArticle />} />
         <Route path="/article-configuration" element={<ArticleConfiguration />} /> */}

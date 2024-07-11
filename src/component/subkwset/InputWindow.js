@@ -1,34 +1,44 @@
-import React, { useState } from 'react';
+import userEvent from '@testing-library/user-event';
+import React, { useEffect, useState } from 'react';
 import { IoIosSave } from "react-icons/io";
 
-const InputWindow = ({ isActive, onSave }) => {
-    const [content, setContent] = useState('テキストテキストテキストテキストテキスト');
+const InputWindow = ({ isActive, onSave, headcontent }) => {
+    const [content, setContent] = useState(headcontent);
 
     const handleContentChange = (e) => {
         setContent(e.target.value);
     };
 
-    const handleSaveClick = () => {
+    const handleSave = () => {
         onSave(content);
     };
 
-    return (
-        <div className={`flex items-center ${isActive ? 'border-blue-500' : 'border-gray-300'}`}>
-            <textarea
-                value={content}
-                onChange={handleContentChange}
-                disabled={!isActive}
-                className={`w-full h-[30px] p-1 ${isActive ? 'bg-white border-[1px]' : 'bg-gray-100'} ${isActive ? 'text-black' : 'text-black-500'}`}
-            />
-            {isActive && (
-                <IoIosSave 
-                    onClick={handleSaveClick}
+    if (isActive) {
+        return (
+            <div className={`flex items-center border-blue-500`}>
+                <textarea
+                    value={content}
+                    onChange={handleContentChange}
+                    className="w-full h-fit max-w-full py-2 px-4 bg-white border-[1px] text-black"
+                />
+                <IoIosSave
+                    onClick={handleSave}
                     size={25}
                     className="cursor-pointer ml-2"
                 />
-            )}
-        </div>
-    );
+            </div>
+        );
+    } else {
+        return (
+            <div className="flex items-center max-w-full py-2 px-4 border-gray-300 bg-gray-100 text-black-500">
+                <p>
+                    {content}
+                </p>
+            </div>
+        );
+    }
 };
 
 export default InputWindow;
+
+

@@ -1,5 +1,6 @@
 import React from 'react';
 import Notification from './Notification';
+import Progress from './Progress';
 import Setting from './Setting';
 import UserMenu from './UserMenu';
 
@@ -13,6 +14,8 @@ const TopBar = () => {
                     </a>
                     <Setting />
                     <Notification />
+                </div>
+                <div className="w-[130px] mr-10">
                 </div>
             </div>
         </nav>

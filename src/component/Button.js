@@ -1,9 +1,10 @@
 import { style } from '@mui/system';
 import React from 'react';
 
-const Button = ({ label, common, roundBtn, outline, signInOutBtn, stylecss }) => {
+const Button = ({ label, common, roundBtn, outline, signInOutBtn, stylecss, onClick }) => {
     return (
         <button
+            onClick={onClick}
             className={`
                     py-[12px]
                     px-[18px]

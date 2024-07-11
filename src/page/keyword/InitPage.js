@@ -5,6 +5,7 @@ import ContainerDiv from "../../component/ContainerDiv";
 import KwInput from "../../component/KwInput";
 import KwTable from "../../component/KwTable";
 import Title from "../../component/Title";
+import SubTitle from "../../component/SubTitle";
 
 
 const InitPage=()=> {
@@ -18,9 +19,10 @@ const InitPage=()=> {
       <div className="flex flex-col gap-5">
         <div>
           <Title label="キーワード生成"/> 
-          <p>説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト</p>
+          <SubTitle order="1" label="キーワードを生成しましょう" sublabel="説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト"/>
         </div>
         <KwInput/>
+        <SubTitle order="2" label="キーワードを選んでください" sublabel="説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト"/>
         <KwTable/>
         <div className="flex justify-end" onClick={handleSaveKeyword}>
           <Button common label="キーワード保存"/>

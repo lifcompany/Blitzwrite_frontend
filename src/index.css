@@ -30,3 +30,10 @@
   .google-login-button div {
     font-size: 20px !important; /* Ensure the font size applies to inner elements */
   }
+
+  .img-bg{
+    background-image: url('./assets/images/bg.png');
+    
+     /* background-color: red; */
+    
+  }

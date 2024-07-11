@@ -8,11 +8,12 @@ import Title from "../../component/Title";
 
 const Preview=()=> {
     const subKeywords = [
-        "keywrd", "keywrd", "keydsaawrd", "keywrd",
-        "kedsafsdafdsywrd", "keywrd", "keywrd", "kesadfdsafywrd",
-        "keywrd", "keywrd", "kesadfdsafywrd",
+        "Name", "keywrd", "family", "friends",
+        "React", "Angular", "TypeScript", "Wordpress",
+        "PHP", "Django", "Restfull API",
         "keywrd", "keywasdfdsrd", "ksadfdsd", "keywrd", "keywrdsfdsd",
-    ]
+      ]
+    
     const chatGptTitle = [
         "1．タイトル案タイトル案タイトル案タイトル案タイトル案タイトル案タイトル案タイトル案タイトル案タイトル案",
         "2．タイトル案タイトル案タイトル案タイトル案タイトル案タイトル案タイトル案タイトル案タイトル案タイトル案",
@@ -60,10 +61,10 @@ const Preview=()=> {
                     </div>
                     <div className="flex sm:flex-row flex-col items-center gap-2 sm:justify-end justify-center">
                         <p className="text-[14px]">戻る</p>
-                        <Button common label="ダウンロード" />
-                        <Button common label="Shopifyに記事投稿" />
-                        <Button common label="WordPressに記事投稿" />
-                        <Button common label="保存する" />
+                        <Button onClick={() => {}} common label="ダウンロード" />
+                        <Button onClick={() => {}} common label="Shopifyに記事投稿" />
+                        <Button onClick={() => {}} common label="WordPressに記事投稿" />
+                        <Button onClick={() => {}} common label="保存する" />
                     </div>
                 </div>
             </div>
