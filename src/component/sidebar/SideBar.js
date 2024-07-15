@@ -25,11 +25,9 @@ const SideBar = () => {
       navigate("/savedkw");
     };
   
-    const handlesetting = () => {
-      navigate("/setting");
+    const handlearticleconfig = () => {
+      navigate("/keyword/article-configuration");
     };
-
-
 
     return (
         <aside className={`flex top-0 left-0 flex-col justify-between fixed z-50 h-full w-[300px] transition-transform duration-300 translate-x-0 sm:bg-transparent"}`}>
@@ -61,12 +59,12 @@ const SideBar = () => {
                             <p className="block antialiased font-sans text-[16px] leading-normal text-[#1A1F36] font-black uppercase opacity-75">記事</p>
                         </li>
                         <li>
-                            <Link to="/keyword/title-generation">
-                                <SideBtn icon={<HiOutlineCommandLine size={24} />} onClick={handlesetting} label="記事生成" />
+                            <Link to="/keyword/article-configuration">
+                                <SideBtn icon={<HiOutlineCommandLine size={24} />} onClick={handlearticleconfig} label="記事生成" />
                             </Link>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="/keyword/article-preview">
                                 <SideBtn icon={<VscListUnordered size={24} />} onClick={() => { }} label="保存した記事" />
                             </a>
                         </li>

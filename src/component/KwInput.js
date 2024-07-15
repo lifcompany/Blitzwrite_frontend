@@ -1,18 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import axios from "axios";
 import Button from './Button';
 import { useNavigate } from 'react-router-dom';
+import CloseIcon from "@mui/icons-material/Close";
 
-const KwInput = ({ setSuggestions }) => {
+
+const KwInput = ({ setSuggestions, setMainKeyword }) => {
     const [inputValue, setInputValue] = useState("");
     const [fakeButtons, setFakeButtons] = useState([]);
     const [selectedResults, setSelectedResults] = useState([]);
     const [showList, setShowList] = useState(false);
     const [options, setOption] = useState([]);
+    const [selectedItem, setSelectedItem] = useState("");
+
     const [error, setError] = useState("");
 
 
     const navigate = useNavigate();
+    const dropdownRef = useRef(null);
 
     const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -27,7 +32,8 @@ const KwInput = ({ setSuggestions }) => {
                     .then((response) => {
                         console.log(response.data);
 
-                        setSuggestions(response.data.suggestions)
+                        setSuggestions(response.data.suggestions);
+                        setMainKeyword(keyword);
 
                     })
                     .catch((error) => {
@@ -75,10 +81,57 @@ const KwInput = ({ setSuggestions }) => {
         }
     };
 
+    const handleSelectItem = (item) => {
+        setSelectedItem(item);
+        setInputValue(item);
+        setShowList(false);
+    };
+    const handleCloseButton = () => {
+        setInputValue("");
+        setShowList(false);
+    };
+
+
+    const handleClickOutside = (event) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            setShowList(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
     return (
         <form className="w-full flex flex-col gap-5">
-            <div id="json-example-with-tab-filter-in-dropdown-tab-preview-markup" className="bg-gray-100 p-6 dark:bg-neutral-300 dark:border-neutral-700">
-                <textarea value={inputValue} onChange={handleChange} onKeyDown={handleKeyDown} className="p-6 block w-full h-[100px] border-gray-200 rounded-xl text-base focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-300 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-100" placeholder="Input keyword." />
+            <div id="relative json-example-with-tab-filter-in-dropdown-tab-preview-markup" className="bg-gray-100 p-3 dark:bg-neutral-300 dark:border-neutral-700">
+                <textarea
+                    value={inputValue}
+                    onChange={handleChange}
+                    onKeyDown={handleKeyDown}
+                    className="p-6 block w-full h-[100px] border-gray-200 rounded-xl text-base focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-300 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-100"
+                    placeholder="Input keyword." />
+                {/* <CloseIcon
+                    onClick={handleCloseButton}
+                    style={{ cursor: "pointer" }}
+                /> */}
+                {showList && (
+                    <ul ref={dropdownRef} className="absolute bg-white border border-gray-300 rounded-md shadow-lg mt-1 w-[50%] z-10" >
+                        {options.map((option, index) => (
+                            <li
+                                key={index}
+                                className="cursor-pointer py-1 px-3 text-gray-800 hover:bg-gray-200"
+                                onClick={() => handleSelectItem(option)}
+                            >
+                                {option}
+                            </li>
+                        ))}
+                    </ul>
+                )}
+
             </div>
             <div className="flex justify-end">
                 <Button onClick={handleSuggestKeyword} label="類似キーワードを算出する" common />

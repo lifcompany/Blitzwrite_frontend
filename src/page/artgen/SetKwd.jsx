@@ -32,13 +32,9 @@ const SetKwd = () => {
       const buttons = keywords
         .map((keyword) => {
           const fakeButtons = [];
-          // for (let i = 1; i <= 5; i++) {
-          //   fakeButtons.push(`${keyword}${i}`);
-          // }
           axios
           .post(`${apiUrl}/api/generate/keyword-suggest/`, { keyword: keyword })
           .then((response) => {
-            // const data = response.data;
             console.log(response.data);
 
             setSuggestions(response.data.suggestions)
