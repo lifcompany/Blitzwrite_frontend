@@ -94,7 +94,7 @@ const InitPage = () => {
         <KwInput setSuggestions={setSuggestions} setMainKeyword={setMainKeyword} />
         <SubTitle order="2" label="キーワードを選んでください" sublabel="説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト" />
         <KwTable suggestions={suggestions} setSelectedKeywords={setSelectedKeywords} />
-        <div className="flex justify-end">
+        <div className="flex justify-end gap-5">
           <Button common label="キーワード保存" onClick={handleSaveKeyword} />
           <Button common label="タイトル生成" onClick={handleCreateHeading} />
         </div>

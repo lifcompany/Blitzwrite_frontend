@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { CiPen } from "react-icons/ci";
 import { AiOutlineSave } from "react-icons/ai";
@@ -16,18 +17,36 @@ import LogoImage from '../../assets/symbol.png';
 const SideBar = () => {
 
     const navigate = useNavigate('');
+    const token = localStorage.getItem("accessToken");
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     const handlekwgenerate = () => {
-      navigate("/kwgenerate");
+        navigate("/kwgenerate");
     };
-  
+
     const handlesavedkw = () => {
-      navigate("/savedkw");
+        navigate("/savedkw");
     };
-  
+
     const handlearticleconfig = () => {
-      navigate("/keyword/article-configuration");
+        navigate("/keyword/article-configuration");
     };
+
+    useEffect(() => {
+        axios
+            .post(`${apiUrl}/api/authentication/premium_status/`, {
+                headers: {
+                    Accept: "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            .then((response) => {
+                console.log('Keywords saved successfully:', response.data);
+            })
+            .catch((error) => {
+                console.error('Error saving keywords:', error);
+            });
+    }, []);
 
     return (
         <aside className={`flex top-0 left-0 flex-col justify-between fixed z-50 h-full w-[300px] transition-transform duration-300 translate-x-0 sm:bg-transparent"}`}>
@@ -81,28 +100,29 @@ const SideBar = () => {
                     </ul>
                 </div>
             </div>
-            <div  className="hidden xl:block">
-                    <div className="flex flex-col pl-8 gap-4 mb-6">
-                        <div className="p-4 bg-white rounded-[12px] flex flex-col gap-6">
-                            <p className="text-base font-bold">スタータープラン</p>
-                            <Progress />
-                            <button
-                                type="button"
-                                className="w-full font-bold flex justify-center gap-1 items-center py-3 px-4 text-sm tracking-wide rounded-lg text-white bg-[#628CF8] hover:bg-[#9cb6f8] active:bg-[#628CF8] focus:outline-none"
-                            >
-                                <p>アップグレード</p>
-                                <FaCrown size={20} color="yellow" />
-                            </button>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <Avatar />
-                            <div className="flex flex-col items-center justify-between">
-                                <p className="text-base">NAMENAMENAME</p>
-                                <p className="text-[14px]">example@example.com</p>
-                            </div>
+
+            <div className="hidden xl:block">
+                <div className="flex flex-col pl-8 gap-4 mb-6">
+                    <div className="p-4 bg-white rounded-[12px] flex flex-col gap-6">
+                        <p className="text-base font-bold">スタータープラン</p>
+                        <Progress />
+                        <button
+                            type="button"
+                            className="w-full font-bold flex justify-center gap-1 items-center py-3 px-4 text-sm tracking-wide rounded-lg text-white bg-[#628CF8] hover:bg-[#9cb6f8] active:bg-[#628CF8] focus:outline-none"
+                        >
+                            <p>アップグレード</p>
+                            <FaCrown size={20} color="yellow" />
+                        </button>
+                    </div>
+                    <div className="flex items-center gap-4">
+                        <Avatar />
+                        <div className="flex flex-col items-center justify-between">
+                            <p className="text-base">NAMENAMENAME</p>
+                            <p className="text-[14px]">example@example.com</p>
                         </div>
                     </div>
                 </div>
+            </div>
         </aside>
     );
 };
