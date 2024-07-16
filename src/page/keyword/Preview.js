@@ -62,7 +62,6 @@ const Preview=()=> {
                     <div className="flex sm:flex-row flex-col items-center gap-2 sm:justify-end justify-center">
                         <p className="text-[14px]">戻る</p>
                         <Button onClick={() => {}} common label="ダウンロード" />
-                        <Button onClick={() => {}} common label="Shopifyに記事投稿" />
                         <Button onClick={() => {}} common label="WordPressに記事投稿" />
                         <Button onClick={() => {}} common label="保存する" />
                     </div>

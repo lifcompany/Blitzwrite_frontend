@@ -3,7 +3,7 @@ import axios from "axios";
 import Button from './Button';
 import { useNavigate } from 'react-router-dom';
 import CloseIcon from "@mui/icons-material/Close";
-
+import { addKeyword, getAllKeywords, clearKeywords } from '../component/indexDB/idb';
 
 const KwInput = ({ setSuggestions, setMainKeyword }) => {
     const [inputValue, setInputValue] = useState("");
@@ -12,37 +12,40 @@ const KwInput = ({ setSuggestions, setMainKeyword }) => {
     const [showList, setShowList] = useState(false);
     const [options, setOption] = useState([]);
     const [selectedItem, setSelectedItem] = useState("");
-
     const [error, setError] = useState("");
-
+    const [storedKeywords, setStoredKeywords] = useState([]);
 
     const navigate = useNavigate();
     const dropdownRef = useRef(null);
-
     const apiUrl = process.env.REACT_APP_API_URL;
 
     const handleSuggestKeyword = (event) => {
         event.preventDefault();
         const keywords = inputValue.split(",").filter(Boolean);
-        const buttons = keywords
-            .map((keyword) => {
-                const fakeButtons = [];
-                axios
-                    .post(`${apiUrl}/api/generate/keyword-suggest/`, { keyword: keyword })
-                    .then((response) => {
-                        console.log(response.data);
+        const buttons = keywords.map((keyword) => {
+            const fakeButtons = [];
+            axios.post(`${apiUrl}/api/generate/keyword-suggest/`, { keyword: keyword })
+                .then(async (response) => {
+                    console.log(response.data);
 
-                        setSuggestions(response.data.suggestions);
-                        setMainKeyword(keyword);
+                    setSuggestions(response.data.suggestions);
+                    setMainKeyword(keyword);
 
-                    })
-                    .catch((error) => {
-                        console.error("Backend Error:", error);
-                        setError(error.response.data.error);
+                    await clearKeywords();
+                    // Store main keyword and suggestions in IndexedDB
+                    await addKeyword({
+                        mainKeyword: keyword,
+                        suggestions: response.data.suggestions,
                     });
-                return fakeButtons;
-            })
-            .flat();
+
+                })
+                .catch((error) => {
+                    console.error("Backend Error:", error);
+                    setError(error.response.data.error);
+                });
+            return fakeButtons;
+        }).flat();
+
         setFakeButtons(buttons);
         setSelectedResults([]);
         setShowList(false);
@@ -103,6 +106,28 @@ const KwInput = ({ setSuggestions, setMainKeyword }) => {
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
+    }, []);
+
+    useEffect(() => {
+        const fetchStoredKeywords = async () => {
+            const allKeywords = await getAllKeywords();
+            setInputValue(allKeywords[0].mainKeyword)
+            setSuggestions(allKeywords[0].suggestions)
+            console.log("allKeywords", allKeywords[0].mainKeyword);
+            setStoredKeywords(allKeywords);
+        };
+
+        fetchStoredKeywords();
+
+        const handleUnload = async () => {
+            await clearKeywords();
+        };
+        window.addEventListener('unload', handleUnload);
+    
+        return () => {
+            window.removeEventListener('unload', handleUnload);
+        };
+
     }, []);
 
     return (

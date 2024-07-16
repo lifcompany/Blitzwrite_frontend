@@ -1,17 +1,32 @@
 'use client'
 
-import React, {useState} from "react";
+import React, { useState } from "react";
 import GptTitle from "./GptTitle";
 import TitleEdit from "./TitleEdit";
 
 const TitleContainer = () => {
-    const chatGptTitle = [
+    const [chatGptTitle, setChatGptTitle] = useState([
         "1．タイトル案タイトル案タイトル案タイトル案タイトル案タイトル案タイトル案タイトル案",
         "2．タイトル案タイトル案タイトル案タイトル案タイトル案タイトル案タイトル案",
         "3．タイトル案タイトル案タイトル案タイトル案タイトル案タイトル案タイトル案タイトル案タイトル案タイトル案",
-        "4．タイトル案タイトル案タイトル案タイトル案タイトル案タイトル案",
-    ]
+        "4．タイトル案タイトル案タイトル案タイトル案タイトル案",
+    ]);
+    const [editingIndex, setEditingIndex] = useState(null);
     const [inputValue, setInputValue] = useState('');
+
+    const handleTitleClick = (index) => {
+        setEditingIndex(index);
+        setInputValue(chatGptTitle[index]);
+    }
+
+    const handleInputChange = (value) => {
+        setInputValue(value);
+        setChatGptTitle((prevTitles) => {
+            const newTitles = [...prevTitles];
+            newTitles[editingIndex] = value;
+            return newTitles;
+        });
+    }
 
     return (
         <div>
@@ -21,12 +36,14 @@ const TitleContainer = () => {
                         <GptTitle
                             key={index}
                             label={keyword}
-                            onTitleClick={setInputValue}
+                            onTitleClick={() => handleTitleClick(index)}
                         />
                     ))}
                 </div>
             </div>
-            <TitleEdit inputValue={inputValue} setInputValue={setInputValue} />
+            {editingIndex !== null && (
+                <TitleEdit inputValue={inputValue} setInputValue={handleInputChange} />
+            )}
         </div>
     )
 }

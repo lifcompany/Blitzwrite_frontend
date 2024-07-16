@@ -18,10 +18,11 @@ const InitPage = () => {
   const [mainKeyword, setMainKeyword] = useState();
   const [error, setError] = useState("");
   const [notification, setNotification] = useState("");
-
   const [selectedKeywords, setSelectedKeywords] = useState([]);
+  const [titles, setTitles] = useState([]);
   const versionName = useSelector((state) => state.version.versionName);
 
+  const navigate = useNavigate("");
   const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem("accessToken");
 
@@ -35,8 +36,6 @@ const InitPage = () => {
           keyword: keyword.keyword,
           volume: keyword.avg_monthly_searches
         }));
-        console.log("selected keyword Data", keywordsToSend, mainKeyword);
-
         axios
           .post(`${apiUrl}/api/generate/save_keywords/`, { keywords: keywordsToSend, main_keyword: mainKeyword }, {
             headers: {
@@ -52,23 +51,19 @@ const InitPage = () => {
             console.error('キーワード保存エラー:', error);
           });
       } else {
-        setError("選択されたキーワードがありません。");
-
-
+        setError("選択されたキーワードがありません。")
       }
     }, 0);
   };
 
   const handleCreateHeading = () => {
-    setError(""); // Clear the error initially to trigger a re-render
+    setError("");
     setTimeout(() => {
       if (selectedKeywords.length > 0) {
         const keywordsToSend = selectedKeywords.map(keyword => ({
           keyword: keyword.keyword,
           volume: keyword.avg_monthly_searches // Assuming avg_monthly_searches is the volume
         }));
-        console.log("selected keyword Data", keywordsToSend, mainKeyword, versionName);
-
         axios
           .post(`${apiUrl}/api/generate/create-heading/`, { keywords: keywordsToSend, main_keyword: mainKeyword, versionName: versionName }, {
             headers: {
@@ -77,26 +72,28 @@ const InitPage = () => {
             },
           })
           .then((response) => {
-            // setNotification();
-            console.log('Keywords saved successfully:', response.data);
+            console.log('Title Generations successfully:', response.data.title);
+            setTitles(response.data.title);
+            setNotification("タイトルが正常に作成されました。");
+            // navigate("/keyword/article-configuration")
           })
           .catch((error) => {
             setError(error.response.data.error);
           });
       } else {
-        setError("Non selected the keyword");
+        setError("選択されたキーワードがありません。");
       }
-    }, 0); // Use setTimeout to d
+    }, 0);
   }
   return (
     <ContainerDiv>
       <div className="flex flex-col gap-5">
         <div>
           <Title label="キーワード生成" />
-          <SubTitle order="1" label="キーワードを生成しましょう" sublabel="説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト" />
+          <SubTitle order="1" label="キーワードを生成しましょう" sublabel="メインキーワードを入力すると、それに関連するサブキーワードを取得することができます。" />
         </div>
         <KwInput setSuggestions={setSuggestions} setMainKeyword={setMainKeyword} />
-        <SubTitle order="2" label="キーワードを選んでください" sublabel="説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト説明テキスト" />
+        <SubTitle order="2" label="キーワードを選んでください" sublabel="提案されたキーワードのボリュームを確認し、適切なキーワードを選択することができます。" />
         <KwTable suggestions={suggestions} setSelectedKeywords={setSelectedKeywords} />
         <div className="flex justify-end gap-5">
           <Button common label="キーワード保存" onClick={handleSaveKeyword} />

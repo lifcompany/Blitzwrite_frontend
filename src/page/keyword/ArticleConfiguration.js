@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from "axios";
 import ContainerDiv from '../../component/ContainerDiv';
 import Title from '../../component/Title';
 import Step from '../../component/Step';
@@ -13,21 +14,85 @@ import { useNavigate } from 'react-router-dom';
 import SubTitle from '../../component/SubTitle';
 import TitleContainer from '../../component/subkwset/TitleContainer';
 import ConfigList from '../../component/subkwset/ConfigList';
+import { useSelector } from 'react-redux';
+import Error from "../../component/common/error";
+import Notification from "../../component/common/notification";
 
 
 export default function ArticleConfiguration() {
-  const subKeywords = [
-    "Name", "keywrd", "family", "friends",
-    "React", "Angular", "TypeScript", "Wordpress",
-    "PHP", "Django", "Restfull API",
-    "keywrd", "keywasdfdsrd", "ksadfdsd", "keywrd", "keywrdsfdsd",
-  ]
-
+  const [error, setError] = useState("");
+  const [notification, setNotification] = useState("");
+  const [addedkeyword, setAddedkeyword] = useState("");
+  const [mainkeyword, setMainkeyword] = useState("");
+  const [suggestkeyword, setSuggestKeyword] = useState([]);
+  const versionName = useSelector((state) => state.version.versionName);
   const navigate = useNavigate('');
+  const apiUrl = process.env.REACT_APP_API_URL;
+  const token = localStorage.getItem("accessToken");
+
+  useEffect(() => {
+    axios
+    .get(`${apiUrl}/api/generate/get-keyword-data/`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => {
+      console.log('キーワードの保存に成功:', response.data);
+      setMainkeyword(response.data.mainkeyword)
+      setSuggestKeyword(response.data.suggest_keyword)
+    })
+    .catch((error) => {
+      console.error('キーワード保存エラー:', error);
+    });
+  }, []);
+
   const handlearticleend = () => {
-    navigate('/setting/article-end')
+    navigate('/keyword/article-preview')
   }
 
+  const handleChangeKeyword = (e) => {
+    setAddedkeyword(e.target.value);
+  }
+  const handleAddKeyword = () => {
+    if (addedkeyword.trim() !== "") {
+      setSuggestKeyword(prevKeywords => [...prevKeywords, addedkeyword]);
+    }
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  };
+
+  const handleCreateTitle = () => {
+    console.log(suggestkeyword);
+    setError("");
+    setTimeout(() => {
+      if (suggestkeyword.length > 0) {
+        const keywordsToSend = suggestkeyword.map(keyword => ({
+          keyword: keyword.keyword,
+          volume: keyword.avg_monthly_searches // Assuming avg_monthly_searches is the volume
+        }));
+        axios
+          .post(`${apiUrl}/api/generate/create-heading/`, { keywords: keywordsToSend, main_keyword: mainkeyword, versionName: versionName }, {
+            headers: {
+              Accept: "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((response) => {
+            console.log('Title Generations successfully:', response.data);
+            setNotification("タイトルが正常に作成されました。");
+          })
+          .catch((error) => {
+            console.log('Title Generations Error:', error.response);
+            setError(error.response.data.error);
+          });
+      } else {
+        setError("選択されたキーワードがありません。");
+      }
+    }, 0);
+  }
   return (
     <ContainerDiv>
       <div className="flex flex-col gap-5">
@@ -36,13 +101,13 @@ export default function ArticleConfiguration() {
           <Step />
         </div>
         <SubTitle order="1" label="サブキーワードを設定してください" sublabel="" />
-        <KeyWordShow />
-        <form action="" className="mt-4 ">
+        <KeyWordShow mainkeyword={mainkeyword} />
+        <form action="" className="mt-4 " onSubmit={handleSubmit}>
           <div className="text-[#252936]">
             <p className="text-[14px] mb-2 font-medium">サブキーワード</p>
             <div className="bg-[#F5F8F8] w-full p-6 rounded-lg">
               <div className="flex flex-wrap gap-4">
-                {subKeywords.map((keyword, index) => (
+                {suggestkeyword.map((keyword, index) => (
                   <SubKwSetting
                     key={index}
                     label={keyword}
@@ -50,13 +115,13 @@ export default function ArticleConfiguration() {
                 ))}
               </div>
               <div className="flex gap-4 mt-4">
-                <input type="text" className="w-full sm:w-[350px] h-[50px] p-[12px] text-base border-2 rounded-lg" />
-                <button className="text-[14px] text-[#5469D4] min-w-max">追加する</button>
+                <input type="text" value={addedkeyword} onChange={handleChangeKeyword} className="w-full sm:w-[350px] h-[50px] p-[12px] text-base border-2 rounded-lg" />
+                <button onClick={handleAddKeyword} className="text-[14px] text-[#5469D4] min-w-max">追加する</button>
               </div>
             </div>
           </div>
           <div className="flex sm:flex-row items-center sm:justify-start gap-4 flex-col justify-center my-4">
-            <Button onClick={() => { }} common label="タイトルを生成する（3/3）" />
+            <Button onClick={handleCreateTitle} common label="タイトルを生成する（3/3）" />
             <p className="text-[14px]">※生成は３回までです。</p>
           </div>
         </form>
@@ -66,7 +131,7 @@ export default function ArticleConfiguration() {
           <p className="text-[14px] mb-3 font-medium">タイトル案</p>
           <TitleContainer />
           <div className="flex sm:flex-row items-center sm:justify-start gap-4 flex-col justify-center my-4">
-            <Button onClick={() => { }} common label="タイトルを生成する（3/3）" />
+            <Button onClick={() => { }} common label="記事構成を生成する（3/3）" />
             <p className="text-[14px]">※生成は３回までです。</p>
           </div>
         </form>
@@ -74,7 +139,7 @@ export default function ArticleConfiguration() {
         <SubTitle order="3" label="記事構成を作成してください" sublabel="" />
         <div className="flex sm:flex-row flex-col">
           <FinalSet
-            keyword="シミが消える化粧品ランキング"
+            keyword={mainkeyword}
             subkeyword="アットコスメ"
             title="シミが消える？〜〜〜〜〜"
           />
@@ -98,6 +163,8 @@ export default function ArticleConfiguration() {
           <Button onClick={handlearticleend} common label="記事を生成する" />
         </div>
       </div>
+      <Error content={error} />
+      <Notification content={notification} />
     </ContainerDiv>
   );
 }
