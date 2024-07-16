@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { CiPen } from "react-icons/ci";
@@ -17,8 +17,11 @@ import LogoImage from '../../assets/symbol.png';
 const SideBar = () => {
 
     const navigate = useNavigate('');
-    const token = localStorage.getItem("accessToken");
     const apiUrl = process.env.REACT_APP_API_URL;
+    const token = localStorage.getItem("accessToken");
+
+    const [premiumStatus, setPremiumStatus] = useState(null);
+    const [email, setEmail] = useState("example@example.com");
 
     const handlekwgenerate = () => {
         navigate("/kwgenerate");
@@ -31,22 +34,54 @@ const SideBar = () => {
     const handlearticleconfig = () => {
         navigate("/keyword/article-configuration");
     };
+    const handleUpgrade = () => {
+        navigate("/setting-payment");
+    }
 
     useEffect(() => {
-        axios
-            .post(`${apiUrl}/api/authentication/premium_status/`, {
-                headers: {
-                    Accept: "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-            })
-            .then((response) => {
-                console.log('Keywords saved successfully:', response.data);
-            })
-            .catch((error) => {
-                console.error('Error saving keywords:', error);
-            });
-    }, []);
+        const checkPremium = () => {
+            axios.post(
+                `${apiUrl}/api/authentication/check-premium/`,
+                {},
+                {
+                    headers: {
+                        Accept: "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            )
+                .then(response => {
+                    setPremiumStatus(response.data.status);
+                })
+                .catch(error => {
+                    if (error?.response?.data && error?.response?.status === 500) {
+                        setPremiumStatus(error?.response?.data?.status);
+                    } else {
+                        setPremiumStatus('is not premium');
+                    }
+                });
+        };
+        const getUserEmail = async () => {
+            await axios.get(
+                `${apiUrl}/api/authentication/get-useremail/`,
+                {
+                    headers: {
+                        Accept: "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            )
+                .then(response => {
+                    setEmail(response.data.email)
+                })
+                .catch(error => {
+                    console.error('Error fetching user info:', error);
+                });
+        };
+
+        getUserEmail();
+        checkPremium();
+    }, [apiUrl, token]);
 
     return (
         <aside className={`flex top-0 left-0 flex-col justify-between fixed z-50 h-full w-[300px] transition-transform duration-300 translate-x-0 sm:bg-transparent"}`}>
@@ -103,26 +138,39 @@ const SideBar = () => {
 
             <div className="hidden xl:block">
                 <div className="flex flex-col pl-8 gap-4 mb-6">
-                    <div className="p-4 bg-white rounded-[12px] flex flex-col gap-6">
-                        <p className="text-base font-bold">スタータープラン</p>
-                        <Progress />
-                        <button
-                            type="button"
-                            className="w-full font-bold flex justify-center gap-1 items-center py-3 px-4 text-sm tracking-wide rounded-lg text-white bg-[#628CF8] hover:bg-[#9cb6f8] active:bg-[#628CF8] focus:outline-none"
-                        >
-                            <p>アップグレード</p>
-                            <FaCrown size={20} color="yellow" />
-                        </button>
-                    </div>
+                    {premiumStatus === "is not premium" ? (
+                        <div className="p-4 bg-white rounded-[12px] flex flex-col gap-6">
+                            <p className="text-base font-bold">スタータープラン</p>
+                            <Progress />
+                            <button
+                                onClick={handleUpgrade}
+                                type="button"
+                                className="w-full font-bold flex justify-center gap-1 items-center py-3 px-4 text-sm tracking-wide rounded-lg text-white bg-[#628CF8] hover:bg-[#9cb6f8] active:bg-[#628CF8] focus:outline-none"
+                            >
+                                <p>アップグレード</p>
+                                <FaCrown size={20} color="yellow" />
+                            </button>
+                        </div>
+                    ) : (<></>)}
                     <div className="flex items-center gap-4">
-                        <Avatar />
+                        <div className=" relative">
+                            <Avatar />
+                            {premiumStatus === "is premium" ? (
+                                <div className=" absolute top-0 right-[-5px]">
+                                    <FaCrown size={20} color="#ff9b00" />
+                                </div>) :
+                                (<></>)
+                            }
+                        </div>
+
                         <div className="flex flex-col items-center justify-between">
                             <p className="text-base">NAMENAMENAME</p>
-                            <p className="text-[14px]">example@example.com</p>
+                            <p className="text-[14px]">{email}</p>
                         </div>
                     </div>
                 </div>
             </div>
+
         </aside>
     );
 };
