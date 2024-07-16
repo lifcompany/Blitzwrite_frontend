@@ -13,7 +13,6 @@ const KwInput = ({ setSuggestions, setMainKeyword }) => {
     const [options, setOption] = useState([]);
     const [selectedItem, setSelectedItem] = useState("");
     const [error, setError] = useState("");
-    const [storedKeywords, setStoredKeywords] = useState([]);
 
     const navigate = useNavigate();
     const dropdownRef = useRef(null);
@@ -113,8 +112,6 @@ const KwInput = ({ setSuggestions, setMainKeyword }) => {
             const allKeywords = await getAllKeywords();
             setInputValue(allKeywords[0].mainKeyword)
             setSuggestions(allKeywords[0].suggestions)
-            console.log("allKeywords", allKeywords[0].mainKeyword);
-            setStoredKeywords(allKeywords);
         };
 
         fetchStoredKeywords();
@@ -139,10 +136,6 @@ const KwInput = ({ setSuggestions, setMainKeyword }) => {
                     onKeyDown={handleKeyDown}
                     className="p-6 block w-full h-[100px] border-gray-200 rounded-xl text-base focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-300 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-100"
                     placeholder="Input keyword." />
-                {/* <CloseIcon
-                    onClick={handleCloseButton}
-                    style={{ cursor: "pointer" }}
-                /> */}
                 {showList && (
                     <ul ref={dropdownRef} className="absolute bg-white border border-gray-300 rounded-md shadow-lg mt-1 w-[50%] z-10" >
                         {options.map((option, index) => (
