@@ -11,13 +11,14 @@ import SubTitle from "../../component/SubTitle";
 import Error from "../../component/common/error";
 import Notification from "../../component/common/notification";
 import api from "../../api";
-
+import { addTitle, getAllTitles, clearTitles } from '../../component/indexDB/title';
 
 const InitPage = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [mainKeyword, setMainKeyword] = useState();
   const [error, setError] = useState("");
   const [notification, setNotification] = useState("");
+  const [category, setCategory] = useState("");
   const [selectedKeywords, setSelectedKeywords] = useState([]);
   const [titles, setTitles] = useState([]);
   const versionName = useSelector((state) => state.version.versionName);
@@ -57,12 +58,13 @@ const InitPage = () => {
   };
 
   const handleCreateHeading = () => {
+    console.log(selectedKeywords);
     setError("");
     setTimeout(() => {
       if (selectedKeywords.length > 0) {
         const keywordsToSend = selectedKeywords.map(keyword => ({
           keyword: keyword.keyword,
-          volume: keyword.avg_monthly_searches // Assuming avg_monthly_searches is the volume
+          volume: keyword.avg_monthly_searches
         }));
         axios
           .post(`${apiUrl}/api/generate/create-heading/`, { keywords: keywordsToSend, main_keyword: mainKeyword, versionName: versionName }, {
@@ -71,11 +73,13 @@ const InitPage = () => {
               Authorization: `Bearer ${token}`,
             },
           })
-          .then((response) => {
+          .then(async (response) => {
+            await clearTitles();
             console.log('Title Generations successfully:', response.data.title);
-            setTitles(response.data.title);
             setNotification("タイトルが正常に作成されました。");
             // navigate("/keyword/article-configuration")
+            const title = response.data.title;
+            await addTitle({title});
           })
           .catch((error) => {
             setError(error.response.data.error);

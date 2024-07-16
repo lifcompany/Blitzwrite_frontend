@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Config from "./Config";
 
-const ConfigList = () => {
+const ConfigList = ({titles}) => {
   const [configs, setConfigs] = useState([
     { id: "config1", content: "タイトル案タイトル案タイトル案タイトル案タイトル案タイトル案タイトル案タイトル案タイトル案タイトル案" },
     { id: "config2", content: "タイトル案タイトル案タイトル案タイトル案タイトル案タイトル案タイトル案" },
@@ -12,6 +12,11 @@ const ConfigList = () => {
     { id: "config6", content: "イトル案タイトル案タイトル案タイトル案案タイトル案タイトル案" },
     { id: "config7", content: "タイ案タイトル案タイトル案" },
 ]);
+
+
+// useEffect(() => {
+//   setConfigs(titles || []);
+// }, [titles]);
 
   const onDragEnd = (result) => {
     if (!result.destination) return;

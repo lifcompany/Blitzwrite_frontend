@@ -1,4 +1,3 @@
-// idb.js
 import { openDB } from 'idb';
 
 const dbPromise = openDB('keywordDB', 1, {

@@ -3,7 +3,7 @@ import axios from "axios";
 import Button from './Button';
 import { useNavigate } from 'react-router-dom';
 import CloseIcon from "@mui/icons-material/Close";
-import { addKeyword, getAllKeywords, clearKeywords } from '../component/indexDB/idb';
+import { addKeyword, getAllKeywords, clearKeywords } from './indexDB/keyword';
 
 const KwInput = ({ setSuggestions, setMainKeyword }) => {
     const [inputValue, setInputValue] = useState("");

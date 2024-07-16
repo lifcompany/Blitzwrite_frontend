@@ -118,9 +118,9 @@ const SideBar = () => {
                             </Link>
                         </li>
                         <li>
-                            <a href="/keyword/article-preview">
+                            <Link to="/keyword/article-preview">
                                 <SideBtn icon={<VscListUnordered size={24} />} onClick={() => { }} label="保存した記事" />
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                     <ul className="flex flex-col">

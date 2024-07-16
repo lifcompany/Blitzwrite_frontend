@@ -17,6 +17,8 @@ import ConfigList from '../../component/subkwset/ConfigList';
 import { useSelector } from 'react-redux';
 import Error from "../../component/common/error";
 import Notification from "../../component/common/notification";
+import { addTitle, getAllTitles, clearTitles } from '../../component/indexDB/title';
+
 
 
 export default function ArticleConfiguration() {
@@ -25,26 +27,39 @@ export default function ArticleConfiguration() {
   const [addedkeyword, setAddedkeyword] = useState("");
   const [mainkeyword, setMainkeyword] = useState("");
   const [suggestkeyword, setSuggestKeyword] = useState([]);
+  const [titles, setTitles] = useState([]);
+  const [title, setTitle] = useState("");
+
   const versionName = useSelector((state) => state.version.versionName);
   const navigate = useNavigate('');
   const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem("accessToken");
 
   useEffect(() => {
+    const fetchArticles = async () => {
+      const allTitles = await getAllTitles();
+      console.log(allTitles[0].title)
+      setTitles(allTitles[0].title)
+      setTitle(allTitles[0].title[0])
+    };
+
+    fetchArticles();
+
+
     axios
-    .get(`${apiUrl}/api/generate/get-keyword-data/`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((response) => {
-      console.log('キーワードの保存に成功:', response.data);
-      setMainkeyword(response.data.mainkeyword)
-      setSuggestKeyword(response.data.suggest_keyword)
-    })
-    .catch((error) => {
-      console.error('キーワード保存エラー:', error);
-    });
+      .get(`${apiUrl}/api/generate/get-keyword-data/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log("response data", response.data);
+        setMainkeyword(response.data.mainkeyword)
+        setSuggestKeyword(response.data.suggest_keyword)
+      })
+      .catch((error) => {
+        console.error('キーワード保存エラー:', error);
+      });
   }, []);
 
   const handlearticleend = () => {
@@ -70,8 +85,7 @@ export default function ArticleConfiguration() {
     setTimeout(() => {
       if (suggestkeyword.length > 0) {
         const keywordsToSend = suggestkeyword.map(keyword => ({
-          keyword: keyword.keyword,
-          volume: keyword.avg_monthly_searches // Assuming avg_monthly_searches is the volume
+          keyword: keyword
         }));
         axios
           .post(`${apiUrl}/api/generate/create-heading/`, { keywords: keywordsToSend, main_keyword: mainkeyword, versionName: versionName }, {
@@ -81,8 +95,10 @@ export default function ArticleConfiguration() {
             },
           })
           .then((response) => {
-            console.log('Title Generations successfully:', response.data);
+            console.log(response.data.title);
             setNotification("タイトルが正常に作成されました。");
+            setTitles(response.data.title)
+            setTitle(response.data.title[0])
           })
           .catch((error) => {
             console.log('Title Generations Error:', error.response);
@@ -129,7 +145,7 @@ export default function ArticleConfiguration() {
         <SubTitle order="2" label="タイトルを設定してください" sublabel="" />
         <form action="" className="text-[#3C4257]">
           <p className="text-[14px] mb-3 font-medium">タイトル案</p>
-          <TitleContainer />
+          <TitleContainer suggestkeyword={suggestkeyword} titles={titles} setTitle={setTitle} />
           <div className="flex sm:flex-row items-center sm:justify-start gap-4 flex-col justify-center my-4">
             <Button onClick={() => { }} common label="記事構成を生成する（3/3）" />
             <p className="text-[14px]">※生成は３回までです。</p>
@@ -141,7 +157,7 @@ export default function ArticleConfiguration() {
           <FinalSet
             keyword={mainkeyword}
             subkeyword="アットコスメ"
-            title="シミが消える？〜〜〜〜〜"
+            title={title}
           />
           <div className="w-full sm:pl-4 mt-4 sm:mt-0">
             <p className="text-[14px] mb-4">記事構成</p>
@@ -155,7 +171,7 @@ export default function ArticleConfiguration() {
                   </tr>
                 </thead>
               </table>
-              <ConfigList />
+              <ConfigList titles={titles} />
             </div>
           </div>
         </div>
