@@ -128,9 +128,9 @@ const SideBar = () => {
                             <p className="block antialiased font-sans text-[16px] leading-normal text-[#1A1F36] font-black uppercase opacity-75">設定</p>
                         </li>
                         <li>
-                            <a href="#">
+                            <Link to="/setting-api">
                                 <SideBtn icon={<CiSettings size={24} />} onClick={() => { }} label="API連携" />
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </div>

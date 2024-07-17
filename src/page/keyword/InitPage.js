@@ -66,6 +66,21 @@ const InitPage = () => {
           keyword: keyword.keyword,
           volume: keyword.avg_monthly_searches
         }));
+
+        axios
+        .post(`${apiUrl}/api/generate/save_keywords/`, { keywords: keywordsToSend, main_keyword: mainKeyword }, {
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          console.log('キーワードの保存に成功:', response.data);
+        })
+        .catch((error) => {
+          console.error('キーワード保存エラー:', error);
+        });
+
         axios
           .post(`${apiUrl}/api/generate/create-heading/`, { keywords: keywordsToSend, main_keyword: mainKeyword, versionName: versionName }, {
             headers: {

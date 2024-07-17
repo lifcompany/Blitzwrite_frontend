@@ -110,9 +110,16 @@ const KwInput = ({ setSuggestions, setMainKeyword }) => {
     useEffect(() => {
         const fetchStoredKeywords = async () => {
             const allKeywords = await getAllKeywords();
-            setInputValue(allKeywords[0].mainKeyword)
-            setSuggestions(allKeywords[0].suggestions)
-        };
+            
+            if (allKeywords.length > 0) {
+              setInputValue(allKeywords[0].mainKeyword);
+              setMainKeyword(allKeywords[0].mainKeyword);
+              setSuggestions(allKeywords[0].suggestions);
+            } else {
+              setInputValue('');
+              setSuggestions([]);
+            }
+          };
 
         fetchStoredKeywords();
 

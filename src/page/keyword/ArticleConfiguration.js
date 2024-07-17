@@ -28,6 +28,7 @@ export default function ArticleConfiguration() {
   const [mainkeyword, setMainkeyword] = useState("");
   const [suggestkeyword, setSuggestKeyword] = useState([]);
   const [titles, setTitles] = useState([]);
+  const [configs, setCofigs] = useState([]);
   const [title, setTitle] = useState("");
 
   const versionName = useSelector((state) => state.version.versionName);
@@ -38,13 +39,15 @@ export default function ArticleConfiguration() {
   useEffect(() => {
     const fetchArticles = async () => {
       const allTitles = await getAllTitles();
-      console.log(allTitles[0].title)
-      setTitles(allTitles[0].title)
-      setTitle(allTitles[0].title[0])
+      if (allTitles.length > 0) {
+        setTitles(allTitles[0].title)
+        setTitle(allTitles[0].title[0])
+      } else {
+        setTitles("")
+        setTitle("")
+      }
     };
-
     fetchArticles();
-
 
     axios
       .get(`${apiUrl}/api/generate/get-keyword-data/`, {
@@ -60,11 +63,16 @@ export default function ArticleConfiguration() {
       .catch((error) => {
         console.error('キーワード保存エラー:', error);
       });
-  }, []);
 
-  const handlearticleend = () => {
-    navigate('/keyword/article-preview')
-  }
+    const handleUnload = async () => {
+      await clearTitles();
+    };
+    window.addEventListener('unload', handleUnload);
+
+    return () => {
+      window.removeEventListener('unload', handleUnload);
+    };
+  }, []);
 
   const handleChangeKeyword = (e) => {
     setAddedkeyword(e.target.value);
@@ -99,6 +107,43 @@ export default function ArticleConfiguration() {
             setNotification("タイトルが正常に作成されました。");
             setTitles(response.data.title)
             setTitle(response.data.title[0])
+          })
+          .catch((error) => {
+            console.log('Title Generations Error:', error.response);
+            setError(error.response.data.error);
+          });
+      } else {
+        setError("選択されたキーワードがありません。");
+      }
+    }, 0);
+  }
+
+  const handleCreateConfig = () => {
+    console.log(suggestkeyword);
+    setError("");
+    setTimeout(() => {
+      if (suggestkeyword.length > 0) {
+        const keywordsToSend = suggestkeyword.map(keyword => ({
+          keyword: keyword
+        }));
+        axios
+          .post(`${apiUrl}/api/generate/create-config/`, { keywords: keywordsToSend, main_keyword: mainkeyword, versionName: versionName }, {
+            headers: {
+              Accept: "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((response) => {
+            console.log(response.data.config);
+            const configArray = response.data.config[0];
+            setNotification("構成が正常に作成されました。");
+            const convertedArray = configArray.map((item, index) => ({
+              id: `config${index + 1}`,
+              content: item["title"]
+              // content: item.title.replace(/<\/?[^>]+(>|$)/g, "") // Remove HTML tags if needed
+            }));
+            console.log(convertedArray);
+            setCofigs(convertedArray)
           })
           .catch((error) => {
             console.log('Title Generations Error:', error.response);
@@ -165,18 +210,18 @@ export default function ArticleConfiguration() {
               <table className="divide-y-2 divide-gray-200 bg-white text-sm">
                 <thead className=" bg-gray-200 text-left">
                   <tr>
-                    <th className="whitespace-nowrap px-4 py-2  font-bold text-gray-900 text-xs text-left">導入文</th>
-                    <th className="whitespace-nowrap px-4 py-2  h-fit font-bold text-gray-900 text-xs text-left">リード文</th>
+                    <th className="whitespace-nowrap px-4 py-2 font-bold text-gray-900 text-xs text-left">導入文</th>
+                    <th className="whitespace-nowrap px-4 py-2 h-fit font-bold text-gray-900 text-xs text-left">リード文</th>
                     <th className="whitespace-nowrap px-4 py-2 w-full font-bold text-gray-900 text-xs text-left"></th>
                   </tr>
                 </thead>
               </table>
-              <ConfigList titles={titles} />
+              <ConfigList configs_data={configs} />
             </div>
           </div>
         </div>
         <div className="flex sm:flex-row items-center sm:justify-start gap-4 flex-col justify-center my-4">
-          <Button onClick={handlearticleend} common label="記事を生成する" />
+          <Button onClick={handleCreateConfig} common label="記事を生成する" />
         </div>
       </div>
       <Error content={error} />
