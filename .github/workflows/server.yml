@@ -12,9 +12,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Setup Production Environment Variables
-      run: |
-        echo "REACT_APP_API_URL=${{ secrets.PRODUCTION_API_URL }}" > .env
+    # - name: Setup Production Environment Variables
+    #   run: |
+    #     echo "REACT_APP_API_URL=${{ secrets.PRODUCTION_API_URL }}" > .env
 
     - name: Setup SSH
       uses: webfactory/ssh-agent@v0.5.3
@@ -24,7 +24,7 @@ jobs:
     - name: Deploy to Server
       run: |
         ssh -o StrictHostKeyChecking=no ubuntu@133.242.160.145 << 'EOF'
-          cd ~/python/posttool
+          cd ~/blitzwrite/Blitzwrite_frontend
           git remote set-url origin git@github.com:lifcompany/Blitzwrite_frontend.git
 
           eval $(ssh-agent -s)
@@ -33,7 +33,7 @@ jobs:
 
           git pull origin main
           
-          cd ~/python/Blitzwrite_frontend
+          cd ~/blitzwrite/Blitzwrite_frontend
           npm install
           npm run build
           sudo rsync -av --delete ~/blitzwrite/Blitzwrite_frontend/build/ /var/www/html/
