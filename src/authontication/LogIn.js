@@ -275,7 +275,7 @@ const Login = (props) => {
 
               </div>
               <div className="google-login-container">
-              <GoogleLogin
+              {/* <GoogleLogin
                 theme="filled_blue"
                 shape="pill"
                 locale="ja"
@@ -283,7 +283,7 @@ const Login = (props) => {
                 onSuccess={handleSuccess}
                 onError={handleError}
                 useOneTap
-              />
+              /> */}
               </div>
              
               <div className="flex justify-center mt-4 text-gray-700 font-semibold text-sm">
