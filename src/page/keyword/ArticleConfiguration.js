@@ -28,10 +28,20 @@ export default function ArticleConfiguration() {
   const [mainkeyword, setMainkeyword] = useState("");
   const [suggestkeyword, setSuggestKeyword] = useState([]);
   const [titles, setTitles] = useState([]);
-  const [configs, setCofigs] = useState([]);
+  const [configs, setConfigs] = useState([]);
+  const [stringConfigs, setStringConfigs] = useState([]);
   const [title, setTitle] = useState("");
+  const [site_url, setSite_url] = useState("");
+  const [admin, setAdmin] = useState("");
+  const [password, setPassword] = useState("");
+  const [category, setCategory] = useState("");
+
 
   const versionName = useSelector((state) => state.version.versionName);
+  const siteUrl = useSelector((state) => state.site.siteUrl);
+  const siteAdmin = useSelector((state) => state.site.siteadmin);
+  const sitePassword = useSelector((state) => state.site.sitepassword);
+
   const navigate = useNavigate('');
   const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem("accessToken");
@@ -134,19 +144,70 @@ export default function ArticleConfiguration() {
             },
           })
           .then((response) => {
-            console.log(response.data.config);
-            const configArray = response.data.config[0];
+            const configArray = response.data.config;
+            console.log("HHHHHHHHHHHH", configArray);
             setNotification("構成が正常に作成されました。");
-            const convertedArray = configArray.map((item, index) => ({
-              id: `config${index + 1}`,
-              content: item["title"]
-              // content: item.title.replace(/<\/?[^>]+(>|$)/g, "") // Remove HTML tags if needed
-            }));
-            console.log(convertedArray);
-            setCofigs(convertedArray)
+            const convertedArray = configArray.map((innerArray, arrayIndex) =>
+              innerArray.map((item, index) => ({
+                id: `config${index + 1}`,
+                content: item
+              }))
+            );
+            setConfigs(convertedArray)
+
+            // Convert each sub-array of titles to a single string
+            const convertedStrings = configArray.map(innerArray =>
+              innerArray.map(item => item).join('\n')
+            );
+            console.log("JJJJJJJJJJ", convertedStrings);
+            setStringConfigs(convertedStrings)
+
+            // Log each converted string separately
+
           })
           .catch((error) => {
             console.log('Title Generations Error:', error.response);
+            setError(error.response.data.error);
+          });
+      } else {
+        setError("選択されたキーワードがありません。");
+      }
+    }, 0);
+  }
+
+  const handleCreateArticle = () => {
+    console.log("category", category);
+    const upload_info = {
+      site_url: siteUrl,
+      admin: siteAdmin,
+      password: sitePassword,
+      category: category,
+    }
+    console.log(stringConfigs, upload_info);
+    setError("");
+    setTimeout(() => {
+      if (suggestkeyword.length > 0) {
+        axios
+          .post(`${apiUrl}/api/generate/create-article/`, { keywordconfigs: stringConfigs, main_keyword: mainkeyword, versionName: versionName, upload_info: upload_info }, {
+            headers: {
+              Accept: "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((response) => {
+            // const configArray = response.data.config[0];
+            // setNotification("構成が正常に作成されました。");
+            // const convertedArray = configArray.map((item, index) => ({
+            //   id: `config${index + 1}`,
+            //   content: item["title"]
+
+            // }));
+            // setCofigs(convertedArray)
+
+            console.log("Article Generation Successful", response.data);
+          })
+          .catch((error) => {
+            console.log('Article Generations Error:', error.response);
             setError(error.response.data.error);
           });
       } else {
@@ -188,11 +249,11 @@ export default function ArticleConfiguration() {
         </form>
 
         <SubTitle order="2" label="タイトルを設定してください" sublabel="" />
-        <form action="" className="text-[#3C4257]">
+        <form action="" className="text-[#3C4257]" onSubmit={handleSubmit}>
           <p className="text-[14px] mb-3 font-medium">タイトル案</p>
           <TitleContainer suggestkeyword={suggestkeyword} titles={titles} setTitle={setTitle} />
           <div className="flex sm:flex-row items-center sm:justify-start gap-4 flex-col justify-center my-4">
-            <Button onClick={() => { }} common label="記事構成を生成する（3/3）" />
+            <Button onClick={handleCreateConfig} common label="記事構成を生成する（3/3）" />
             <p className="text-[14px]">※生成は３回までです。</p>
           </div>
         </form>
@@ -203,6 +264,7 @@ export default function ArticleConfiguration() {
             keyword={mainkeyword}
             subkeyword="アットコスメ"
             title={title}
+            setCategory={setCategory}
           />
           <div className="w-full sm:pl-4 mt-4 sm:mt-0">
             <p className="text-[14px] mb-4">記事構成</p>
@@ -221,7 +283,7 @@ export default function ArticleConfiguration() {
           </div>
         </div>
         <div className="flex sm:flex-row items-center sm:justify-start gap-4 flex-col justify-center my-4">
-          <Button onClick={handleCreateConfig} common label="記事を生成する" />
+          <Button onClick={handleCreateArticle} common label="記事を生成する" />
         </div>
       </div>
       <Error content={error} />

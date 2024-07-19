@@ -15,7 +15,7 @@ const ConfigList = ({configs_data}) => {
 
 
 useEffect(() => {
-  setConfigs(configs_data || []);
+  setConfigs(configs_data[0] || []);
   console.log(configs_data)
 }, [configs_data]);
 

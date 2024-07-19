@@ -1,11 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../component/common/header";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const CheckKwd = () => {
-  useEffect(() => {
-    console.log("GenRouter component mounted or updated");
-  }, []);
   return (
     <div className="min-h-screen flex flex-col">
       <Header />

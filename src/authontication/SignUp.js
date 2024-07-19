@@ -4,18 +4,20 @@ import axios from "axios";
 import { InputAdornment, IconButton, TextField } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import Error from "../component/common/error";
+import { useGoogleOneTapLogin, useGoogleLogin } from '@react-oauth/google';
+
 // import Notification from "../component/notification";
 
-const handleLogin = () => {
+// const handleLogin = () => {
     
-  // Handle login with Google
-  const auth2 = window.gapi.auth2.getAuthInstance();
-  auth2.signIn().then((googleUser) => {
-    const id_token = googleUser.getAuthResponse().id_token;
-    // Send the token to your backend for verification
-    // (using fetch or Axios)
-  });
-};
+//   // Handle login with Google
+//   const auth2 = window.gapi.auth2.getAuthInstance();
+//   auth2.signIn().then((googleUser) => {
+//     const id_token = googleUser.getAuthResponse().id_token;
+//     // Send the token to your backend for verification
+//     // (using fetch or Axios)
+//   });
+// };
 
 const SignUp = (props) => {
   const navigate = useNavigate();
@@ -24,8 +26,11 @@ const SignUp = (props) => {
   const [validPassword, setValidPassword] = useState(true);
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  const [token, setToken] = useState("");
   // const [notification, setNotification] = useState("");
   const SetNotification = props.SetNotification;
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   const handlePasswordChange = (event) => {
     const newPassword = event.target.value;
     setPassword(newPassword);
@@ -90,6 +95,48 @@ const SignUp = (props) => {
     }
   };
 
+
+  const googlelogin = useGoogleLogin({
+
+    onSuccess: (credentialResponse) => {
+      const { access_token } = credentialResponse;
+      if (access_token) {
+          axios
+            .post(`${apiUrl}/api/authentication/check-google-registration/`, { access_token })
+            .then((response) => {
+              const data = response.data;
+              const accessToken = data.accessToken;
+              setToken(accessToken);
+              localStorage.setItem("accessToken", accessToken)
+              navigate("/home");
+            })
+            .catch((error) => {
+              console.error("Backend Error:", error);
+              setError(error.response.data.error);
+            });
+        } else {
+          setError("Failed to get Google credentials");
+        }
+        console.log(credentialResponse);
+        // axios.get('https://www.googleapis.com/userinfo/v2/me', {
+        //   headers: {
+        //     Authorization: `Bearer ${access_token}`,
+        //   },
+        // }).then(response => {
+        //   console.log('User Info:', response.data);
+
+        //   // Handle response data as needed
+        // }).catch(error => {
+        //   console.error('Error fetching user info:', error);
+        //   // Handle errors
+        // });
+      // }
+    },
+    onError: () => {
+      setError("Login Failed");
+      navigate("/login");
+    },
+  });
   return (
     <div className="flex flex-col h-screen">
       <div
@@ -191,7 +238,7 @@ const SignUp = (props) => {
               </div>
               <div
                 className="w-full py-3 flex items-center justify-center bg-white border border-gray-300 rounded-[3rem] mt-3 hover:bg-gray-100 focus:outline-none"
-                onClick={handleLogin}
+                onClick={() => googlelogin()}
               >
                 <img
                   alt="Google Icon"
