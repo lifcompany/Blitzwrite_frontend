@@ -84,6 +84,7 @@ const Login = (props) => {
   const checkUserRegistration = (credentialResponse) => {
     const { credential } = credentialResponse;
     const { clientId } = credentialResponse;
+
     if (credential) {
       // const decodedToken = jwtDecode(credential);
       axios
@@ -105,7 +106,6 @@ const Login = (props) => {
     }
     console.log(credentialResponse);
   };
-
 
   const handleError = () => {
     setError("Login Failed");
