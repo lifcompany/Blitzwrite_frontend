@@ -160,10 +160,6 @@ const Login = (props) => {
     <div className="flex flex-col h-screen">
       <div
         className="flex flex-col flex-grow bg-bottom bg-no-repeat bg-contain"
-        style={{
-          backgroundImage:
-            "url(https://monovm.com/dashboard/vendors/metronic/media/illustrations/dozzy-1/4.png)",
-        }}
       >
         <div className="flex flex-col items-center justify-center flex-grow p-10 pb-20">
           <div
