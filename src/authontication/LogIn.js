@@ -86,7 +86,6 @@ const Login = (props) => {
     const { clientId } = credentialResponse;
 
     if (credential) {
-      // const decodedToken = jwtDecode(credential);
       axios
         .post(`${apiUrl}/api/authentication/check-registration/`, { credential, clientId })
         .then((response) => {
