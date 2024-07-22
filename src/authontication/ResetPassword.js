@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { InputAdornment, IconButton, TextField } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+
 import axios from "axios";
 
 const ResetPassword = () => {
@@ -9,6 +12,7 @@ const ResetPassword = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -51,6 +55,14 @@ const ResetPassword = () => {
     }
   };
 
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const handleTogglePassword = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
   return (
     <div className="flex flex-col h-screen">
       <div
@@ -69,7 +81,7 @@ const ResetPassword = () => {
               alt="Logo"
               src="/images/logo.svg"
               className="h-12"
-              // Adjust the image source path according to your project structure
+            // Adjust the image source path according to your project structure
             />
           </div>
           <div className="w-full max-w-[500px] bg-white rounded-lg shadow-lg p-10 px-20">
@@ -85,19 +97,70 @@ const ResetPassword = () => {
                 </h1>
               </div>
               <div className="mb-6">
-                <input
+                <TextField
                   id="password"
                   name="password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
+                  fullWidth
+                  variant="standard"
+                  placeholder="パスワード"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 border-b-2 border-gray-200 focus:outline-none focus:border-gray-500"
-                  placeholder="新しいパスワード"
-                  autoComplete="off"
-                  required
+                  onChange={handlePasswordChange}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton onClick={handleTogglePassword} edge="end">
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    "& .MuiInputBase-input": {
+                      width: "100%",
+                      paddingX: "16px",
+                      paddingY: "12px",
+                    },
+                    "& .MuiFormHelperText-root": {
+                      fontSize: "14px",
+                      color: "#dc3545",
+                    },
+                  }}
                 />
               </div>
               <div className="mb-6">
+                <TextField
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type={showPassword ? "text" : "password"}
+                  fullWidth
+                  variant="standard"
+                  placeholder="パスワード"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton onClick={handleTogglePassword} edge="end">
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    "& .MuiInputBase-input": {
+                      width: "100%",
+                      paddingX: "16px",
+                      paddingY: "12px",
+                    },
+                    "& .MuiFormHelperText-root": {
+                      fontSize: "14px",
+                      color: "#dc3545",
+                    },
+                  }}
+                />
+              </div>
+              {/* <div className="mb-6">
                 <input
                   id="confirmPassword"
                   name="confirmPassword"
@@ -109,7 +172,7 @@ const ResetPassword = () => {
                   autoComplete="off"
                   required
                 />
-              </div>
+              </div> */}
               <button
                 type="submit"
                 className="w-full py-3 bg-[#0F1740] text-white font-bold rounded-lg hover:bg-[#22294e] focus:outline-none focus:bg-[#0e1225]"
