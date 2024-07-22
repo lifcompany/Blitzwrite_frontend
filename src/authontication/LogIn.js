@@ -186,7 +186,7 @@ const Login = (props) => {
                   name="email"
                   fullWidth
                   variant="standard"
-                  placeholder="パスワード"
+                  placeholder="メールアドレス"
                   value={email}
                   onChange={handleEmailChange}
                   sx={{

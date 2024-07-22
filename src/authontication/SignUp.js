@@ -9,7 +9,7 @@ import { useGoogleOneTapLogin, useGoogleLogin } from '@react-oauth/google';
 // import Notification from "../component/notification";
 
 // const handleLogin = () => {
-    
+
 //   // Handle login with Google
 //   const auth2 = window.gapi.auth2.getAuthInstance();
 //   auth2.signIn().then((googleUser) => {
@@ -36,7 +36,7 @@ const SignUp = (props) => {
     setPassword(newPassword);
     setValidPassword(validatePassword(newPassword));
   };
-  
+
   const handleEmailChange = (event) => {
     const newEmail = event.target.value;
     setEmail(newEmail);
@@ -71,28 +71,30 @@ const SignUp = (props) => {
   };
   const handleSubmit = (e) => {
     setError('');
-    const apiUrl = process.env.REACT_APP_API_URL;
-    e.preventDefault();
+    setTimeout(() => {
+      const apiUrl = process.env.REACT_APP_API_URL;
+      e.preventDefault();
 
-    if (validateForm()) {
-      console.log("Form submitted with", email, password);
-      const signup_data = {
-        email: email,
-        password: password,
-      };
-      axios
-        .post(`${apiUrl}/api/authentication/register/`, signup_data)
-        .then((response) => {
-          console.log("Server response:", response.data["success"]);
-          navigate("/login");
-          SetNotification(response.data["success"]);
-        })
-        .catch((error) => {
-          setError(error.response.data.error);
-        });
-    } else {
-      // setError("フォームが無効です。エラーが表示されています...");
-    }
+      if (validateForm()) {
+        console.log("Form submitted with", email, password);
+        const signup_data = {
+          email: email,
+          password: password,
+        };
+        axios
+          .post(`${apiUrl}/api/authentication/register/`, signup_data)
+          .then((response) => {
+            console.log("Server response:", response.data["success"]);
+            navigate("/login");
+            SetNotification(response.data["success"]);
+          })
+          .catch((error) => {
+            setError(error.response.data.error);
+          });
+      } else {
+        // setError("フォームが無効です。エラーが表示されています...");
+      }
+    }, 0);
   };
 
 
@@ -101,35 +103,35 @@ const SignUp = (props) => {
     onSuccess: (credentialResponse) => {
       const { access_token } = credentialResponse;
       if (access_token) {
-          axios
-            .post(`${apiUrl}/api/authentication/check-google-registration/`, { access_token })
-            .then((response) => {
-              const data = response.data;
-              const accessToken = data.accessToken;
-              setToken(accessToken);
-              localStorage.setItem("accessToken", accessToken)
-              navigate("/home");
-            })
-            .catch((error) => {
-              console.error("Backend Error:", error);
-              setError(error.response.data.error);
-            });
-        } else {
-          setError("Failed to get Google credentials");
-        }
-        console.log(credentialResponse);
-        // axios.get('https://www.googleapis.com/userinfo/v2/me', {
-        //   headers: {
-        //     Authorization: `Bearer ${access_token}`,
-        //   },
-        // }).then(response => {
-        //   console.log('User Info:', response.data);
+        axios
+          .post(`${apiUrl}/api/authentication/check-google-registration/`, { access_token })
+          .then((response) => {
+            const data = response.data;
+            const accessToken = data.accessToken;
+            setToken(accessToken);
+            localStorage.setItem("accessToken", accessToken)
+            navigate("/home");
+          })
+          .catch((error) => {
+            console.error("Backend Error:", error);
+            setError(error.response.data.error);
+          });
+      } else {
+        setError("Failed to get Google credentials");
+      }
+      console.log(credentialResponse);
+      // axios.get('https://www.googleapis.com/userinfo/v2/me', {
+      //   headers: {
+      //     Authorization: `Bearer ${access_token}`,
+      //   },
+      // }).then(response => {
+      //   console.log('User Info:', response.data);
 
-        //   // Handle response data as needed
-        // }).catch(error => {
-        //   console.error('Error fetching user info:', error);
-        //   // Handle errors
-        // });
+      //   // Handle response data as needed
+      // }).catch(error => {
+      //   console.error('Error fetching user info:', error);
+      //   // Handle errors
+      // });
       // }
     },
     onError: () => {
