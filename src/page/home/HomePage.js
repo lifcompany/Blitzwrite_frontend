@@ -48,8 +48,10 @@ const HomePage = () => {
         },
       })
       .then((response) => {
-        console.log(response);
+        console.log(response.data);
         setModels(response.data);
+
+        // console.log
       })
       .catch((error) => {
         console.log(error);
@@ -99,7 +101,8 @@ const HomePage = () => {
 
   function handleSelectedModel(event) {
     const model_id = event.target.value;
-    const model_item = models.find((model) => model._id === model_id);
+    console.log(model_id);
+    const model_item = models.find((model) => model.id === model_id);
     const display_name = model_item ? model_item.display_name : null;
     const model_name = model_item ? model_item.model_name : null;
     setSelectedModelId(model_id);
@@ -132,7 +135,7 @@ const HomePage = () => {
             onChange={handleSelectedModel}
           >
             {models.map((model) => (
-              <MenuItem value={model._id} key={model._id}>
+              <MenuItem value={model.id} key={model.id}>
                 {model.model_name}
               </MenuItem>
             ))}
