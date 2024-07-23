@@ -169,8 +169,6 @@ const HomePage = () => {
         </div>
       </div>
       <h5 className=" font-semibold mb-5 text-left fixed bottom-5 right-8 text-gray-400">
-        Display Name : {displayName}
-        <br />
         View_model : {versionName} <br />
       </h5>
       <Notification content={notification} />
