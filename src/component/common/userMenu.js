@@ -40,16 +40,6 @@ export default function UserMenu() {
     <React.Fragment>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
         <Tooltip title="Account settings">
-          {/* <IconButton
-            onClick={handleClick}
-            size="small"
-            sx={{ ml: 2 }}
-            aria-controls={open ? "account-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}
-          >
-            <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
-          </IconButton> */}
           <Button
             onClick={userMenuClick}
             className="min-h-14 min-w-14 px-0 md:px-4 py-0 md:py-2 bg-white"
