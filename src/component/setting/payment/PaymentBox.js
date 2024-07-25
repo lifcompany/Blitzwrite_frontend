@@ -67,7 +67,6 @@ const PaymentBox = ({setOpen} ) => {
                 color="primary"
                 style={{ marginTop: "10px" }}
                 className="w-full py-2"
-                // onClick={upadte_model}
               >
                 編集
               </Button>
