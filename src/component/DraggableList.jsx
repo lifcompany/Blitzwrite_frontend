@@ -10,12 +10,10 @@ const DraggableList = () => {
     ]);
 
     const onDragStart = (e, index) => {
-        // Placeholder function to handle drag start behavior if needed
     };
 
     const onDragOver = (e) => {
         e.preventDefault();
-        // Placeholder function to handle drag over behavior if needed
     };
 
     const onDragEnd = (e, result) => {
