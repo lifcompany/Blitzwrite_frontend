@@ -7,9 +7,6 @@ const ToastNotification = (props) => {
 
   const [open, setOpen] = useState(false);
   const [messagetext, setMessageText] = useState(false);
-
- 
-
   const handleClick = () => {
     setOpen(true);
   };
