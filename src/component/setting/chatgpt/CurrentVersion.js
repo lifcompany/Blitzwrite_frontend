@@ -11,13 +11,8 @@ const CurrentVersion = (props) => {
   const [notification, setNotification] = useState("");
   const [error, setError] = useState("");
 
-  const setEditVersionID = props.seteditversionID;
   const token = localStorage.getItem("accessToken");
 
-  const editModel = (modelId) => {
-    console.log("Editing model with ID:", modelId);
-    setEditVersionID(modelId);
-  };
   const deleteModel = (model_name) => {
     setNotification("");
     axios
@@ -52,10 +47,6 @@ const CurrentVersion = (props) => {
     console.log(props?.isTriggered);
     get_model_list();
   }, [props.isTriggered]);
-
-  const set_new_model = () => {
-    setEditVersionID("");
-  };
 
   return (
     <div className="items-center justify-center md:w-full shadow-lg border-2 rounded-md">
