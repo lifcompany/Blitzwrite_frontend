@@ -1,6 +1,5 @@
 // src/EditModel.js
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Box, Button, Modal, TextField } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
@@ -27,7 +26,6 @@ const EditModel = (props) => {
   const [parameters, setParameters] = useState("");
   const [notification, setNotification] = useState("");
 
-  const navigate = useNavigate();
   const handleClose = () => setOpen(false);
   const model_data = {
     model_name: modelName,
@@ -42,7 +40,6 @@ const EditModel = (props) => {
       axios
         .post(`${apiUrl}/api/setting/update_model/`, model_data)
         .then((response) => {
-          // props.setIsTriggered();
           console.log(response.data.message);
           setNotification("モデルを更新しました");
           setTimeout(() => {
