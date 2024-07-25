@@ -121,18 +121,6 @@ export default function UserMenu() {
               <Avatar /> マイアカウント
             </MenuItem>,
             <Divider key="divider" />,
-            // <MenuItem
-            //   key="add-account"
-            //   onClick={handleClose}
-            //   component={Link}
-            //   to="/add-account"
-            //   role="button"
-            // >
-            //   <ListItemIcon>
-            //     <PersonAdd fontSize="small" />
-            //   </ListItemIcon>
-            //   別のアカウントを追加
-            // </MenuItem>,
           ]}
         <MenuItem
           component={Link}
