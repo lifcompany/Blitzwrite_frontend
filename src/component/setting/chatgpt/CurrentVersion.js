@@ -10,7 +10,6 @@ const CurrentVersion = (props) => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const [notification, setNotification] = useState("");
   const [error, setError] = useState("");
-
   const token = localStorage.getItem("accessToken");
 
   const deleteModel = (model_name) => {

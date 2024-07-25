@@ -77,11 +77,9 @@ function EditVersion(props) {
             placeholder="モデル名"
             value={displayName}
             className="flex w-full sm:w-256 mx-8 my-10"
-            // value={searchText}
             inputProps={{
               "aria-label": "Search",
             }}
-            // onChange={handleSearchText}
             variant="outlined"
             InputLabelProps={{
               shrink: true,

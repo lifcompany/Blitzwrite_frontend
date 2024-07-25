@@ -15,8 +15,6 @@ import axios from "axios";
 import Notification from "../../common/notification";
 import Error from "../../common/error";
 
-
-
 const style = {
   position: "absolute",
   top: "50%",
@@ -28,7 +26,6 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-
 
 const AccountModal = (props) => {
   const apiUrl = process.env.REACT_APP_API_URL;
