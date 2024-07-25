@@ -33,7 +33,6 @@ function SettingMenu(props) {
           <Avatar className="md:mx-1">{user.displayName[0]}</Avatar>
         </Button>
       </div>
-
       <div
         open={true}
         onClose={settingMenuClose}
@@ -65,7 +64,7 @@ function SettingMenu(props) {
               role="button"
               sx={{
                 padding: "16px",
-                paddingLeft:"20px"
+                paddingLeft: "20px"
               }}
             >
               <ListItemIcon className="min-w-40">
@@ -80,7 +79,7 @@ function SettingMenu(props) {
               role="button"
               sx={{
                 padding: "16px",
-                paddingLeft:"20px"
+                paddingLeft: "20px"
               }}
             >
               <ListItemIcon className="min-w-40">
@@ -95,7 +94,7 @@ function SettingMenu(props) {
               role="button"
               sx={{
                 padding: "16px",
-                paddingLeft:"20px"
+                paddingLeft: "20px"
               }}
             >
               <ListItemIcon className="min-w-40">
@@ -110,7 +109,7 @@ function SettingMenu(props) {
               role="button"
               sx={{
                 padding: "16px",
-                paddingLeft:"20px"
+                paddingLeft: "20px"
               }}
             >
               <ListItemIcon className="min-w-40">
