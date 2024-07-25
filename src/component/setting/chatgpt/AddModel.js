@@ -1,6 +1,5 @@
 // src/EditModal.js
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Box, Button, Modal, TextField } from "@mui/material";
 import axios from "axios";
 import Notification from "../../common/notification";
@@ -25,11 +24,8 @@ const AddModel = (props) => {
   const [endpoint, setEndpoint] = useState("");
   const [parameters, setParameters] = useState("");
   const [notification, setNotification] = useState("");
-
-  const navigate = useNavigate();
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
 
   const model_data = {
     model_name: modelName,
@@ -45,7 +41,6 @@ const AddModel = (props) => {
       axios
         .post(`${apiUrl}/api/setting/add_new_version/`, model_data)
         .then((response) => {
-          // props.setIsTriggered();
           console.log(response.data.message);
           setNotification("モデルを追加しました");
           setTimeout(() => {
@@ -76,7 +71,7 @@ const AddModel = (props) => {
         setEndpoint("");
         setParameters("");
       });
-  }, [editversionID]);
+  }, [editversionID, apiUrl]);
 
   return (
     <div className=" p-6">
