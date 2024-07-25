@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { Menu, MenuItem, Dialog, DialogTitle, Tooltip } from "@mui/material";
+import { Tooltip } from "@mui/material";
 import WebOutlinedIcon from "@mui/icons-material/WebOutlined";
 import { MdEditDocument } from "react-icons/md";
 import { MdOutlineArticle } from "react-icons/md";
-import SettingsIcon from "@mui/icons-material/Settings";
 import UserMenu from "./userMenu";
 import Error from "./error";
 import api from "../../api";
@@ -15,8 +14,6 @@ import { setSiteNameSlice, setSiteUrlSlice, setSiteAdminSlice, setSitePasswordSl
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [openDialog, setOpenDialog] = useState(false);
   const [variant, setVariant] = useState('solid');
   const [error, setError] = useState("");
   const [siteName, setSiteName] = useState("");
@@ -26,22 +23,8 @@ const Header = () => {
   const [siteTitle, setSiteTitle] = useState("");
 
   const selectedSiteName = useSelector((state) => state.site.siteName);
-
   const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem("accessToken");
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleLogoutOpen = () => {
-    setOpenDialog(true);
-    handleMenuClose();
-  };
-
-  const handelLogoutClose = () => {
-    setOpenDialog(false);
-  };
 
   useEffect(() => {
     if (!token) {
@@ -67,7 +50,7 @@ const Header = () => {
         dispatch(setSiteUrlSlice(siteData.site_url));
         dispatch(setSiteAdminSlice(siteData.admin_name));
         dispatch(setSitePasswordSlice(siteData.admin_pass));
-        
+
         const params = { siteUrl: siteData.site_url };
         axios
           .get(`${apiUrl}/api/setting/get-title/`, {
@@ -85,8 +68,6 @@ const Header = () => {
             console.error("Error fetching site title:", error);
             setError("Failed to fetch site title. Please check the URL.");
           });
-        console.log("11111111111111111", siteTitle);
-        // dispatch(setSiteNameSlice(siteTitle));
         setError(null);
 
       })
@@ -124,7 +105,6 @@ const Header = () => {
             ) : (
               ""
             )}
-
             <button
               onClick={() => navigate("/artgen/setkeyword")}
               className=" flex justify-center items-center gap-1 mr-4 p-2 rounded-md hover:bg-gray-200 text-[#232E2F] hover:text-[#232E2F] font-bold "
@@ -154,22 +134,6 @@ const Header = () => {
         <div className="flex items-center gap-7 rounded-full">
           <div>
             <UserMenu />
-            {/* <Menu
-              id="account-menu"
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleMenuClose}
-            >
-              <MenuItem onClick={() => navigate("/setting-site")}>
-                <SettingsIcon className=" text-gray-700" />
-                設定
-              </MenuItem>
-              <MenuItem onClick={handleLogoutOpen}>ログアウト</MenuItem>
-            </Menu> */}
-            <Dialog open={openDialog} onClose={handelLogoutClose}>
-              <DialogTitle>Logout</DialogTitle>
-              <p>Really?</p>
-            </Dialog>
           </div>
         </div>
       </nav>
