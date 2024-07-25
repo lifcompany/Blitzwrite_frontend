@@ -1,7 +1,6 @@
 import React from 'react';
 import History from './History';
 import Notification from './Notification';
-import Progress from './Progress';
 import Setting from './Setting';
 import UserMenu from './UserMenu';
 const TopBar = () => {
