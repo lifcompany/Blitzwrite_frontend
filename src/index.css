@@ -33,7 +33,7 @@
 
   .img-bg{
     background-image: url('./assets/images/bg.png');
-    
-     /* background-color: red; */
+    background-repeat: no-repeat;
+    background-size: cover;
     
   }
