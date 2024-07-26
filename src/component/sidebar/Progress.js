@@ -29,8 +29,6 @@ import axios from "axios";
 //     getCredit();
 // }, []);
 
-
-
 const Progress = () => {
     const [profile, setProfile] = useState({});
     const [error, setError] = useState(null);
