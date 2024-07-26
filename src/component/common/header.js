@@ -84,7 +84,7 @@ const Header = () => {
   const displaySiteName = selectedSiteName.length > 10 ? `${selectedSiteName.slice(0, 15)}...` : selectedSiteName;
   return (
     <header>
-      <nav className="flex justify-between items-center bg-gray-100 h-20 px-20 text-xl">
+      <nav className="flex justify-between items-center img-bg h-20 px-20 text-xl">
         <div className="flex items-center gap-7">
           <h1 className="text-2xl font-bold  flex-1">
             <Link to="/home" className="text-2xl mb-5 font-bold">

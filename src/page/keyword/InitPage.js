@@ -10,17 +10,15 @@ import Title from "../../component/Title";
 import SubTitle from "../../component/SubTitle";
 import Error from "../../component/common/error";
 import Notification from "../../component/common/notification";
-import api from "../../api";
 import { addTitle, getAllTitles, clearTitles } from '../../component/indexDB/title';
+import CustomTextarea from "../../component/CustomTextarea";
 
 const InitPage = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [mainKeyword, setMainKeyword] = useState();
   const [error, setError] = useState("");
   const [notification, setNotification] = useState("");
-  const [category, setCategory] = useState("");
   const [selectedKeywords, setSelectedKeywords] = useState([]);
-  const [titles, setTitles] = useState([]);
   const versionName = useSelector((state) => state.version.versionName);
 
   const navigate = useNavigate("");
@@ -92,7 +90,6 @@ const InitPage = () => {
             await clearTitles();
             console.log('Title Generations successfully:', response.data.title);
             setNotification("タイトルが正常に作成されました。");
-            // navigate("/keyword/article-configuration")
             const title = response.data.title;
             await addTitle({title});
           })
@@ -104,6 +101,10 @@ const InitPage = () => {
       }
     }, 0);
   }
+
+  const handleKeywordsGenerated = (newKeywords) => {
+    setSuggestions(newKeywords);
+  }
   return (
     <ContainerDiv>
       <div className="flex flex-col gap-5">
@@ -112,6 +113,7 @@ const InitPage = () => {
           <SubTitle order="1" label="キーワードを生成しましょう" sublabel="メインキーワードを入力すると、それに関連するサブキーワードを取得することができます。" />
         </div>
         <KwInput setSuggestions={setSuggestions} setMainKeyword={setMainKeyword} />
+        {/* <CustomTextarea onKeywordsGenerated={handleKeywordsGenerated} /> */}
         <SubTitle order="2" label="キーワードを選んでください" sublabel="提案されたキーワードのボリュームを確認し、適切なキーワードを選択することができます。" />
         <KwTable suggestions={suggestions} setSelectedKeywords={setSelectedKeywords} />
         <div className="flex justify-end gap-5">

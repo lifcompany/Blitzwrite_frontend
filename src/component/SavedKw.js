@@ -6,6 +6,8 @@ import Filter from './modals/Filter';
 
 const SavedKw = () => {
     const [filterShow, setFilterShow] = useState(false);
+    const [statusDropdownVisible, setStatusDropdownVisible] = useState(false);
+    const [statusFilter, setStatusFilter] = useState(null);
 
     const keyword_data = [
         {
@@ -44,6 +46,21 @@ const SavedKw = () => {
         setFilterShow((filterShow) => !filterShow);
     }, []);
 
+    const toggleStatusDropdown = () => {
+        setStatusDropdownVisible(!statusDropdownVisible);
+    }
+    const handleStatusFilter = (status) => {
+        setStatusFilter(status);
+        setStatusDropdownVisible(false);
+    }
+
+    // const filteredKeywords = keyword_data.filter(keyword => {
+    //     if (statusFilter) {
+    //         return keyword.status === statusFilter && keyword.keyword.toLowerCase().includes(searchTerm.toLowerCase());
+    //     }
+    //     return keyword.keyword.toLowerCase().includes(searchTerm.toLowerCase());
+    // });
+
     return (
         <>
             {filterShow && <Filter onShow={filterShow} />}
@@ -67,10 +84,17 @@ const SavedKw = () => {
                                     <IoFilter />
                                 </div>
                             </th>
-                            <th className="whitespace-nowrap px-8 py-2  text-left">
-                                <div className="flex flex-row gap-3">
+                            <th className="whitespace-nowrap px-8 py-2 text-left">
+                                <div className="relative flex flex-row gap-3">
                                     <p className="font-bold text-gray-900 text-xs">記事生成ステータス</p>
-                                    <IoFilter />
+                                    <IoFilter onClick={toggleStatusDropdown} className="cursor-pointer" />
+                                    {statusDropdownVisible && (
+                                        <div className="absolute top-full left-0 mt-1 bg-white border rounded shadow-lg">
+                                            <p onClick={() => handleStatusFilter('Created')} className="px-6 py-1 cursor-pointer text-gray-900 hover:bg-gray-200">生成済</p>
+                                            <p onClick={() => handleStatusFilter('NotStarted')} className="px-6 py-1 cursor-pointer text-gray-900 hover:bg-gray-200">未作成</p>
+                                            <p onClick={() => handleStatusFilter(null)} className="px-6 py-1 cursor-pointer hover:bg-gray-200">全て</p>
+                                        </div>
+                                    )}
                                 </div>
                             </th>
                             <th className="whitespace-nowrap py-2 font-bold text-gray-900 text-xs text-left"></th>
@@ -86,7 +110,7 @@ const SavedKw = () => {
                                     </td>
                                     <td className="whitespace-nowrap px-8 py-2 font-medium text-gray-900 text-[14px]">{keyword.name}</td>
                                     <td className="whitespace-nowrap px-8 py-2 font-medium text-gray-900 text-[14px]">{keyword.volume}</td>
-                                    <td className="whitespace-nowrap py-2">
+                                    <td className="whitespace-nowrap px-8 py-2">
                                         {keyword.status ? (
                                             <button
                                                 // onClick={() => handlePreview(index)}

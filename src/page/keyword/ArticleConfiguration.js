@@ -4,6 +4,7 @@ import ContainerDiv from '../../component/ContainerDiv';
 import Title from '../../component/Title';
 import Step from '../../component/Step';
 import Button from '../../component/Button';
+
 import SubSetting from '../../component/SubSetting';
 import Config from '../../component/subkwset/Config';
 import GptTitle from '../../component/subkwset/GptTitle';
@@ -18,6 +19,7 @@ import { useSelector } from 'react-redux';
 import Error from "../../component/common/error";
 import Notification from "../../component/common/notification";
 import { addTitle, getAllTitles, clearTitles } from '../../component/indexDB/title';
+import LoadingButton from '../../component/subkwset/LoadingButton';
 
 
 
@@ -35,6 +37,7 @@ export default function ArticleConfiguration() {
   const [admin, setAdmin] = useState("");
   const [password, setPassword] = useState("");
   const [category, setCategory] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
 
   const versionName = useSelector((state) => state.version.versionName);
@@ -113,7 +116,7 @@ export default function ArticleConfiguration() {
             },
           })
           .then((response) => {
-            console.log(response.data.title);
+            console.log(response.data.credit);
             setNotification("タイトルが正常に作成されました。");
             setTitles(response.data.title)
             setTitle(response.data.title[0])
@@ -215,6 +218,12 @@ export default function ArticleConfiguration() {
       }
     }, 0);
   }
+
+  const handleSave = async () => {
+    setIsLoading(true);
+
+  }
+
   return (
     <ContainerDiv>
       <div className="flex flex-col gap-5">
@@ -244,6 +253,14 @@ export default function ArticleConfiguration() {
           </div>
           <div className="flex sm:flex-row items-center sm:justify-start gap-4 flex-col justify-center my-4">
             <Button onClick={handleCreateTitle} common label="タイトルを生成する（3/3）" />
+            <LoadingButton
+              className="custom-class transition-all"
+              onClick={handleSave}
+              common
+              label="タイトルを生成する"
+              isLoading={isLoading}
+              titleLimit={1}
+            />
             <p className="text-[14px]">※生成は３回までです。</p>
           </div>
         </form>

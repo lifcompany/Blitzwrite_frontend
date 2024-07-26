@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import axios from "axios";
 import Button from './Button';
 import { useNavigate } from 'react-router-dom';
-import CloseIcon from "@mui/icons-material/Close";
 import { addKeyword, getAllKeywords, clearKeywords } from './indexDB/keyword';
 
 const KwInput = ({ setSuggestions, setMainKeyword }) => {
@@ -31,12 +30,10 @@ const KwInput = ({ setSuggestions, setMainKeyword }) => {
                     setMainKeyword(keyword);
 
                     await clearKeywords();
-                    // Store main keyword and suggestions in IndexedDB
                     await addKeyword({
                         mainKeyword: keyword,
                         suggestions: response.data.suggestions,
                     });
-
                 })
                 .catch((error) => {
                     console.error("Backend Error:", error);
@@ -49,7 +46,6 @@ const KwInput = ({ setSuggestions, setMainKeyword }) => {
         setSelectedResults([]);
         setShowList(false);
     }
-
 
     const handleKeyDown = (event) => {
         if (event.key === "Enter") {
@@ -88,12 +84,6 @@ const KwInput = ({ setSuggestions, setMainKeyword }) => {
         setInputValue(item);
         setShowList(false);
     };
-    const handleCloseButton = () => {
-        setInputValue("");
-        setShowList(false);
-    };
-
-
     const handleClickOutside = (event) => {
         if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
             setShowList(false);
@@ -136,7 +126,7 @@ const KwInput = ({ setSuggestions, setMainKeyword }) => {
 
     return (
         <form className="w-full flex flex-col gap-5">
-            <div id="relative json-example-with-tab-filter-in-dropdown-tab-preview-markup" className="bg-gray-100 p-3 dark:bg-neutral-300 dark:border-neutral-700">
+            <div id="relative json-example-with-tab-filter-in-dropdown-tab-preview-markup" className="bg-gray-200 p-1 dark:bg-neutral-300 dark:border-neutral-700 rounded-xl">
                 <textarea
                     value={inputValue}
                     onChange={handleChange}
