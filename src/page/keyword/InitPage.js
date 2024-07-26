@@ -102,6 +102,7 @@ const InitPage = () => {
     }, 0);
   }
 
+  
   const handleKeywordsGenerated = (newKeywords) => {
     setSuggestions(newKeywords);
   }
