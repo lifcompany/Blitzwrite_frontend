@@ -11,6 +11,8 @@ import Avatar from "./Avatar";
 import Progress from "./Progress";
 import SideBtn from "../SideBtn";
 import LogoImage from '../../assets/symbol.png';
+import { RiMenuUnfold3Line } from "react-icons/ri";
+
 
 
 
@@ -84,14 +86,8 @@ const SideBar = () => {
     }, [apiUrl, token]);
 
     return (
-        <aside className={`flex top-0 left-0 flex-col justify-between fixed z-50 h-full w-[300px] transition-transform duration-300 translate-x-0 sm:bg-transparent"}`}>
-            <div className="hidden xl:block">
-                <div className="relative h-20 flex justify-center items-center pt-16 pb-5">
-                    <Link to="/home" className="text-2xl mb-5 font-bold">
-                        <img src={LogoImage} className="h-12" alt="Logo" />
-                    </Link>
-
-                </div>
+        <aside className={`flex top-0 left-0 flex-col justify-between fixed z-10 h-full w-[300px] transition-transform duration-300 translate-x-0 sm:bg-transparent"}`}>
+            <div className="hidden lg:block mt-32">
                 <div className="m-4">
                     <ul className="flex flex-col mb-4">
                         <li className="mx-3.5 mb-4">
@@ -136,8 +132,8 @@ const SideBar = () => {
                 </div>
             </div>
 
-            <div className="hidden xl:block">
-                <div className="flex flex-col pl-8 gap-4 mb-6">
+            <div className="hidden lg:block">
+                <div className="flex flex-col px-8 gap-4 mb-6">
                     {premiumStatus === "is not premium" ? (
                         <div className="p-4 bg-white rounded-[12px] flex flex-col gap-6">
                             <p className="text-base font-bold">スタータープラン</p>
@@ -169,6 +165,10 @@ const SideBar = () => {
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div className="block lg:hidden fixed top-10 left-5 ">
+                <RiMenuUnfold3Line />
             </div>
 
         </aside>

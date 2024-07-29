@@ -7,7 +7,6 @@ export default function Notification(props) {
   const [message, setMessage] = React.useState("");
   const content = props.content ? props.content : "";
 
-
   const handleClick = () => {
     setOpen(true);
     setMessage(content);

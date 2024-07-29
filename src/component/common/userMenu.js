@@ -42,7 +42,7 @@ export default function UserMenu() {
         <Tooltip title="Account settings">
           <Button
             onClick={userMenuClick}
-            className="min-h-14 min-w-14 px-0 md:px-4 py-0 md:py-2 bg-white"
+            className="min-h-14 min-w-14 px-0 py-0 md:px-4 md:py-2 bg-white"
             sx={{
               borderRadius: "90px",
               backgroundColor: "white",

@@ -37,3 +37,39 @@
     background-size: cover;
     
   }
+/* src/index.css */
+
+/* Hamburger icon transition */
+.hamburger span {
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+/* Open state for hamburger icon */
+.hamburger.open span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.open span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Menu container transition */
+.menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 320px; /* Adjust width as needed */
+  height: 100vh;
+  background-color: white;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Visible menu */
+.menu.open {
+  transform: translateX(0);
+}
+

@@ -22,11 +22,12 @@ function SettingMenu(props) {
   const settingMenuClose = () => {
     setSettingMenu(null);
   };
+
   return (
     <>
-      <div className="flex justify-center  my-5">
+      <div className="flex justify-center my-5">
         <Button
-          className=" min-h-14 min-w-14 px-0 md:px-4 py-0 md:py-2 rounded-xl"
+          className="min-h-14 min-w-14 px-0 md:px-4 py-0 md:py-2 rounded-xl"
           onClick={settingMenuClick}
           color="inherit"
         >
@@ -36,9 +37,7 @@ function SettingMenu(props) {
       <div
         open={true}
         onClose={settingMenuClose}
-        classes={{
-          paper: "py-3",
-        }}
+        className="py-3"
       >
         {!user.role || user.role.length === 0 ? (
           <>
@@ -62,62 +61,66 @@ function SettingMenu(props) {
               to="/setting-site"
               onClick={settingMenuClose}
               role="button"
+              className="flex items-center"
               sx={{
                 padding: "16px",
-                paddingLeft: "20px"
+                paddingLeft: '20px'
               }}
             >
               <ListItemIcon className="min-w-40">
                 <HomeOutlinedIcon />
               </ListItemIcon>
-              <ListItemText primary="サイト" />
+              <span className="hidden lg:inline">サイト</span>
             </MenuItem>
             <MenuItem
               component={Link}
               to="/setting-api"
               onClick={settingMenuClose}
               role="button"
+              className="flex items-center"
               sx={{
                 padding: "16px",
-                paddingLeft: "20px"
+                paddingLeft: '20px'
               }}
             >
               <ListItemIcon className="min-w-40">
                 <ApiOutlinedIcon />
               </ListItemIcon>
-              <ListItemText primary="API連携" />
+              <span className="hidden lg:inline">API連携</span>
             </MenuItem>
             <MenuItem
               component={Link}
               to="/setting-payment"
               onClick={settingMenuClose}
               role="button"
+              className="flex items-center"
               sx={{
                 padding: "16px",
-                paddingLeft: "20px"
+                paddingLeft: '20px'
               }}
             >
               <ListItemIcon className="min-w-40">
                 <CreditScoreOutlinedIcon />
               </ListItemIcon>
-              <ListItemText primary="支払い" />
+              <span className="hidden lg:inline">支払い</span>
             </MenuItem>
             <MenuItem
               component={Link}
               to="/setting-account"
               onClick={settingMenuClose}
               role="button"
+              className="flex items-center"
               sx={{
                 padding: "16px",
-                paddingLeft: "20px"
+                paddingLeft: '20px'
               }}
             >
               <ListItemIcon className="min-w-40">
                 <ManageAccountsIcon />
               </ListItemIcon>
-              <ListItemText primary="アカウント" />
+              <span className="hidden lg:inline">アカウント</span>
             </MenuItem>
-            <div className=" border-b-2 border-b-gray-300 w-[90%] my-3 m-auto"></div>
+            <div className="border-b-2 border-b-gray-300 w-[90%] my-3 m-auto"></div>
           </>
         )}
       </div>

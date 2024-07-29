@@ -18,6 +18,7 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Notification from "../../component/common/notification";
+import './scrollcustom.css'
 
 const columns = [
   { id: "title", label: "タイトル", minWidth: 320 },
@@ -233,7 +234,7 @@ const Generated = (props) => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <div className="relative flex flex-col flex-1 items-start px-40">
+      <div className="relative flex flex-col flex-1 items-start px-5 md:px-12 lg:px-18 xl:px-20">
         <h1 className="heading font text-[calc(10px+2vmin)] font-semibold mt-16">
           記事の作成
         </h1>

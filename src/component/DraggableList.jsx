@@ -8,26 +8,20 @@ const DraggableList = () => {
         { id: 'item4', content: 'Item 4' },
         { id: 'item5', content: 'Item 5' },
     ]);
-
     const onDragStart = (e, index) => {
     };
-
     const onDragOver = (e) => {
         e.preventDefault();
     };
-
     const onDragEnd = (e, result) => {
         if (!result.destination) {
             return;
         }
-
         const newItems = Array.from(items);
         const [reorderedItem] = newItems.splice(result.source.index, 1);
         newItems.splice(result.destination.index, 0, reorderedItem);
-
         setItems(newItems);
     };
-
     return (
         <div>
             <ul onDragOver={onDragOver}>

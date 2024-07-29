@@ -30,7 +30,6 @@ const SettingSite = () => {
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     if (!token) {
-      // Redirect to login if no token
       navigate("/login");
       return;
     }
@@ -46,12 +45,10 @@ const SettingSite = () => {
         setSiteUrl(response.data.site_data[0]["site_url"]);
         setAdminName(response.data.site_data[0]["admin_name"]);
         setAdminPass(response.data.site_data[0]["admin_pass"]);
-        // dispatch(setSiteNameSlice(response.data.site_data[0]["site_name"]));
         setLoading(false);
       })
       .catch((error) => {
         console.log(error);
-        // setError(error.response.data.error);
         setSiteName("");
         setSiteUrl("");
         setAdminName("");
@@ -80,8 +77,6 @@ const SettingSite = () => {
         console.error("Error fetching site title:", error);
         setError("Failed to fetch site title. Please check the URL.");
       });
-      console.log("11111111111111111", siteTitle);
-    // dispatch(setSiteNameSlice(siteTitle));
     setLoading(true);
     setError(null);
 
@@ -112,10 +107,10 @@ const SettingSite = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       <div className="flex flex-1  h-full">
-        <div className=" w-72 border-r-2 border-gray-300 ">
+        <div className=" w-auto lg:w-72 border-r-2 border-gray-300 ">
           <SettingMenu />
         </div>
-        <div className="relative flex flex-col flex-1 items-start pl-40">
+        <div className="relative flex flex-col flex-1 items-start pl-8 md:pl-14 lg:pl-28 xl:pl-40">
           <h1 className=" heading font text-[calc(10px+2vmin)] font-semibold mt-16">
             サイト
           </h1>

@@ -116,7 +116,6 @@ export default function ArticleConfiguration() {
             },
           })
           .then((response) => {
-            console.log(response.data.credit);
             setNotification("タイトルが正常に作成されました。");
             setTitles(response.data.title)
             setTitle(response.data.title[0])

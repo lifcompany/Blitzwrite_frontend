@@ -1,0 +1,25 @@
+/* For Chrome, Safari, and Edge */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #aaaaaa7c;
+    border-radius: 10px;
+    border: 3px solid #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #567af1;
+}
+
+/* For Firefox */
+/* Apply to the element directly, not through pseudo-elements */
+.scroll-container {
+    scrollbar-width: thin;
+    scrollbar-color: #afafaf49 #f1f1f1;
+}

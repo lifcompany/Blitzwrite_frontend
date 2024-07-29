@@ -1,24 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import FormControl from "@mui/material/FormControl";
 import Header from "../component/common/header";
 import Notification from "../component/common/notification";
 import Error from "../component/common/error";
 import SettingMenu from "../component/common/SettingMenu";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import PaymentModal from "../component/setting/payment/PaymentModal";
 import PaymentCard from "../page/payment-card";
 
 const SettingPayment = () => {
 
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [notification, setNotification] = useState("");
   const [cardInfo, setCardInfo] = useState(null);
 
   useEffect(() => {
     const apiUrl = process.env.REACT_APP_API_URL;
-    // Fetch user's card information from backend API
     const fetchCardInfo = async () => {
       try {
         const response = await axios.get(`${apiUrl}/api/setting/get-user-card-info/`, {
@@ -32,7 +27,6 @@ const SettingPayment = () => {
         setError("カード情報を取得できませんでした。");
       }
     };
-
     fetchCardInfo();
   }, []);
 
@@ -40,7 +34,7 @@ const SettingPayment = () => {
     <div className="min-h-screen flex flex-col">
       <Header />
       <div className="flex flex-1  h-full">
-        <div className=" w-72 border-r-2 border-gray-300 ">
+        <div className=" w-auto lg:w-72 border-r-2 border-gray-300 ">
           <SettingMenu />
         </div>
         <div className="relative flex flex-col flex-1 items-start justify-center">

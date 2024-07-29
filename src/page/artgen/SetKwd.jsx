@@ -33,17 +33,17 @@ const SetKwd = () => {
         .map((keyword) => {
           const fakeButtons = [];
           axios
-          .post(`${apiUrl}/api/generate/keyword-suggest/`, { keyword: keyword })
-          .then((response) => {
-            console.log(response.data);
+            .post(`${apiUrl}/api/generate/keyword-suggest/`, { keyword: keyword })
+            .then((response) => {
+              console.log(response.data);
 
-            setSuggestions(response.data.suggestions)
+              setSuggestions(response.data.suggestions)
 
-          })
-          .catch((error) => {
-            console.error("Backend Error:", error);
-            setError(error.response.data.error);
-          });
+            })
+            .catch((error) => {
+              console.error("Backend Error:", error);
+              setError(error.response.data.error);
+            });
           return fakeButtons;
         })
         .flat();
@@ -120,12 +120,13 @@ const SetKwd = () => {
             id="app"
             className="py-2 font text-[calc(2vmin)] text-[#014361] rounded-md mt-10 mb-8"
           >
-            <div style={{ position: "relative", width: "30ch" }}>
+            <div className=" relative w-[320px]">
               <TextField
                 variant="outlined"
                 onChange={handleChange}
                 onKeyDown={handleKeyDown}
                 placeholder="キーワードを検索してください"
+                sx={{ width: "100%" }}
                 value={inputValue}
                 InputProps={{
                   startAdornment: (
@@ -178,11 +179,10 @@ const SetKwd = () => {
               {suggestions.map((suggestion, index) => (
                 <button
                   key={index}
-                  className={`p-2 pl-3 pr-3 border rounded-2xl mr-3 mb-2 ${
-                    selectedResults.includes(suggestion.keyword)
+                  className={`p-2 pl-3 pr-3 border rounded-2xl mr-3 mb-2 ${selectedResults.includes(suggestion.keyword)
                       ? "bg-[#232E2F] text-white"
                       : "bg-gray-100 text-[#232E2F]"
-                  } hover:bg-[#232E2F] hover:text-white`}
+                    } hover:bg-[#232E2F] hover:text-white`}
                   onClick={() => handleResultClick(suggestion.keyword)}
                 >
                   {suggestion.keyword}
@@ -199,9 +199,8 @@ const SetKwd = () => {
             <div>検索ボリュームが不十分です。</div>
           )}
           <button
-            className={` text-white font-semibold border py-3 px-4  rounded-2xl  ${
-              selectedResults.length > 2 ? "bg-[#232E2F]" : "bg-[#A7ABAC]"
-            } hover:bg-[#232E2F] hover:text-white`}
+            className={` text-white font-semibold border py-3 px-4  rounded-2xl  ${selectedResults.length > 2 ? "bg-[#232E2F]" : "bg-[#A7ABAC]"
+              } hover:bg-[#232E2F] hover:text-white`}
             onClick={runProcess}
           >
             記事を生成する

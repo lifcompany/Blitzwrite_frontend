@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MenuItem from './MenuItem';
 
-const UserMenu = () => {
+const UserMenuIcon = () => {
     const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate
 
@@ -40,7 +40,7 @@ const UserMenu = () => {
                 </span>
             </div>
             {isOpen && (
-                <div className="absolute rounded-md shadow-lg bg-[#F7FAFC] overflow-hidden md:right-8 top-14 text-sm z-50 text-gray-900">
+                <div className="absolute rounded-md shadow-lg bg-[#F7FAFC] overflow-hidden md:right-8 top-14 text-sm z-20 text-gray-900">
                     <div className="flex flex-col cursor-pointer">
                         <MenuItem onClick={handlelogin} label="Log in" />
                         <hr />
@@ -53,4 +53,4 @@ const UserMenu = () => {
     );
 };
 
-export default UserMenu;
+export default UserMenuIcon;
