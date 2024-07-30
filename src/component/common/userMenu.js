@@ -129,15 +129,6 @@ export default function UserMenu() {
               </div> 
               プロフィール
             </MenuItem>,
-            // <MenuItem
-            //   key="my-account"
-            //   onClick={handleClose}
-            //   component={Link}
-            //   to="/my-account"
-            //   role="button"
-            // >
-            //   <Avatar /> マイアカウント
-            // </MenuItem>,
             <Divider key="divider" />,
           ]}
         <MenuItem

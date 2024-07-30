@@ -10,7 +10,7 @@ const Header = () => {
     <header>
       <HamburgerMenu />
       <nav className="flex justify-between items-center img-bg h-24 px-20 text-xl">
-        <div className="flex items-center gap-7">
+        <div className="flex items-center gap-7 z-50">
           <LogoGroup />
           <MenuGroup />
         </div>
