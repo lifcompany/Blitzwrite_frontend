@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import SetKwd from "./SetKwd";
 import Progress from "./Progress";
 import Generated from "./Generated";
-import CheckKwd from "./CheckKwd";
+import CheckSiteConnection from "./CheckSiteConnection";
 import ClientErrorPage from "../error/ClientErrorPage";
 
 const GenRouter = () => {
@@ -21,7 +21,7 @@ const GenRouter = () => {
   }, [selectedSiteName, navigate]);
   return (
     <Routes>
-      <Route path="/" element={<CheckKwd />} />
+      <Route path="/" element={<CheckSiteConnection />} />
       <Route path="/setkeyword" element={<SetKwd />} />
       <Route path="/progress" element={<Progress SetNotification={SetNotification} />} />
       <Route path="/generated" element={<Generated content={notification}/>} />

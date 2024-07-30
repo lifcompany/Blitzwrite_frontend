@@ -7,7 +7,7 @@ import BrowserUpdatedIcon from "@mui/icons-material/BrowserUpdated";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import Notification from "../../component/common/notification";
 import Error from "../../component/common/error";
-const Output = () => {
+const ArticleList = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [fileContent, setFileContent] = useState("");
@@ -140,4 +140,4 @@ const Output = () => {
   );
 };
 
-export default Output;
+export default ArticleList;

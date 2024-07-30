@@ -7,9 +7,11 @@ const ContainerDiv = ({ children }) => {
                 max-w-[calc(100% - 270px)]
                 mx-auto
                 mt-8
+                xl:px-14
                 lg:px-10
-                md:px-5
-                px-4
+                md:px-7
+                px-5
+                pb-10
             "
         >
             {children}

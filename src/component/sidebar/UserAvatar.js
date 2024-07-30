@@ -1,6 +1,6 @@
 import React from "react";
 
-const Avatar = () => {
+const UserAvatar = () => {
   return (
     <img
       className="rounded-full"
@@ -12,4 +12,4 @@ const Avatar = () => {
   );
 };
 
-export default Avatar;
+export default UserAvatar;

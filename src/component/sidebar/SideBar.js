@@ -1,37 +1,43 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { CiPen } from "react-icons/ci";
 import { AiOutlineSave } from "react-icons/ai";
 import { HiOutlineCommandLine } from "react-icons/hi2";
 import { CiSettings } from "react-icons/ci";
 import { VscListUnordered } from "react-icons/vsc";
 import { FaCrown } from "react-icons/fa";
-import Avatar from "./Avatar";
+import UserAvatar from "./UserAvatar";
 import Credit from "./Credit";
-import SideBtn from "../SideBtn";
+import SideMenuBtn from "../SideMenuBtn";
 import { RiMenuUnfold3Line } from "react-icons/ri";
 
 const SideBar = () => {
 
     const navigate = useNavigate('');
+    const location = useLocation();
+    const [activeButton, setActiveButton] = useState('');
+
+    useEffect(() => {
+        if (location.pathname === '/keyword') setActiveButton('keyword');
+        else if (location.pathname === '/keyword/savedkeywords') setActiveButton('savedkeywords');
+        else if (location.pathname === '/keyword/article-configuration') setActiveButton('article-configuration');
+        else if (location.pathname === '/keyword/article-preview') setActiveButton('article-preview');
+        else if (location.pathname === '/setting-api') setActiveButton('setting-api');
+        else setActiveButton('');
+    }, [location.pathname]);
+
+    const handleNavigation = (path, buttonId) => {
+        navigate(path);
+        setActiveButton(buttonId);
+    };
+
     const apiUrl = process.env.REACT_APP_API_URL;
     const token = localStorage.getItem("accessToken");
 
     const [premiumStatus, setPremiumStatus] = useState(null);
     const [email, setEmail] = useState("example@example.com");
 
-    const handlekwgenerate = () => {
-        navigate("/kwgenerate");
-    };
-
-    const handlesavedkw = () => {
-        navigate("/savedkw");
-    };
-
-    const handlearticleconfig = () => {
-        navigate("/keyword/article-configuration");
-    };
     const handleUpgrade = () => {
         navigate("/setting-payment");
     }
@@ -91,12 +97,22 @@ const SideBar = () => {
                         </li>
                         <li>
                             <Link to="/keyword">
-                                <SideBtn icon={<CiPen size={24} />} onClick={handlekwgenerate} label="キーワード生成" />
+                                <SideMenuBtn
+                                    icon={<CiPen size={24} />}
+                                    onClick={() => handleNavigation('/keyword', 'keyword')}
+                                    label="キーワード生成"
+                                    isActive={activeButton === 'keyword'}
+                                />
                             </Link>
                         </li>
                         <li>
                             <Link to="/keyword/savedkeywords">
-                                <SideBtn icon={<AiOutlineSave size={24} />} onClick={handlesavedkw} label="保存キーワード" />
+                                <SideMenuBtn icon={<AiOutlineSave size={24} />}
+                                    onClick={() => handleNavigation('/keyword/savedkeywords', 'savedkeywords')}
+                                    label="保存キーワード"
+                                    isActive={activeButton === 'savedkeywords'}
+
+                                />
                             </Link>
                         </li>
                     </ul>
@@ -106,12 +122,22 @@ const SideBar = () => {
                         </li>
                         <li>
                             <Link to="/keyword/article-configuration">
-                                <SideBtn icon={<HiOutlineCommandLine size={24} />} onClick={handlearticleconfig} label="記事生成" />
+                                <SideMenuBtn icon={<HiOutlineCommandLine size={24} />}
+                                    onClick={() => handleNavigation('/keyword/article-configuration', 'article-configuration')}
+                                    label="記事生成"
+                                    isActive={activeButton === 'article-configuration'}
+
+                                />
                             </Link>
                         </li>
                         <li>
                             <Link to="/keyword/article-preview">
-                                <SideBtn icon={<VscListUnordered size={24} />} onClick={() => { }} label="保存した記事" />
+                                <SideMenuBtn icon={<VscListUnordered size={24} />}
+                                    onClick={() => handleNavigation('/keyword/article-preview', 'article-preview')}
+                                    label="保存した記事"
+                                    isActive={activeButton === 'article-preview'}
+
+                                />
                             </Link>
                         </li>
                     </ul>
@@ -121,7 +147,11 @@ const SideBar = () => {
                         </li>
                         <li>
                             <Link to="/setting-api">
-                                <SideBtn icon={<CiSettings size={24} />} onClick={() => { }} label="API連携" />
+                                <SideMenuBtn icon={<CiSettings size={24} />}
+                                    onClick={() => handleNavigation('/setting-api', 'setting-api')}
+                                    label="API連携"
+                                    isActive={activeButton === 'setting-api'}
+                                />
                             </Link>
                         </li>
                     </ul>
@@ -129,7 +159,7 @@ const SideBar = () => {
             </div>
 
             <div className="hidden lg:block">
-                <div className="flex flex-col px-8 gap-4 mb-6">
+                <div className="flex flex-col pl-8 gap-4 mb-6">
                     {premiumStatus === "is not premium" ? (
                         <div className="p-4 bg-white rounded-[12px] flex flex-col gap-6">
                             <p className="text-base font-bold">スタータープラン</p>
@@ -146,7 +176,7 @@ const SideBar = () => {
                     ) : (<></>)}
                     <div className="flex items-center gap-4">
                         <div className=" relative">
-                            <Avatar />
+                            <UserAvatar />
                             {premiumStatus === "is premium" ? (
                                 <div className=" absolute top-0 right-[-5px]">
                                     <FaCrown size={20} color="#ff9b00" />

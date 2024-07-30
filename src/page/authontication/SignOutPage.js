@@ -26,7 +26,6 @@ function SignOutPage() {
             </h1>
 
             <Typography className="mt-32 text-md font-medium text-center" color="text.secondary">
-              <span>Go to</span>
               <Link className="ml-4" to="/sign-in">
               ログインする
               </Link>

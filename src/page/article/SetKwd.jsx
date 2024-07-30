@@ -7,9 +7,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
 import Header from "../../component/common/header";
 import Error from "../../component/common/error";
-import Notification from "../../component/common/notification";
-
-
 
 const SetKwd = () => {
   const [fakeButtons, setFakeButtons] = useState([]);
@@ -82,12 +79,11 @@ const SetKwd = () => {
           {
             params: {
               q: inputValue,
-              client: "chrome", // or 'chrome', 'toolbar', 'youtube', etc.
+              client: "chrome",
             },
           }
         );
         setOption(response.data[1])
-        // setSuggestions(response.data[1]);
       } catch (error) {
         console.error("Error fetching suggestions:", error);
         setSuggestions([]);
@@ -111,9 +107,9 @@ const SetKwd = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <div className="relative flex flex-col flex-1 justify-between items-start px-40">
-        <div>
-          <h1 className="heading font text-[calc(10px+2vmin)] font-semibold mt-16">
+      <div className="relative flex flex-col flex-1 justify-between items-start">
+        <div className=" px-40">
+          <h1 className="heading font text-[calc(8px+2vmin)] text-gray-900 font-semibold mt-16">
             記事の作成
           </h1>
           <div
@@ -192,14 +188,14 @@ const SetKwd = () => {
           </div>
         </div>
 
-        <div className=" flex justify-between  items-center w-full bg-gray-200 text-[#232E2F] font-semibold p-5">
+        <div className=" flex justify-between border-t-2 border-gray-200 items-center w-full px-40 text-[#232E2F] font-semibold p-5">
           {selectedResults.length > 2 ? (
             <div>検索ボリュームが十分です。記事の生成をしましょう</div>
           ) : (
             <div>検索ボリュームが不十分です。</div>
           )}
           <button
-            className={` text-white font-semibold border py-3 px-4  rounded-2xl  ${selectedResults.length > 2 ? "bg-[#232E2F]" : "bg-[#A7ABAC]"
+            className={` text-white font-semibold border py-3 px-4  rounded-2xl  ${selectedResults.length > 2 ? "bg-blue-800" : "bg-[#A7ABAC]"
               } hover:bg-[#232E2F] hover:text-white`}
             onClick={runProcess}
           >

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ClientErrorImage from '../../assets/error/client-error.svg';
+import ClientErrorImage from '../../assets/images/error/client-error.svg';
 
 const ClientError = () => {
   return (

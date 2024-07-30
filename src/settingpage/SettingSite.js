@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
+import { InputAdornment, IconButton, TextField } from "@mui/material";
+import { MdOutlineVisibility } from "react-icons/md";
+import { MdOutlineVisibilityOff } from "react-icons/md";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { setSiteNameSlice } from "../features/common/SiteSlice";
+import { setSiteNameSlice } from "../features/SiteSlice";
 import Notification from "../component/common/notification";
 import Error from "../component/common/error";
 import SettingMenu from "../component/common/SettingMenu";
@@ -23,6 +25,8 @@ const SettingSite = () => {
   const [adminName, setAdminName] = useState("");
   const [adminPass, setAdminPass] = useState("");
   const [siteTitle, setSiteTitle] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
 
   const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem("accessToken");
@@ -69,7 +73,6 @@ const SettingSite = () => {
         },
       })
       .then((response) => {
-        console.log(response?.data.title);
         setSiteTitle(response?.data.title);
         dispatch(setSiteNameSlice(response?.data.title));
       })
@@ -103,6 +106,11 @@ const SettingSite = () => {
         setLoading(false);
       });
   };
+
+  const handleTogglePassword = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -112,7 +120,7 @@ const SettingSite = () => {
         </div>
         <div className="relative flex flex-col flex-1 items-start pl-8 md:pl-14 lg:pl-28 xl:pl-40">
           <h1 className=" heading font text-[calc(10px+2vmin)] font-semibold mt-16">
-            サイト
+          サイト連携
           </h1>
           <div className=" bg-[#E5F6FD] px-4 py-2 font text-[calc(2vmin)] text-[#014361] rounded-md mt-10 mb-8">
             <InfoOutlinedIcon className="mr-2 text-[#0288D1]" />
@@ -172,7 +180,7 @@ const SettingSite = () => {
               />
               <TextField
                 label="サイトのログインパスワード"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="ログインパスワード"
                 className="flex w-full sm:w-256 mx-8 my-10"
                 value={adminPass}
@@ -181,8 +189,14 @@ const SettingSite = () => {
                 }}
                 onChange={(e) => setAdminPass(e.target.value)}
                 variant="outlined"
-                InputLabelProps={{
-                  shrink: true,
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton onClick={handleTogglePassword} edge="end">
+                        {showPassword ? <MdOutlineVisibilityOff /> : <MdOutlineVisibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
                 }}
                 name="disable-autofill-password"
               />

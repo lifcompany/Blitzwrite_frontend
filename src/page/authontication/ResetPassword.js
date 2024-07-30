@@ -44,7 +44,6 @@ const ResetPassword = () => {
 
       if (response.status === 200) {
         setMessage("パスワードリセットは成功しました。");
-        // navigate("/login");
       }
     } catch (error) {
       if (error.response && error.response.data) {
@@ -67,10 +66,6 @@ const ResetPassword = () => {
     <div className="flex flex-col h-screen">
       <div
         className="flex flex-col flex-grow bg-bottom bg-no-repeat bg-contain"
-        style={{
-          backgroundImage:
-            "url(https://monovm.com/dashboard/vendors/metronic/media/illustrations/dozzy-1/4.png)",
-        }}
       >
         <div className="flex flex-col items-center justify-center flex-grow p-10 pb-20">
           <div
@@ -81,10 +76,9 @@ const ResetPassword = () => {
               alt="Logo"
               src="/images/logo.svg"
               className="h-12"
-            // Adjust the image source path according to your project structure
             />
           </div>
-          <div className="w-full max-w-[500px] bg-white rounded-lg shadow-lg p-10 px-20">
+          <div className="w-full max-w-[500px] bg-white p-10 px-20">
             <form
               className="w-full"
               onSubmit={handleSubmit}
@@ -103,7 +97,7 @@ const ResetPassword = () => {
                   type={showPassword ? "text" : "password"}
                   fullWidth
                   variant="standard"
-                  placeholder="パスワード"
+                  placeholder="新しいパスワード"
                   value={password}
                   onChange={handlePasswordChange}
                   InputProps={{
@@ -135,7 +129,7 @@ const ResetPassword = () => {
                   type={showPassword ? "text" : "password"}
                   fullWidth
                   variant="standard"
-                  placeholder="パスワード"
+                  placeholder="新しいパスワード（確認）"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   InputProps={{
@@ -160,25 +154,11 @@ const ResetPassword = () => {
                   }}
                 />
               </div>
-              {/* <div className="mb-6">
-                <input
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  type="password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full px-4 py-3 border-b-2 border-gray-200 focus:outline-none focus:border-gray-500"
-                  placeholder="新しいパスワード（確認）"
-                  autoComplete="off"
-                  required
-                />
-              </div> */}
               <button
                 type="submit"
                 className="w-full py-3 bg-[#0F1740] text-white font-bold rounded-lg hover:bg-[#22294e] focus:outline-none focus:bg-[#0e1225]"
               >
                 <span className="inline-block mr-2">パスワードを変更する</span>
-                {/* You can add a spinner here if needed */}
               </button>
               <div className="flex justify-center mt-4 text-gray-700 font-semibold text-sm">
                 <a href="/login" className="text-blue-500 font-semibold">
@@ -188,11 +168,6 @@ const ResetPassword = () => {
             </form>
             {message && <p style={{ color: "green", textAlign: "center" }}>{message}</p>}
             {error && <p style={{ color: "red", textAlign: "center" }}>{error}</p>}
-          </div>
-        </div>
-        <div className="flex items-center justify-center py-10">
-          <div className="flex space-x-4 text-sm font-semibold text-gray-700">
-            <span>Copyright © 2024</span>
           </div>
         </div>
       </div>

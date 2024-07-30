@@ -79,7 +79,7 @@ const KwTable = ({ suggestions, setSelectedKeywords }) => {
                                         checked={selectedResults.length === keywordData.length}
                                     />
                                 </th>
-                                <th className="whitespace-nowrap px-8 py-3 w-[40%] font-bold text-gray-900 text-lg text-left cursor-pointer"
+                                <th className="whitespace-nowrap px-8 py-3 w-[30%] font-bold text-gray-900 text-lg text-left cursor-pointer"
                                     onClick={() => sortData('keyword')}
                                 >
                                     Keyword
@@ -108,7 +108,7 @@ const KwTable = ({ suggestions, setSelectedKeywords }) => {
                                             }}
                                         />
                                     </td>
-                                    <td className="whitespace-nowrap px-8 py-1 font-medium text-gray-900 text-[16px]">{keywordSet.keyword}</td>
+                                    <td className="pl-8 pr-2 py-1 font-medium text-gray-900 text-[16px]">{keywordSet.keyword}</td>
                                     <td className="whitespace-nowrap px-8 py-1 font-medium text-gray-900 text-[16px]">{keywordSet.avg_monthly_searches}</td>
                                     <td className="px-8 py-1">
                                         {selectedResults.some(item => item.keyword === keywordSet.keyword) ? (

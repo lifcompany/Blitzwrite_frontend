@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import VersionSlice from "../features/common/VersionSlice";
-import SiteSlice from "../features/common/SiteSlice";
+import VersionSlice from "../features/VersionSlice";
+import SiteSlice from "../features/SiteSlice";
 
 const combinedReducer = {
     version: VersionSlice,

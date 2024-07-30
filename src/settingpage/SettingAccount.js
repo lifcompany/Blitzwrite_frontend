@@ -6,7 +6,7 @@ import Header from "../component/common/header";
 import Notification from "../component/common/notification";
 import Error from "../component/common/error";
 import SettingMenu from "../component/common/SettingMenu";
-import AccountModal from "../component/setting/account/AccountModal";
+import QuestionModal from "../component/setting/account/QuestionModal";
 
 const SettingSite = () => {
   const [error, setError] = useState("");
@@ -61,7 +61,7 @@ const SettingSite = () => {
           </div>
 
           <div className=" py-4">
-            <AccountModal email={email} error={emailError} />
+            <QuestionModal email={email} error={emailError} />
           </div>
         </div>
       </div>

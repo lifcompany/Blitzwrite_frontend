@@ -8,8 +8,6 @@ import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-
-import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -27,33 +25,33 @@ const columns = [
     id: "category",
     label: "カテゴリ",
     minWidth: 170,
-    align: "right",
+    align: "left",
     format: (value) => value.toLocaleString("en-US"),
   },
   {
     id: "status",
     label: "ステータス",
     minWidth: 150,
-    align: "right",
+    align: "left",
     format: (value) => value.toLocaleString("en-US"),
   },
   {
     id: "keyword",
     label: "キーワード",
     minWidth: 150,
-    align: "right",
+    align: "left",
   },
   {
     id: "ranking",
     label: "順位",
     minWidth: 130,
-    align: "right",
+    align: "left",
   },
   {
     id: "date",
     label: "日付",
     minWidth: 170,
-    align: "right",
+    align: "left",
     format: (value) => value.toFixed(2),
   },
 ];
@@ -213,11 +211,8 @@ const Generated = (props) => {
   const [auto, setAuto] = useState(false);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [notification, setNotification] = useState("");
-
 
   const content = props.content ? props.content : "";
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -235,32 +230,27 @@ const Generated = (props) => {
     <div className="min-h-screen flex flex-col">
       <Header />
       <div className="relative flex flex-col flex-1 items-start px-5 md:px-12 lg:px-18 xl:px-20">
-        <h1 className="heading font text-[calc(10px+2vmin)] font-semibold mt-16">
-          記事の作成
-        </h1>
-        <div className=" pt-7 pb-7 mt-8 bg-gray-100 w-full">
-          <FormControl component="fieldset" variant="standard">
-            <h2 component="legend" className="text-[18px] font-bold ml-4">
-              リライト設定
-            </h2>
-            <FormGroup>
-              <FormControlLabel
-                label="自動リライト機能"
-                control={
-                  <Switch checked={auto} onChange={handleChange} name="auto" />
-                }
-                labelPlacement="start"
-              />
-            </FormGroup>
-          </FormControl>
+        <div className="flex justify-between items-center w-full mt-16">
+          <h1 className="heading font text-[calc(8px+2vmin)] text-gray-900 font-semibold ">
+            記事一覧
+          </h1>
+          <div className="pb-3 mt-5 ">
+            <FormControl component="fieldset" variant="standard">
+              <FormGroup>
+                <FormControlLabel
+                  label="自動リライト機能"
+                  control={
+                    <Switch checked={auto} onChange={handleChange} name="auto" />
+                  }
+                  labelPlacement="start"
+                />
+              </FormGroup>
+            </FormControl>
+          </div>
         </div>
 
-        <Stack spacing={2}>
-          <Pagination count={10} showFirstButton showLastButton />
-        </Stack>
-
-        <Paper sx={{ width: "100%", paddingTop: "1rem", marginTop:"2rem"}}>
-          <TableContainer sx={{ maxHeight: 440 }}>
+        <div className="w-full pt-4 mt-8">
+          <TableContainer sx={{ maxHeight: 550 }}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow>
@@ -289,7 +279,7 @@ const Generated = (props) => {
                         {columns.map((column) => {
                           const value = row[column.id];
                           return (
-                            <TableCell key={column.id} align={column.align} sx={{paddingY: "2rem"}}>
+                            <TableCell key={column.id} align={column.align} sx={{ paddingY: "1rem" }}>
                               {column.id === "status" ? (
                                 <>
                                   <FiberManualRecordIcon
@@ -298,7 +288,7 @@ const Generated = (props) => {
                                   {value}
                                 </>
                               ) : column.id === "ranking" ? (
-                                <div className=" flex justify-end items-center gap-2">
+                                <div className=" flex justify-start items-center gap-2">
                                   <span>3</span>
                                   <div className="bg-[#F5FCFB] py-2 px-4 rounded-full">
                                     <TrendingUpIcon sx={{ color: "#07B9A5" }} />
@@ -321,6 +311,10 @@ const Generated = (props) => {
               </TableBody>
             </Table>
           </TableContainer>
+
+          <Stack spacing={2}>
+            <Pagination count={10} showFirstButton showLastButton />
+          </Stack>
           <TablePagination
             rowsPerPageOptions={[10, 25, 100]}
             component="div"
@@ -330,7 +324,8 @@ const Generated = (props) => {
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
-        </Paper>
+
+        </div>
       </div>
       <Notification content={content} />
     </div>

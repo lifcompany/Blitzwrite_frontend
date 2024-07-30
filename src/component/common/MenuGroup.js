@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Tooltip } from "@mui/material";
 import WebOutlinedIcon from "@mui/icons-material/WebOutlined";
@@ -7,7 +7,7 @@ import { MdEditDocument } from "react-icons/md";
 import { MdOutlineArticle } from "react-icons/md";
 import api from "../../api";
 import axios from "axios";
-import { setSiteNameSlice, setSiteUrlSlice, setSiteAdminSlice, setSitePasswordSlice } from "../../features/common/SiteSlice";
+import { setSiteNameSlice, setSiteUrlSlice, setSiteAdminSlice, setSitePasswordSlice } from "../../features/SiteSlice";
 
 const MenuGroup = () => {
   const navigate = useNavigate();
@@ -19,10 +19,25 @@ const MenuGroup = () => {
   const [adminName, setAdminName] = useState("");
   const [adminPass, setAdminPass] = useState("");
   const [siteTitle, setSiteTitle] = useState("");
+  const [activeButton, setActiveButton] = useState('');
+
+  const location = useLocation();
   const selectedSiteName = useSelector((state) => state.site.siteName);
 
   const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem("accessToken");
+
+  useEffect(() => {
+  if (location.pathname.startsWith('/keyword')) {
+    setActiveButton('keyword');
+  } else if (location.pathname === '/artgen/setkeyword') {
+    setActiveButton('setkeyword');
+  } else if (location.pathname === '/artgen/generated') {
+    setActiveButton('generated');
+  } else {
+    setActiveButton('');
+  }
+}, [location.pathname]);
 
   useEffect(() => {
     if (!token) {
@@ -79,14 +94,20 @@ const MenuGroup = () => {
       });
   }, []);
 
+  const handleClickMenu = (path, buttonId ) => {
+    navigate(path);
+    setActiveButton(buttonId);
+
+};
+
   const displaySiteName = selectedSiteName.length > 10 ? `${selectedSiteName.slice(0, 15)}...` : selectedSiteName;
   return (
     <div className="navbar flex items-center ml-5">
       {selectedSiteName ? (
         <Tooltip title={selectedSiteName} color="primary" placement="top" variant={variant}>
           <button
-            onClick={() => navigate("/artgen/generated")}
-            className="flex justify-center items-center gap-1 mr-4 py-2 px-4 border-2 border-gray-300 rounded-full hover:bg-gray-200 text-[#232E2F] hover:text-[#232E2F] font-bold"
+            onClick={() => handleClickMenu("/artgen/generated")}
+            className="flex justify-center items-center min-w-[319px] gap-1 mr-4 py-2 px-4 border-2 border-gray-300 rounded-full hover:bg-gray-200 text-[#232E2F] hover:text-[#232E2F] font-bold"
           >
             <WebOutlinedIcon style={{ fontSize: '30px' }} />
             {displaySiteName}
@@ -96,29 +117,27 @@ const MenuGroup = () => {
         ""
       )}
       <button
-        onClick={() => navigate("/artgen/setkeyword")}
-        className="hidden xl:flex justify-center items-center gap-1 mr-4 p-2 rounded-md hover:bg-gray-200 text-[#232E2F] hover:text-[#232E2F] font-bold "
+        onClick={() => handleClickMenu("/artgen/setkeyword", "setkeyword" )}
+        className={`hidden xl:flex justify-center items-center gap-1 mr-4 p-2 rounded-md hover:bg-gray-200 text-[#232E2F] hover:text-[#232E2F] font-bold ${activeButton === 'setkeyword' ? 'bg-white text-[#040505] border-[1px] border-[#e7e7e7]' : ''}`}
       >
         <MdEditDocument style={{ fontSize: '30px' }} />
         作成
       </button>
 
       <button
-        onClick={() => navigate("/keyword")}
-        className=" hidden xl:flex justify-center items-center gap-1 mr-4 p-2 rounded-md hover:bg-gray-200 text-[#232E2F] hover:text-[#232E2F] font-bold "
+        onClick={() => handleClickMenu("/keyword", "keyword")}
+        className={`hidden xl:flex justify-center items-center gap-1 mr-4 p-2 rounded-md hover:bg-gray-200 text-[#232E2F] hover:text-[#232E2F] font-bold ${activeButton === 'keyword' ? 'bg-white text-[#040505] border-[1px] border-[#e7e7e7]' : ''}`}
       >
         <MdEditDocument style={{ fontSize: '30px' }} />
         Keyword
       </button>
-      <a
-        href="https://docs.google.com/spreadsheets/d/1KBuz0tSocys6kA0en05gIjLO9U_ZUMWhVIK8ySZ8nXU/edit#gid=1894772142"
-        target="_blank"
-        className=" hidden xl:flex justify-center items-center gap-1 mr-4 p-2 rounded-md hover:bg-gray-200 text-[#232E2F] hover:text-[#232E2F] font-bold"
-        rel="noopener noreferrer"
+      <button
+        onClick={() => handleClickMenu("/artgen/generated", "generated")}
+        className={`hidden xl:flex justify-center items-center gap-1 mr-4 p-2 rounded-md hover:bg-gray-200 text-[#232E2F] hover:text-[#232E2F] font-bold ${activeButton === 'generated' ? 'bg-white text-[#040505] border-[1px] border-[#e7e7e7]' : ''}`}
       >
         <MdOutlineArticle style={{ fontSize: '30px' }} />
         一覧
-      </a>
+      </button>
     </div>
   );
 };

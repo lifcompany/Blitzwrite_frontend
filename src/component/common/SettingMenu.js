@@ -10,6 +10,7 @@ import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import CreditScoreOutlinedIcon from "@mui/icons-material/CreditScoreOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ApiOutlinedIcon from "@mui/icons-material/ApiOutlined";
+import LanguageIcon from '@mui/icons-material/Language';
 
 function SettingMenu(props) {
   const user = { displayName: "Santa", role: "User", photoURL: "" };
@@ -68,9 +69,9 @@ function SettingMenu(props) {
               }}
             >
               <ListItemIcon className="min-w-40">
-                <HomeOutlinedIcon />
+                <LanguageIcon />
               </ListItemIcon>
-              <span className="hidden lg:inline">サイト</span>
+              <span className="hidden lg:inline">メディア</span>
             </MenuItem>
             <MenuItem
               component={Link}

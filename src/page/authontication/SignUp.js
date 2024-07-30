@@ -3,21 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { InputAdornment, IconButton, TextField } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import Error from "../component/common/error";
-import { useGoogleOneTapLogin, useGoogleLogin } from '@react-oauth/google';
-
-// import Notification from "../component/notification";
-
-// const handleLogin = () => {
-
-//   // Handle login with Google
-//   const auth2 = window.gapi.auth2.getAuthInstance();
-//   auth2.signIn().then((googleUser) => {
-//     const id_token = googleUser.getAuthResponse().id_token;
-//     // Send the token to your backend for verification
-//     // (using fetch or Axios)
-//   });
-// };
+import Error from "../../component/common/error";
+import { useGoogleLogin } from '@react-oauth/google';
 
 const SignUp = (props) => {
   const navigate = useNavigate();
@@ -120,19 +107,6 @@ const SignUp = (props) => {
         setError("Failed to get Google credentials");
       }
       console.log(credentialResponse);
-      // axios.get('https://www.googleapis.com/userinfo/v2/me', {
-      //   headers: {
-      //     Authorization: `Bearer ${access_token}`,
-      //   },
-      // }).then(response => {
-      //   console.log('User Info:', response.data);
-
-      //   // Handle response data as needed
-      // }).catch(error => {
-      //   console.error('Error fetching user info:', error);
-      //   // Handle errors
-      // });
-      // }
     },
     onError: () => {
       setError("Login Failed");
@@ -151,7 +125,7 @@ const SignUp = (props) => {
           >
             <img alt="Logo" src="images/logo.svg" className="h-12" />
           </div>
-          <div className="w-full max-w-[500px] bg-white rounded-lg shadow-lg p-10 px-20">
+          <div className="w-full max-w-[500px] bg-white p-10 px-20">
             <div className="w-full" noValidate id="sign_in_form">
               <input
                 type="hidden"
@@ -256,13 +230,6 @@ const SignUp = (props) => {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        <div className="flex items-center justify-center py-2">
-          <div className="flex space-x-4 text-sm font-semibold text-gray-700">
-            <a href="/" className="hover:text-blue-500">
-              Copyright © 2024{" "}
-            </a>
           </div>
         </div>
       </div>

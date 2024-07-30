@@ -27,7 +27,7 @@ const style = {
   p: 4,
 };
 
-const AccountModal = (props) => {
+const QuestionModal = (props) => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const email = props.email;
   const error_status = props.error;
@@ -217,4 +217,4 @@ const AccountModal = (props) => {
   );
 };
 
-export default AccountModal;
+export default QuestionModal;

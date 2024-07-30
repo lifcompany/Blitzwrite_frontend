@@ -2,55 +2,30 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import LogoGroup from './LogoGroup';
-import { styled, alpha } from '@mui/material/styles';
-import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import EditIcon from '@mui/icons-material/Edit';
 import Divider from '@mui/material/Divider';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import { useNavigate } from 'react-router-dom';
 
-
-const StyledMenu = styled((props) => (
-    <Menu
-        elevation={0}
-        anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-        }}
-        transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-        }}
-        {...props}
-    />
-))(({ theme }) => ({
-    '& .MuiPaper-root': {
-
-        color:
-            theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
-
-        '& .MuiMenuItem-root': {
-            '& .MuiSvgIcon-root': {
-                fontSize: 18,
-                color: theme.palette.text.secondary,
-                marginRight: theme.spacing(1.5),
-            },
-        },
-    },
-}));
 
 const HamburgerMenu = () => {
     const [isOpen, setIsOpen] = useState(false);
     const menuRef = useRef(null);
-
+    const navigate = useNavigate();
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
 
     const closeMenu = () => {
         setIsOpen(false);
+    };
+
+    const handleClickMenu = (path) => {
+        navigate(path);
+        closeMenu();
     };
 
     useEffect(() => {
@@ -87,7 +62,9 @@ const HamburgerMenu = () => {
                 </div>
 
                 <div>
-                    <MenuItem onClick={closeMenu} disableRipple
+                    <MenuItem
+                        onClick={() => handleClickMenu('/artgen/setkeyword')}
+                        disableRipple
                         sx={{
                             color: '#232e2f',
                             '&:hover': {
@@ -100,7 +77,9 @@ const HamburgerMenu = () => {
                         <EditIcon fontSize='18' className='mr-2' />
                         作成
                     </MenuItem>
-                    <MenuItem onClick={closeMenu} disableRipple
+                    <MenuItem
+                        onClick={() => handleClickMenu('/keyword')}
+                        disableRipple
                         sx={{
                             color: '#232e2f',
                             '&:hover': {
@@ -114,7 +93,10 @@ const HamburgerMenu = () => {
                         Keyword
                     </MenuItem>
                     <Divider sx={{ my: 0.5 }} />
-                    <MenuItem onClick={closeMenu} disableRipple
+                    <MenuItem
+                        onClick={() => handleClickMenu('/artgen/generated')}
+
+                        disableRipple
                         sx={{
                             color: '#232e2f',
                             '&:hover': {

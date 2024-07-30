@@ -11,7 +11,7 @@ import {
   setVersionId,
   setVersionName,
   setDisplayName,
-} from "../../features/common/VersionSlice";
+} from "../../features/VersionSlice";
 import Header from "../../component/common/header";
 import Notification from "../../component/common/notification";
 import Error from "../../component/common/error";
@@ -20,7 +20,6 @@ import api from "../../api";
 const HomePage = () => {
   const versionId = useSelector((state) => state.version.versionId);
   const versionName = useSelector((state) => state.version.versionName);
-  const displayName = useSelector((state) => state.version.displayName);
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
@@ -38,9 +37,6 @@ const HomePage = () => {
   };
 
   const get_model_list = useCallback(() => {
-    console.log(apiUrl);
-    console.log(token);
-
     api
       .get(`${apiUrl}/api/setting/get_model_list`, {
         headers: {
@@ -51,7 +47,17 @@ const HomePage = () => {
         console.log(response.data);
         setModels(response.data);
 
-        // console.log
+        // Set gpt-3.5-turbo as the default model if available
+        if (!selectedModelId) {
+          const defaultModel = response.data.find((model) => model.model_name === "gpt-3.5-turbo");
+          if (defaultModel) {
+            setSelectedModelId(defaultModel.id);
+            dispatch(setVersionId(defaultModel.id));
+            dispatch(setVersionName(defaultModel.model_name));
+            dispatch(setDisplayName(defaultModel.display_name));
+          }
+        }
+
       })
       .catch((error) => {
         console.log(error);
@@ -61,62 +67,30 @@ const HomePage = () => {
   }, []);
 
   useEffect(() => {
-    isAuthenticated() ? navigate("/home") : navigate("/login");
-    get_model_list();
-    console.log(localStorage.getItem("accessToken"));
+    isAuthenticated() ? get_model_list() : navigate("/login");
   }, []);
 
   const handleStart = () => {
     navigate("/artgen/setkeyword");
     setLoading(true);
     setError(null);
-    console.log("Start button clicked");
-    // axios
-    //   .post(`${apiUrl}/run_script`, { versionId })
-    //   .then((response) => {
-    //     console.log(response);
-    //     setLoading(false);
-    //     setNotification("出力が成功しました");
-    //   })
-    //   .catch((error) => {
-    //     setError(error.response.data.error);
-    //     setLoading(false);
-    //   });
-  };
-
-  const handleStop = () => {
-    console.log("Start button clicked");
-    axios
-      .post(`${apiUrl}/stop_script`)
-      .then((response) => {
-        console.log(response.data);
-        setLoading(false);
-        setNotification("正常に停止しました");
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        setError(error.response.data.error);
-      });
   };
 
   function handleSelectedModel(event) {
     const model_id = event.target.value;
     console.log(model_id);
     const model_item = models.find((model) => model.id === model_id);
-    const display_name = model_item ? model_item.display_name : null;
     const model_name = model_item ? model_item.model_name : null;
     setSelectedModelId(model_id);
-    console.log("model_id:", model_id);
     dispatch(setVersionId(model_id));
     dispatch(setVersionName(model_name));
-    dispatch(setDisplayName(display_name));
   }
 
   return (
     <div className="text-center pb-12">
       <Header />
-      <div className="relative flex flex-col justify-between items-start text-gray-900 pl-80">
-        <h1 className="  heading font text-[calc(10px+2vmin)] font-semibold mt-28">
+      <div className="relative flex flex-col justify-between items-start text-gray-900 px-40">
+        <h1 className="  heading font text-[calc(8px+2vmin)] text-gray-900 font-semibold mt-16">
           記事の生成
         </h1>
         <h2 className=" text-xl heading font text-[calc(2vmin)] font-semibold mt-14 mb-14">

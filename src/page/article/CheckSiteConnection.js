@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Header from "../../component/common/header";
-import { Outlet, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Outlet } from "react-router-dom";
 
-const CheckKwd = () => {
+const CheckSiteConnection = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -23,4 +22,4 @@ const CheckKwd = () => {
     </div>
   );
 };
-export default CheckKwd;
+export default CheckSiteConnection;

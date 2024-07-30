@@ -35,16 +35,12 @@ const ForgotPassword = () => {
     <div className="flex flex-col h-screen">
       <div
         className="flex flex-col flex-grow bg-bottom bg-no-repeat bg-contain"
-        style={{
-          backgroundImage:
-            "url(https://monovm.com/dashboard/vendors/metronic/media/illustrations/dozzy-1/4.png)",
-        }}
       >
         <div className="flex flex-col items-center justify-center flex-grow p-10 pb-20">
           <div onClick={() => navigate("/home")} className="mb-12 cursor-pointer">
             <img alt="Logo" src="/images/logo.svg" className="h-12" />
           </div>
-          <div className="w-full max-w-[500px] bg-white rounded-lg shadow-lg p-10 px-20">
+          <div className="w-full max-w-[500px] bg-white p-10 px-20">
             <form className="w-full" onSubmit={handleSubmit}>
               <div className="mb-10 text-center">
                 <h1 className="text-2xl font-bold text-gray-900 mb-3">
@@ -79,7 +75,6 @@ const ForgotPassword = () => {
                 className="w-full py-3 bg-[#0F1740] text-white font-bold rounded-lg hover:bg-[#22294e] focus:outline-none focus:bg-[#0e1225]"
               >
                 <span className="inline-block mr-2">送信する</span>
-                {/* Replace with actual spinner component */}
                 <span className="inline-block spinner-border spinner-border-sm align-middle"></span>
               </button>
               <div className="flex justify-center mt-4 text-gray-700 font-semibold text-sm">
@@ -97,13 +92,6 @@ const ForgotPassword = () => {
             {error && (
               <p className="text-red-500 text-center mt-4">{error}</p>
             )}
-          </div>
-        </div>
-        <div className="flex items-center justify-center py-10">
-          <div className="flex space-x-4 text-sm font-semibold text-gray-700">
-            <a href="/vps-server/" className="hover:text-blue-500">
-              Copyright © 2024{" "}
-            </a>
           </div>
         </div>
       </div>

@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
-import LogIn from "./authontication/LogIn";
-import SignUp from "./authontication/SignUp";
-import ForgotPassword from "./authontication/ForgotPassword";
-import ResetPassword from "./authontication/ResetPassword";
-import EmailVerification from "./authontication/EmailVerification";
-import SignOutPage from "./authontication/SignOutPage";
+import LogIn from "./page/authontication/LogIn";
+import SignUp from "./page/authontication/SignUp";
+import ForgotPassword from "./page/authontication/ForgotPassword";
+import ResetPassword from "./page/authontication/ResetPassword";
+import EmailVerification from "./page/authontication/EmailVerification";
+import SignOutPage from "./page/authontication/SignOutPage";
 
 import HomePage from "./page/home/HomePage";
-import Output from "./page/output/output";
-import GenRouter from "./page/artgen/GenRouter";
-
-import SearchKeyword from "./page/kwdsuggestion/SearchKeyword";
+import GenRouter from "./page/article/GenRouter";
 
 import SettingSite from "./settingpage/SettingSite";
 import CustomSelect from "./component/setting/chatgpt/CustomSelect";
@@ -24,11 +21,11 @@ import PaymentBox from "./component/setting/payment/PaymentBox";
 import ClientErrorPage from "./page/error/ClientErrorPage";
 import KeywordRouter from "./page/keyword/KeywordRouter";
 import './App.scss';
-import Test from "./page/keyword/Test";
+
 
 
 function App() {
-  const [notification, SetNotification] =  useState("");
+  const [notification, SetNotification] = useState("");
   useEffect(() => {
     console.log("App component mounted");
   }, []);
@@ -36,14 +33,13 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="/login" element={<LogIn content={notification}/>} />
+        <Route path="/login" element={<LogIn content={notification} />} />
         <Route path="/register" element={<SignUp SetNotification={SetNotification} />} />
         <Route path="/mail-verify" element={<EmailVerification />} />
         <Route path="/forgot_password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/sign-out" element={<SignOutPage />} />
         <Route path="/home" element={<HomePage />} />
-        <Route path="/output" element={<Output />} />
         <Route path="/setting-site" element={<SettingSite />} />
         <Route path="/setting-payment" element={<SettingPayment />} />
         <Route path="/confirm-payment" element={<ConfirmPayment />} />
@@ -51,13 +47,8 @@ function App() {
         <Route path="/setting-api" element={<SettingAPI />} />
         <Route path="/setting-account" element={<CreditCardModal />} />
         <Route path="/setting/customselect" element={<CustomSelect />} />
-        <Route path="/get-keyword" element={<SearchKeyword />} />
         <Route path="/artgen/*" element={<GenRouter />} />
         <Route path="/keyword/*" element={<KeywordRouter />} />
-        <Route path="/test" element={<Test />} />
-        {/* <Route path="/title-generation" element={<TitleGen />} />
-        <Route path="/edit-article" element={<EditArticle />} />
-        <Route path="/article-configuration" element={<ArticleConfiguration />} /> */}
         <Route path="/*" element={<ClientErrorPage />} />
       </Routes>
     </BrowserRouter>
