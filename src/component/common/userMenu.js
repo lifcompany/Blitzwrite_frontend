@@ -8,7 +8,6 @@ import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
 import Tooltip from "@mui/material/Tooltip";
-import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 
@@ -109,17 +108,36 @@ export default function UserMenu() {
               to="/profile"
               role="button"
             >
-              <Avatar /> プロフィール
+              <div
+                className=" min-w-[36px] "
+              >
+                <span className=" text-gray-500 hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30 ">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                    className="h-5 w-5 text-blue-gray-500"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                      clipRule="evenodd"
+                    ></path>
+                  </svg>
+                </span>
+              </div> 
+              プロフィール
             </MenuItem>,
-            <MenuItem
-              key="my-account"
-              onClick={handleClose}
-              component={Link}
-              to="/my-account"
-              role="button"
-            >
-              <Avatar /> マイアカウント
-            </MenuItem>,
+            // <MenuItem
+            //   key="my-account"
+            //   onClick={handleClose}
+            //   component={Link}
+            //   to="/my-account"
+            //   role="button"
+            // >
+            //   <Avatar /> マイアカウント
+            // </MenuItem>,
             <Divider key="divider" />,
           ]}
         <MenuItem

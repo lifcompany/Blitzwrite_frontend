@@ -20,6 +20,8 @@ import Error from "../../component/common/error";
 import Notification from "../../component/common/notification";
 import { addTitle, getAllTitles, clearTitles } from '../../component/indexDB/title';
 import LoadingButton from '../../component/subkwset/LoadingButton';
+import CustomTextarea from '../../component/CustomTextarea';
+import { IoMdClose } from 'react-icons/io';
 
 
 
@@ -223,6 +225,7 @@ export default function ArticleConfiguration() {
 
   }
 
+
   return (
     <ContainerDiv>
       <div className="flex flex-col gap-5">
@@ -238,10 +241,13 @@ export default function ArticleConfiguration() {
             <div className="bg-[#F5F8F8] w-full p-6 rounded-lg">
               <div className="flex flex-wrap gap-4">
                 {suggestkeyword.map((keyword, index) => (
-                  <SubKwSetting
+                  <span
                     key={index}
-                    label={keyword}
-                  />
+                    className="flex gap-2 bg-blue-100 text-blue-800 px-2 py-1 rounded-md items-center cursor-pointer"
+                  >
+                    {keyword}
+                    <IoMdClose size={15} />
+                  </span>
                 ))}
               </div>
               <div className="flex gap-4 mt-4">

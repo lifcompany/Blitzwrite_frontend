@@ -2,7 +2,7 @@ import React from 'react';
 import { MdManageHistory } from "react-icons/md";
 
 
-const History = () => {
+const HistoryIcon = () => {
     return (
         <button
             aria-expanded="false"
@@ -16,4 +16,4 @@ const History = () => {
     );
 };
 
-export default History;
+export default HistoryIcon;

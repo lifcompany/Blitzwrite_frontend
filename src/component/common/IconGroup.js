@@ -1,9 +1,9 @@
 import React from "react";
 import Badge from '@mui/material/Badge';
 import UserMenu from "./userMenu";
-import Setting from "../sidebar/Setting";
-import Notification from "../sidebar/Notification";
-import History from "../sidebar/History";
+import SettingIcon from "../topbar/SettingIcon";
+import NotificationIcon from "../topbar/NotificationIcon";
+import HistoryIcon from "../topbar/HistoryIcon";
 
 const IconGroup = () => {
   return (
@@ -11,7 +11,7 @@ const IconGroup = () => {
       <nav className="block max-w-full bg-transparent text-white shadow-none transition-all px-0 py-1 ">
         <div className="flex flex-col-reverse md:flex-row md:items-center justify-end gap-6">
           <div className="flex items-center justify-end gap-7">
-            <Setting />
+            <SettingIcon />
             <Badge badgeContent={4} color="error"
               sx={{
                 '& .MuiBadge-standard': {
@@ -21,9 +21,9 @@ const IconGroup = () => {
                 },
               }}
               >
-              <Notification />
+              <NotificationIcon />
             </Badge>
-            <History />
+            <HistoryIcon />
           </div>
         </div>
       </nav>

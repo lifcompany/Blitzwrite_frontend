@@ -92,6 +92,7 @@ const InitPage = () => {
             setNotification("タイトルが正常に作成されました。");
             const title = response.data.title;
             await addTitle({title});
+            navigate('/keyword/article-configuration')
           })
           .catch((error) => {
             setError(error.response.data.error);

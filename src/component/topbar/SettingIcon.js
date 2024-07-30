@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Setting = () => {
+const SettingIcon = () => {
     const navigate = useNavigate('');
     const handleSetting = () => {
         navigate('/setting-site');
@@ -15,4 +15,4 @@ const Setting = () => {
     );
 };
 
-export default Setting;
+export default SettingIcon;

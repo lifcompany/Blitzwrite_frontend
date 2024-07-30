@@ -8,13 +8,9 @@ import { CiSettings } from "react-icons/ci";
 import { VscListUnordered } from "react-icons/vsc";
 import { FaCrown } from "react-icons/fa";
 import Avatar from "./Avatar";
-import Progress from "./Progress";
+import Credit from "./Credit";
 import SideBtn from "../SideBtn";
-import LogoImage from '../../assets/symbol.png';
 import { RiMenuUnfold3Line } from "react-icons/ri";
-
-
-
 
 const SideBar = () => {
 
@@ -137,7 +133,7 @@ const SideBar = () => {
                     {premiumStatus === "is not premium" ? (
                         <div className="p-4 bg-white rounded-[12px] flex flex-col gap-6">
                             <p className="text-base font-bold">スタータープラン</p>
-                            <Progress />
+                            <Credit />
                             <button
                                 onClick={handleUpgrade}
                                 type="button"

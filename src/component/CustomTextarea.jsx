@@ -3,12 +3,16 @@ import { IoMdClose } from 'react-icons/io';
 import Button from './Button';
 import axios from 'axios';
 
-const CustomTextarea = ({ onKeywordsGenerated }) => {
+const CustomTextarea = ({ onKeywordsGenerated, suggestkeyword }) => {
   const [content, setContent] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [tags, setTags] = useState([]);
   const [keywords, setKeywords] = useState([]);
   const inputRef = useRef(null);
+
+  useEffect(() => {
+    setTags(suggestkeyword);
+  }, [suggestkeyword]);
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter' && content.trim()) {
@@ -28,7 +32,6 @@ const CustomTextarea = ({ onKeywordsGenerated }) => {
         throw new Error('No authentication token found');
       }
 
-      // Example API service setup
       const apiService = {
         setToken: (token) => {
           axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
