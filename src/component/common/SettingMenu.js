@@ -3,18 +3,18 @@ import Button from "@mui/material/Button";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import MenuItem from "@mui/material/MenuItem";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import CreditScoreOutlinedIcon from "@mui/icons-material/CreditScoreOutlined";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ApiOutlinedIcon from "@mui/icons-material/ApiOutlined";
 import LanguageIcon from '@mui/icons-material/Language';
 
 function SettingMenu(props) {
   const user = { displayName: "Santa", role: "User", photoURL: "" };
   const [settingMenu, setSettingMenu] = useState(null);
+  const [activeButton, setActiveButton] = useState('');
 
   const settingMenuClick = (event) => {
     setSettingMenu(event.currentTarget);
@@ -22,6 +22,26 @@ function SettingMenu(props) {
 
   const settingMenuClose = () => {
     setSettingMenu(null);
+  };
+
+  const location = useLocation();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (location.pathname === '/setting-site') { 
+      setActiveButton('setting-site');
+    } else if (location.pathname === '/setting-api') {
+      setActiveButton('setting-api');
+    } else if (location.pathname === '/artgen/generated') {
+      setActiveButton('generated');
+    } else {
+      setActiveButton('');
+    }
+  }, [location.pathname]);
+
+  const handleClickMenu = (path, buttonId) => {
+    navigate(path);
+    setActiveButton(buttonId);
+
   };
 
   return (
@@ -62,11 +82,12 @@ function SettingMenu(props) {
               to="/setting-site"
               onClick={settingMenuClose}
               role="button"
-              className="flex items-center"
+              className={`flex items-center`}
               sx={{
                 padding: "16px",
-                paddingLeft: '20px'
+                paddingLeft: '20px',
               }}
+              
             >
               <ListItemIcon className="min-w-40">
                 <LanguageIcon />

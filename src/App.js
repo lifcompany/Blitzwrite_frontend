@@ -11,12 +11,11 @@ import SignOutPage from "./page/authontication/SignOutPage";
 import HomePage from "./page/home/HomePage";
 import GenRouter from "./page/article/GenRouter";
 
-import SettingSite from "./settingpage/SettingSite";
-import CustomSelect from "./component/setting/chatgpt/CustomSelect";
-import SettingAPI from "./settingpage/SettingAPI";
+import SettingSite from "./page/setting/SettingSite";
+import SettingAPI from "./page/setting/SettingAPI";
 import ConfirmPayment from "./component/setting/payment/ConfirmPayment";
-import SettingPayment from "./settingpage/SettingPayment";
-import CreditCardModal from "./settingpage/SettingAccount";
+import SettingPayment from "./page/setting/SettingPayment";
+import CreditCardModal from "./page/setting/SettingAccount";
 import PaymentBox from "./component/setting/payment/PaymentBox";
 import ClientErrorPage from "./page/error/ClientErrorPage";
 import KeywordRouter from "./page/keyword/KeywordRouter";
@@ -46,7 +45,6 @@ function App() {
         <Route path="/setting-test" element={<PaymentBox />} />
         <Route path="/setting-api" element={<SettingAPI />} />
         <Route path="/setting-account" element={<CreditCardModal />} />
-        <Route path="/setting/customselect" element={<CustomSelect />} />
         <Route path="/artgen/*" element={<GenRouter />} />
         <Route path="/keyword/*" element={<KeywordRouter />} />
         <Route path="/*" element={<ClientErrorPage />} />

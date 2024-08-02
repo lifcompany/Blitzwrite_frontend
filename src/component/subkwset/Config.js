@@ -13,7 +13,6 @@ const Config = ({ dragHandleProps, content }) => {
     const handleSave = (content) => {
         console.log('Saving content:', content);
         setIsActive(false);
-        // Here you would typically send the content to your backend
     };
 
     return (

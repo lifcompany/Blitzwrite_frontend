@@ -16,7 +16,7 @@ const stripePromise = loadStripe(
     locale: "ja",
   }
 );
-const PaymentBox = ({setOpen} ) => {
+const PaymentBox = ({ setOpen }) => {
   const [clientSecret, setClientSecret] = useState(null);
   const navigate = useNavigate();
 
@@ -27,11 +27,11 @@ const PaymentBox = ({setOpen} ) => {
     const navigate = useNavigate();
     const handleSubmit = async (event) => {
       event.preventDefault();
-  
+
       if (!stripe || !elements) {
         return;
       }
-  
+
       const result = await stripe.confirmPayment({
         elements,
         confirmParams: {
@@ -39,21 +39,21 @@ const PaymentBox = ({setOpen} ) => {
         },
       });
       if (result.error) {
-      console.log(result);
+        console.log(result);
         setErrorMessage(result.error.message);
       } else {
         navigate("/success");
       }
     };
-  
+
     useEffect(() => {
       if (errorMessage) {
         alert(errorMessage);
       }
     }, [errorMessage]);
-  
+
     return (
-      <Container maxWidth="sm" style={{ marginTop: "10px"}}>
+      <Container maxWidth="sm" style={{ marginTop: "10px" }}>
         <h2 className=" heading font text-[calc(2vmin)] font-semibold mt-10 mb-10">
           クレジットカードの登録
         </h2>
@@ -84,13 +84,13 @@ const PaymentBox = ({setOpen} ) => {
   };
 
   useEffect(() => {
-    if (localStorage.getItem("accessToken") == null){
+    if (localStorage.getItem("accessToken") == null) {
       navigate("/login");
     }
     const fetchClientSecret = async () => {
       const headers = {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
       };
       console.log(localStorage.getItem("accessToken"));
       try {

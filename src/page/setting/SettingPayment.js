@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Header from "../component/common/header";
-import Notification from "../component/common/notification";
-import Error from "../component/common/error";
-import SettingMenu from "../component/common/SettingMenu";
-import PaymentCard from "../page/payment-card";
+import Header from "../../component/common/header";
+import Notification from "../../component/common/notification";
+import Error from "../../component/common/error";
+import SettingMenu from "../../component/common/SettingMenu";
+import PaymentCard from "../payment-card";
+import { FormControl, OutlinedInput } from "@mui/material";
+import PaymentModal from "../../component/setting/payment/PaymentModal";
 
 const SettingPayment = () => {
 
   const [error, setError] = useState("");
   const [notification, setNotification] = useState("");
   const [cardInfo, setCardInfo] = useState(null);
+  const [showPaymentCard, setShowPaymentCard] = useState(false);
 
   useEffect(() => {
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -30,6 +33,9 @@ const SettingPayment = () => {
     fetchCardInfo();
   }, []);
 
+  const registerPayment = () => {
+    setShowPaymentCard((prevShowPaymentCard) => !prevShowPaymentCard); // Toggle PaymentCard visibility
+  };
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -37,8 +43,8 @@ const SettingPayment = () => {
         <div className=" w-auto lg:w-72 border-r-2 border-gray-300 ">
           <SettingMenu />
         </div>
-        <div className="relative flex flex-col flex-1 items-start justify-center">
-          {/* <h1 className=" heading font text-[calc(10px+2vmin)] font-semibold mt-16">
+        <div className="relative flex flex-col flex-1 items-start pl-8 md:pl-14 lg:pl-28 xl:pl-40">
+          <h1 className="heading font text-[calc(8px+2vmin)] text-gray-900 font-semibold mt-16">
             支払い
           </h1>
           <h2 className=" heading font text-[calc(2vmin)] font-semibold mt-10 mb-10">
@@ -47,22 +53,29 @@ const SettingPayment = () => {
           <div className="mt-5">
             <form noValidate autoComplete="off">
               <FormControl sx={{ width: "25ch" }}>
-              <OutlinedInput
-                value={
-                  cardInfo
-                    ? `${cardInfo.card_brand} ending in ${cardInfo.card_last4} (Exp: ${cardInfo.card_exp_month}/${cardInfo.card_exp_year})`
-                    : "支払い情報がありません"
-                }
-                disabled
-              />
+                <OutlinedInput
+                  value={
+                    cardInfo
+                      ? `${cardInfo.card_brand} ending in ${cardInfo.card_last4} (Exp: ${cardInfo.card_exp_month}/${cardInfo.card_exp_year})`
+                      : "支払い情報がありません"
+                  }
+                  disabled
+                />
               </FormControl>
             </form>
           </div>
-          <div className=" h-10">{loading ? <p>Loading...</p> : ""}</div>
           <div className=" py-4">
-            <PaymentModal/>
-          </div> */}
-          <PaymentCard/>
+            <PaymentModal />
+          </div>
+          <div className=" py-4">
+            <button
+              onClick={() => registerPayment()}
+              className="bg-blue-700 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-800 focus:outline-none"
+            >
+              支払い情報を登録
+            </button>
+          </div>
+          {showPaymentCard && <PaymentCard />}
         </div>
       </div>
       <Notification content={notification} />

@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useCallback } from "react";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import Header from "../component/common/header";
+import Header from "../../component/common/header";
 import { useSelector } from "react-redux";
-import Notification from "../component/common/notification";
-import Error from "../component/common/error";
-import SettingMenu from "../component/common/SettingMenu";
-import CurrentVersion from "../component/setting/chatgpt/CurrentVersion";
-import api from "../api";
+import Notification from "../../component/common/notification";
+import Error from "../../component/common/error";
+import SettingMenu from "../../component/common/SettingMenu";
+import CurrentVersion from "../../component/setting/chatgpt/CurrentVersion";
+import api from "../../api";
 
 const SettingAPI = () => {
   const versionId = useSelector((state) => state.version.versionId);
@@ -51,7 +51,7 @@ const SettingAPI = () => {
           <SettingMenu />
         </div>
         <div className="relative flex flex-col flex-1 items-start px-8 md:px-14 lg:px-28 xl:px-40">
-          <h1 className=" heading font text-[calc(10px+2vmin)] font-semibold mt-16">
+          <h1 className="heading font text-[calc(8px+2vmin)] text-gray-900 font-semibold mt-16">
             API連携
           </h1>
           <div className=" bg-[#E5F6FD] py-2 font text-[calc(2vmin)] text-[#014361] rounded-md mt-10 mb-8">

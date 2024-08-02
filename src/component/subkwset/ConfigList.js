@@ -13,7 +13,6 @@ const ConfigList = ({configs_data}) => {
     { id: "config7", content: "タイ案タイトル案タイトル案" },
 ]);
 
-
 useEffect(() => {
   setConfigs(configs_data[0] || []);
   console.log(configs_data)

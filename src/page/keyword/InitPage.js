@@ -10,7 +10,7 @@ import Title from "../../component/Title";
 import SubTitle from "../../component/SubTitle";
 import Error from "../../component/common/error";
 import Notification from "../../component/common/notification";
-import { addTitle, getAllTitles, clearTitles } from '../../component/indexDB/title';
+import { addTitle, clearTitles } from '../../component/indexDB/title';
 import CustomTextarea from "../../component/CustomTextarea";
 
 const InitPage = () => {

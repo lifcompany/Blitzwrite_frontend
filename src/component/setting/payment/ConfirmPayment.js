@@ -16,16 +16,15 @@ const ConfirmPayment = () => {
     const paymentStatus = params.get("redirect_status");
 
     if (paymentStatus === "succeeded") {
-        setNotification("Payment successful!");
-        setTimeout(() => {
-            navigate("/setting-payment");
-          }, 2000);
+      setNotification("Payment successful!");
+      setTimeout(() => {
+        navigate("/setting-payment");
+      }, 2000);
     } else {
-        setError("Payment failed or status unknown.");
-        setTimeout(() => {
-            navigate("/setting-payment");
-          }, 2000);
-       
+      setError("Payment failed or status unknown.");
+      setTimeout(() => {
+        navigate("/setting-payment");
+      }, 2000);
     }
   }, [location, navigate]);
 

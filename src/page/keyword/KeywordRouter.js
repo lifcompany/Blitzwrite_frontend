@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import React from "react";
+import { Route, Routes } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import ArticleConfiguration from "./ArticleConfiguration";
@@ -11,15 +11,7 @@ import ClientErrorPage from "./ClientErrorPage";
 
 const KeywordRouter = () => {
   const selectedSiteName = useSelector((state) => state.site.siteName);
-  const navigate = useNavigate("");
   console.log(selectedSiteName);
-
-  // useEffect(() => {
-  //   if (!selectedSiteName) {
-  //     console.log("None Selected Name");
-  //     navigate("/keyword");
-  //   }
-  // }, [selectedSiteName, navigate]);
   return (
     <RootLayout>
       <Routes>

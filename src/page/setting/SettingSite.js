@@ -8,12 +8,12 @@ import { InputAdornment, IconButton, TextField } from "@mui/material";
 import { MdOutlineVisibility } from "react-icons/md";
 import { MdOutlineVisibilityOff } from "react-icons/md";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { setSiteNameSlice } from "../features/SiteSlice";
-import Notification from "../component/common/notification";
-import Error from "../component/common/error";
-import SettingMenu from "../component/common/SettingMenu";
-import Header from "../component/common/header";
-import api from "../api";
+import { setSiteNameSlice } from "../../features/SiteSlice";
+import Notification from "../../component/common/notification";
+import Error from "../../component/common/error";
+import SettingMenu from "../../component/common/SettingMenu";
+import Header from "../../component/common/header";
+import api from "../../api";
 
 const SettingSite = () => {
   const dispatch = useDispatch();
@@ -119,7 +119,7 @@ const SettingSite = () => {
           <SettingMenu />
         </div>
         <div className="relative flex flex-col flex-1 items-start pl-8 md:pl-14 lg:pl-28 xl:pl-40">
-          <h1 className=" heading font text-[calc(10px+2vmin)] font-semibold mt-16">
+          <h1 className="heading font text-[calc(8px+2vmin)] text-gray-900 font-semibold mt-16">
           サイト連携
           </h1>
           <div className=" bg-[#E5F6FD] px-4 py-2 font text-[calc(2vmin)] text-[#014361] rounded-md mt-10 mb-8">

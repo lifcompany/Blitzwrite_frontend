@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../../component/common/header";
-import Notification from "../../component/common/notification";
 import Error from "../../component/common/error";
-import axios from "axios";
 import api from "../../api";
 const Progress = (props) => {
   const [progress, setProgress] = useState(0);
@@ -56,9 +54,6 @@ const Progress = (props) => {
 
     return () => clearInterval(interval);
   }, [navigate, progress]);
-
-
-
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -80,7 +75,6 @@ const Progress = (props) => {
           </div>
         </div>
       </div>
-      {/* <Notification content={notification} /> */}
       <Error content={error} />
     </div>
   );

@@ -3,7 +3,7 @@ import ServerErrorImage from '../../assets/error/server-error.svg';
 
 const ServerError = () => {
   return (
-    <div className='h-screen w-full min-h-0 p-2 justify-center overflow-hidden flex'>
+    <div className='h-full w-full min-h-0 justify-center overflow-hidden flex flex-1'>
       <div className='flex flex-col lg:flex-row-reverse items-center py-15 px-5 rounded-md  justify-center pt-30'>
         <div className='relative flex'>
           <img src={ServerErrorImage} alt='' />

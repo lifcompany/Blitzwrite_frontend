@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
-import Header from "../component/common/header";
+import Header from "../../component/common/header";
 
-import Notification from "../component/common/notification";
-import Error from "../component/common/error";
-import SettingMenu from "../component/common/SettingMenu";
-import QuestionModal from "../component/setting/account/QuestionModal";
+import Notification from "../../component/common/notification";
+import Error from "../../component/common/error";
+import SettingMenu from "../../component/common/SettingMenu";
+import QuestionModal from "../../component/setting/account/QuestionModal";
 
 const SettingSite = () => {
   const [error, setError] = useState("");
@@ -32,7 +32,7 @@ const SettingSite = () => {
           <SettingMenu />
         </div>
         <div className="relative flex flex-col flex-1 items-start pl-8 md:pl-14 lg:pl-28 xl:pl-40">
-          <h1 className=" heading font text-[calc(10px+2vmin)] font-semibold mt-16">
+          <h1 className="heading font text-[calc(8px+2vmin)] text-gray-900 font-semibold mt-16">
             アカウント
           </h1>
           <div className=" mt-16">

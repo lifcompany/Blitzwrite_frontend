@@ -26,7 +26,6 @@ const EmailVerification = () => {
           navigate("/login");
         } catch (error) {
           console.log(error);
-          // Display error message
         }
       };
       verifyEmail();
@@ -36,7 +35,6 @@ const EmailVerification = () => {
   return (
     <div>
       <h2>メール認証</h2>
-      {/* Display loading or error message */}
     </div>
   );
 };

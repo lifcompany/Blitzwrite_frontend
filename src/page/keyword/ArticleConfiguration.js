@@ -1,27 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
+import { useSelector } from 'react-redux';
+import { IoMdClose } from 'react-icons/io';
 import ContainerDiv from '../../component/ContainerDiv';
 import Title from '../../component/Title';
 import Step from '../../component/Step';
 import Button from '../../component/Button';
-
-import SubSetting from '../../component/SubSetting';
-import Config from '../../component/subkwset/Config';
-import GptTitle from '../../component/subkwset/GptTitle';
-import SubKwSetting from '../../component/subkwset/subkwset';
 import KeyWordShow from '../../component/subkwset/keywordis';
 import FinalSet from '../../component/subkwset/FinalSet';
-import { useNavigate } from 'react-router-dom';
 import SubTitle from '../../component/SubTitle';
 import TitleContainer from '../../component/subkwset/TitleContainer';
 import ConfigList from '../../component/subkwset/ConfigList';
-import { useSelector } from 'react-redux';
 import Error from "../../component/common/error";
 import Notification from "../../component/common/notification";
-import { addTitle, getAllTitles, clearTitles } from '../../component/indexDB/title';
+import { getAllTitles, clearTitles } from '../../component/indexDB/title';
 import LoadingButton from '../../component/subkwset/LoadingButton';
-import CustomTextarea from '../../component/CustomTextarea';
-import { IoMdClose } from 'react-icons/io';
 
 
 
@@ -35,19 +28,14 @@ export default function ArticleConfiguration() {
   const [configs, setConfigs] = useState([]);
   const [stringConfigs, setStringConfigs] = useState([]);
   const [title, setTitle] = useState("");
-  const [site_url, setSite_url] = useState("");
-  const [admin, setAdmin] = useState("");
-  const [password, setPassword] = useState("");
   const [category, setCategory] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
 
   const versionName = useSelector((state) => state.version.versionName);
   const siteUrl = useSelector((state) => state.site.siteUrl);
   const siteAdmin = useSelector((state) => state.site.siteadmin);
   const sitePassword = useSelector((state) => state.site.sitepassword);
 
-  const navigate = useNavigate('');
   const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem("accessToken");
 
@@ -158,16 +146,11 @@ export default function ArticleConfiguration() {
               }))
             );
             setConfigs(convertedArray)
-
-            // Convert each sub-array of titles to a single string
             const convertedStrings = configArray.map(innerArray =>
               innerArray.map(item => item).join('\n')
             );
             console.log("JJJJJJJJJJ", convertedStrings);
             setStringConfigs(convertedStrings)
-
-            // Log each converted string separately
-
           })
           .catch((error) => {
             console.log('Title Generations Error:', error.response);
@@ -284,7 +267,7 @@ export default function ArticleConfiguration() {
         <div className="flex sm:flex-row flex-col">
           <FinalSet
             keyword={mainkeyword}
-            subkeyword="アットコスメ"
+            subkeyword={suggestkeyword[0]}
             title={title}
             setCategory={setCategory}
           />
