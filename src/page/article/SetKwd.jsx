@@ -178,7 +178,7 @@ const SetKwd = () => {
                   className={`p-2 pl-3 pr-3 border rounded-2xl mr-3 mb-2 ${
                     selectedResults.includes(suggestion.keyword)
                       ? "bg-[#232E2F] text-white"
-                      : suggestion.avg_monthly_searches < 10
+                      : suggestion.avg_monthly_searches < 100
                       ? "bg-red-500 text-white" // Error style for low search volume
                       : "bg-gray-100 text-[#232E2F]"
                   } hover:bg-[#232E2F] hover:text-white`}
