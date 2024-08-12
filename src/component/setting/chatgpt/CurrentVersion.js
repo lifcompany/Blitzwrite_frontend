@@ -40,16 +40,16 @@ const CurrentVersion = (props) => {
       .catch((error) => {
         setError(error.response.data.error);
       });
-  }, []);
+  }, [apiUrl, token]);
 
   useEffect(() => {
     console.log(props?.isTriggered);
     get_model_list();
-  }, [props.isTriggered]);
+  }, [props.isTriggered, get_model_list]);
 
   return (
-    <div className="items-center justify-center md:w-full shadow-lg border-2 rounded-md">
-      <AddModel/>
+    <div className="items-center justify-center md:w-full w-full shadow-lg border-2 rounded-md">
+      <AddModel onModelAdded={get_model_list} />
       <div className="bg-white w-full min-h-96">
         <h1 className="text-xl mb-4 px-8">モデル名</h1>
         <div className="overflow-y-auto min-h-72 my-8 max-h-80">

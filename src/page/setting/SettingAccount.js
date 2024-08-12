@@ -8,11 +8,14 @@ import Error from "../../component/common/error";
 import SettingMenu from "../../component/common/SettingMenu";
 import QuestionModal from "../../component/setting/account/QuestionModal";
 
-const SettingSite = () => {
+const SettingSite = (props) => {
   const [error, setError] = useState("");
   const [notification, setNotification] = useState("");
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
+
+  const SetNotification = props.SetNotification;
+
 
   const validateEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -61,7 +64,7 @@ const SettingSite = () => {
           </div>
 
           <div className=" py-4">
-            <QuestionModal email={email} error={emailError} />
+            <QuestionModal email={email} error={emailError} SetNotification={SetNotification} />
           </div>
         </div>
       </div>

@@ -17,6 +17,8 @@ const style = {
 };
 
 const AddModel = (props) => {
+
+  const { onModelAdded } = props;
   const apiUrl = process.env.REACT_APP_API_URL;
   const editversionID = props.editversionID;
   const [open, setOpen] = useState(false);
@@ -43,6 +45,9 @@ const AddModel = (props) => {
         .then((response) => {
           console.log(response.data.message);
           setNotification("モデルを追加しました");
+          if (onModelAdded) {
+            onModelAdded();
+          }
           setTimeout(() => {
             handleClose();
           }, 500);

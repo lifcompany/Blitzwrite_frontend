@@ -234,7 +234,7 @@ const Generated = (props) => {
           <h1 className="heading font text-[calc(8px+2vmin)] text-gray-900 font-semibold ">
             記事一覧
           </h1>
-          <div className="pb-3 mt-5 ">
+          <div className="pb-3 mt-5 font-noto">
             <FormControl component="fieldset" variant="standard">
               <FormGroup>
                 <FormControlLabel
@@ -243,6 +243,7 @@ const Generated = (props) => {
                     <Switch checked={auto} onChange={handleChange} name="auto" />
                   }
                   labelPlacement="start"
+                  className=" font-noto"
                 />
               </FormGroup>
             </FormControl>
@@ -259,6 +260,7 @@ const Generated = (props) => {
                       key={column.id}
                       align={column.align}
                       style={{ minWidth: column.minWidth }}
+                      className="font-noto"
                     >
                       {column.label}
                     </TableCell>
@@ -279,7 +281,7 @@ const Generated = (props) => {
                         {columns.map((column) => {
                           const value = row[column.id];
                           return (
-                            <TableCell key={column.id} align={column.align} sx={{ paddingY: "1rem" }}>
+                            <TableCell key={column.id} align={column.align} sx={{ paddingY: "1rem" }} className="font-noto">
                               {column.id === "status" ? (
                                 <>
                                   <FiberManualRecordIcon

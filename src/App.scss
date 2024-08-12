@@ -1,20 +1,33 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:400,500,600,700|Source+Sans+Pro:400,600,700&display=swap');
 
 body {
-    font-family: 'Source Sans Pro', sans-serif;
+    margin: 0;
+    font-family: 'Noto Sans JP', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     font-size: 16px;
 }
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
+}
+
 * {
     box-sizing: border-box;
+
     &:focus {
         outline: none;
     }
 }
+
 .wrapper {
     width: 100%;
     display: flex;
     padding: 15px 15px;
-    @media screen and (max-width: 700px), (max-height: 500px) {
+
+    @media screen and (max-width: 700px),
+    (max-height: 500px) {
         flex-wrap: wrap;
         flex-direction: column;
     }
@@ -41,6 +54,7 @@ body {
             padding: 25px;
             padding-top: 165px;
         }
+
         @media screen and (max-width: 360px) {
             padding: 15px;
             padding-top: 165px;
@@ -52,6 +66,7 @@ body {
         align-items: flex-start;
         justify-content: center;
         margin-top: 25px;
+
         @media screen and (max-width: 480px) {
             flex-wrap: wrap;
         }
@@ -78,6 +93,7 @@ body {
 
         &.-cvv {
             max-width: 150px;
+
             @media screen and (max-width: 480px) {
                 max-width: initial;
             }
@@ -133,6 +149,7 @@ body {
     align-items: center;
     flex-wrap: wrap;
     column-gap: 10px;
+
     &__label {
         font-size: 14px;
         margin-bottom: 5px;
@@ -142,6 +159,7 @@ body {
         display: block;
         user-select: none;
     }
+
     &__input {
         width: 100%;
         height: 50px;
@@ -163,6 +181,7 @@ body {
         &:focus {
             box-shadow: 0px 10px 20px -13px rgba(32, 56, 117, 0.35);
         }
+
         &.-select {
             -webkit-appearance: none;
             background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAeCAYAAABuUU38AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAUxJREFUeNrM1sEJwkAQBdCsngXPHsQO9O5FS7AAMVYgdqAd2IGCDWgFnryLFQiCZ8EGnJUNimiyM/tnk4HNEAg/8y6ZmMRVqz9eUJvRaSbvutCZ347bXVJy/ZnvTmdJ862Me+hAbZCTs6GHpyUi1tTSvPnqTpoWZPUa7W7ncT3vK4h4zVejy8QzM3WhVUO8ykI6jOxoGA4ig3BLHcNFSCGqGAkig2yqgpEiMsjSfY9LxYQg7L6r0X6wS29YJiYQYecemY+wHrXD1+bklGhpAhBDeu/JfIVGxaAQ9sb8CI+CQSJ+QmJg0Ii/EE2MBiIXooHRQhRCkBhNhBcEhLkwf05ZCG8ICCOpk0MULmvDSY2M8UawIRExLIQIEgHDRoghihgRIgiigBEjgiFATBACAgFgghEwSAAGgoBCBBgYAg5hYKAIFYgHBo6w9RRgAFfy160QuV8NAAAAAElFTkSuQmCC');

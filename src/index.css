@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 .css-953pxc-MuiInputBase-root-MuiInput-root::before{
     border: none !important;
   }
@@ -73,3 +76,33 @@
   transform: translateX(0);
 }
 
+
+ .font-noto{
+  font-family: 'Noto Sans JP', sans-serif !important;
+}
+
+.MuiTypography-root{
+  font-family: 'Noto Sans JP', sans-serif !important;
+
+}
+
+
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.input-wrapper .icon {
+  position: absolute;
+  left: 10px;
+  font-size: 1.5rem;
+}
+
+.input-wrapper .StripeElement {
+  padding-left: 2rem; /* Adjust based on the size of the icon */
+  width: 100%;
+}
+
+/* import CreditCardIcon from '@mui/icons-material/CreditCard'; */

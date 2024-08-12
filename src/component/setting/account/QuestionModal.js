@@ -12,7 +12,6 @@ import {
   FormLabel,
 } from "@mui/material";
 import axios from "axios";
-import Notification from "../../common/notification";
 import Error from "../../common/error";
 
 const style = {
@@ -32,8 +31,10 @@ const QuestionModal = (props) => {
   const email = props.email;
   const error_status = props.error;
   const [open, setOpen] = useState(false)
-  const [notification, setNotification] = useState("");
   const [error, setError] = useState("");
+
+  const SetNotification = props.SetNotification;
+
   const navigate = useNavigate();
   const handleOpen = () => {
     console.log(email, error_status);
@@ -90,6 +91,7 @@ const QuestionModal = (props) => {
       );
       console.log("Response:", response.data);
       localStorage.removeItem('accessToken');
+      SetNotification("退会が完了しました");
       navigate('/')
     } catch (error) {
       console.error("Error submitting data:", error.response.data.error);
@@ -211,7 +213,6 @@ const QuestionModal = (props) => {
           </div>
         </Box>
       </Modal>
-      <Notification content={notification} />
       <Error content={error} />
     </div>
   );

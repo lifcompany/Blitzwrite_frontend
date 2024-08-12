@@ -11,7 +11,7 @@ const ClientError = () => {
         </div>
         <div className='relative flex flex-col items-center'>
           <span className='break-words text-[4rem] font-semibold mb-[1.8rem] text-black'>Oops!</span>
-          <span className=' break-words text-4xl font-semibold mb-[1.8rem] text-black'>Sorry, page not found!</span>
+          <span className=' break-words text-4xl font-semibold mb-[1.8rem] text-black'>申し訳ありませんが、ページが見つかりません!</span>
           <Link className='ant-btn ant-btn-link text-black' to='/'>
             Return to Home
           </Link>

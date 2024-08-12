@@ -10,6 +10,8 @@ import Divider from "@mui/material/Divider";
 import Tooltip from "@mui/material/Tooltip";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
+import { IoMdArrowDropdown } from "react-icons/io";
+import { FaRegCircleUser } from "react-icons/fa6";
 
 export default function UserMenu() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -46,12 +48,13 @@ export default function UserMenu() {
               borderRadius: "90px",
               backgroundColor: "white",
               border: "2px solid #E9EAEA",
+              padding: "2px",
+              minHeight: "3.5rem",
+              minWidth: "3.5rem",
             }}
             color="inherit"
           >
-            <div className="hidden md:flex flex-col mx-1 items-end">
-              <h2 className="font-bold flex">{user.displayName}</h2>
-            </div>
+
             {user.photoURL ? (
               <Avatar
                 className="md:mx-1"
@@ -59,8 +62,11 @@ export default function UserMenu() {
                 src={user.photoURL}
               />
             ) : (
-              <Avatar className="md:mx-1">{user.displayName[0]}</Avatar>
+              <Avatar className="md:mx-1" sx={{ backgroundColor: "white" }}><FaRegCircleUser className=" text-gray-800 w-9 h-9" /></Avatar>
             )}
+            <div className="hidden md:flex flex-col mx-1 min-w-7 px-2 items-end">
+              <IoMdArrowDropdown className="w-7 h-7 text-gray-700" />
+            </div>
           </Button>
         </Tooltip>
       </Box>
@@ -99,7 +105,7 @@ export default function UserMenu() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        {user.role &&
+        {/* {user.role &&
           user.role.length > 0 && [
             <MenuItem
               key="profile"
@@ -126,11 +132,11 @@ export default function UserMenu() {
                     ></path>
                   </svg>
                 </span>
-              </div> 
+              </div>
               プロフィール
             </MenuItem>,
             <Divider key="divider" />,
-          ]}
+          ]} */}
         <MenuItem
           component={Link}
           to="/setting-site"
@@ -142,6 +148,7 @@ export default function UserMenu() {
           </ListItemIcon>
           設定
         </MenuItem>
+        <Divider key="divider" />
         <MenuItem
           component={NavLink}
           to="/sign-out"

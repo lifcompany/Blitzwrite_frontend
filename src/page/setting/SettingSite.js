@@ -63,26 +63,7 @@ const SettingSite = () => {
 
   const registerSite = async () => {
     setError(null);
-    const params = { siteUrl: siteUrl };
-    axios
-      .get(`${apiUrl}/api/setting/get-title/`, {
-        params: params,
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        setSiteTitle(response?.data.title);
-        dispatch(setSiteNameSlice(response?.data.title));
-      })
-      .catch((error) => {
-        console.error("Error fetching site title:", error);
-        setError("Failed to fetch site title. Please check the URL.");
-      });
-    setLoading(true);
-    setError(null);
-
+    
     const site_data = {
       site_name: siteName,
       site_url: siteUrl,
@@ -100,6 +81,25 @@ const SettingSite = () => {
       .then((response) => {
         setLoading(false);
         setNotification("サイト連携が完了しました");
+        const params = { siteUrl: siteUrl };
+        axios
+          .get(`${apiUrl}/api/setting/get-title/`, {
+            params: params,
+            headers: {
+              Accept: "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((response) => {
+            setSiteTitle(response?.data.title);
+            dispatch(setSiteNameSlice(response?.data.title));
+          })
+          .catch((error) => {
+            console.error("Error fetching site title:", error);
+            setError("サイトタイトルの取得に失敗しました。URLを確認してください。.");
+          });
+        setLoading(true);
+        setError(null);
       })
       .catch((error) => {
         setError(error.response.data.error);

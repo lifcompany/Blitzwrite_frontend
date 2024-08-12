@@ -93,7 +93,7 @@ const SideBar = () => {
                 <div className="m-4">
                     <ul className="flex flex-col mb-4">
                         <li className="mx-3.5 mb-4">
-                            <p className="block antialiased font-sans text-[16px] leading-normal text-[#1A1F36] font-black uppercase opacity-75">キーワード</p>
+                            <p className="block antialiased text-[16px] leading-normal text-[#1A1F36] font-black uppercase opacity-75">キーワード</p>
                         </li>
                         <li>
                             <Link to="/keyword">
@@ -118,7 +118,7 @@ const SideBar = () => {
                     </ul>
                     <ul className="flex flex-col mb-4">
                         <li className="mx-3.5 mb-4">
-                            <p className="block antialiased font-sans text-[16px] leading-normal text-[#1A1F36] font-black uppercase opacity-75">記事</p>
+                            <p className="block antialiased text-[16px] leading-normal text-[#1A1F36] font-black uppercase opacity-75">記事</p>
                         </li>
                         <li>
                             <Link to="/keyword/article-configuration">
@@ -143,7 +143,7 @@ const SideBar = () => {
                     </ul>
                     <ul className="flex flex-col">
                         <li className="mx-3.5 mb-4">
-                            <p className="block antialiased font-sans text-[16px] leading-normal text-[#1A1F36] font-black uppercase opacity-75">設定</p>
+                            <p className="block antialiased text-[16px] leading-normal text-[#1A1F36] font-black uppercase opacity-75">設定</p>
                         </li>
                         <li>
                             <Link to="/setting-api">

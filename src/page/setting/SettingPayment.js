@@ -7,6 +7,8 @@ import SettingMenu from "../../component/common/SettingMenu";
 import PaymentCard from "../payment-card";
 import { FormControl, OutlinedInput } from "@mui/material";
 import PaymentModal from "../../component/setting/payment/PaymentModal";
+import { Button } from '@mui/material';
+import CreditCardForm from "../../component/setting/payment/CreditCardForm";
 
 const SettingPayment = () => {
 
@@ -14,6 +16,19 @@ const SettingPayment = () => {
   const [notification, setNotification] = useState("");
   const [cardInfo, setCardInfo] = useState(null);
   const [showPaymentCard, setShowPaymentCard] = useState(false);
+
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+
 
   useEffect(() => {
     const apiUrl = process.env.REACT_APP_API_URL;
@@ -76,6 +91,13 @@ const SettingPayment = () => {
             </button>
           </div>
           {showPaymentCard && <PaymentCard />}
+        </div>
+
+        <div className="App">
+          <Button variant="outlined" onClick={handleClickOpen}>
+            クレジットカードの登録
+          </Button>
+          <CreditCardForm open={open} handleClose={handleClose} />
         </div>
       </div>
       <Notification content={notification} />

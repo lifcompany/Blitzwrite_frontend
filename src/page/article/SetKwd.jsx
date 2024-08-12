@@ -116,7 +116,7 @@ const SetKwd = () => {
             id="app"
             className="py-2 font text-[calc(2vmin)] text-[#014361] rounded-md mt-10 mb-8"
           >
-            <div className=" relative w-[320px]">
+            <div className=" relative w-[316px]">
               <TextField
                 variant="outlined"
                 onChange={handleChange}
@@ -176,8 +176,8 @@ const SetKwd = () => {
                 <button
                   key={index}
                   className={`p-2 pl-3 pr-3 border rounded-2xl mr-3 mb-2 ${selectedResults.includes(suggestion.keyword)
-                      ? "bg-[#232E2F] text-white"
-                      : "bg-gray-100 text-[#232E2F]"
+                    ? "bg-[#232E2F] text-white"
+                    : "bg-gray-100 text-[#232E2F]"
                     } hover:bg-[#232E2F] hover:text-white`}
                   onClick={() => handleResultClick(suggestion.keyword)}
                 >
@@ -188,24 +188,29 @@ const SetKwd = () => {
           </div>
         </div>
 
-        <div className=" flex justify-between border-t-2 border-gray-200 items-center w-full px-40 text-[#232E2F] font-semibold p-5">
-          {selectedResults.length > 2 ? (
-            <div>検索ボリュームが十分です。記事の生成をしましょう</div>
-          ) : (
-            <div>検索ボリュームが不十分です。</div>
-          )}
-          <button
-            className={` text-white font-semibold border py-3 px-4  rounded-2xl  ${selectedResults.length > 2 ? "bg-blue-800" : "bg-[#A7ABAC]"
-              } hover:bg-[#232E2F] hover:text-white`}
-            onClick={runProcess}
-          >
-            記事を生成する
-          </button>
+
+        
+
+        <div className="fixed bottom-0 bg-white w-screen transition-all duration-900 bg-opacity-60  backdrop-blur-md ">
+          <div className=" flex justify-between border-t-2 border-gray-200 items-center w-full px-40 text-[#232E2F] font-semibold p-5">
+            {selectedResults.length > 2 ? (
+              <div>検索ボリュームが十分です。記事の生成をしましょう</div>
+            ) : (
+              <div>検索ボリュームが不十分です。</div>
+            )}
+            <button
+              className={` text-white font-semibold border py-3 px-4  rounded-2xl  ${selectedResults.length > 2 ? "bg-blue-800" : "bg-[#A7ABAC]"
+                } hover:bg-[#232E2F] hover:text-white`}
+              onClick={runProcess}
+            >
+              記事を生成する
+            </button>
+          </div>
         </div>
+
       </div>
       <Outlet />
       <Error content={error} />
-      {/* <Notification content={content} /> */}
     </div>
   );
 };

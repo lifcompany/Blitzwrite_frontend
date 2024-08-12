@@ -79,7 +79,7 @@ const MenuGroup = () => {
           })
           .catch((error) => {
             console.error("Error fetching site title:", error);
-            setError("Failed to fetch site title. Please check the URL.");
+            setError("サイトタイトルの取得に失敗しました。URLを確認してください。.");
           });
         setError(null);
 
@@ -106,8 +106,7 @@ const MenuGroup = () => {
       {selectedSiteName ? (
         <Tooltip title={selectedSiteName} color="primary" placement="top" variant={variant}>
           <button
-            onClick={() => handleClickMenu("/artgen/generated")}
-            className="flex justify-center items-center min-w-[319px] gap-1 mr-4 py-2 px-4 border-2 border-gray-300 rounded-full hover:bg-gray-200 text-[#232E2F] hover:text-[#232E2F] font-bold"
+            className="flex justify-center items-center min-w-[319px] gap-1 mr-4 py-2 px-4 border-2 border-gray-300 rounded-full text-gray-900  font-bold"
           >
             <WebOutlinedIcon style={{ fontSize: '30px' }} />
             {displaySiteName}
@@ -118,7 +117,7 @@ const MenuGroup = () => {
       )}
       <button
         onClick={() => handleClickMenu("/artgen/setkeyword", "setkeyword" )}
-        className={`hidden xl:flex justify-center items-center gap-1 mr-4 p-2 rounded-md hover:bg-gray-200 text-[#232E2F] hover:text-[#232E2F] font-bold ${activeButton === 'setkeyword' ? 'bg-white text-[#040505] border-[1px] border-[#e7e7e7]' : ''}`}
+        className={`hidden xl:flex justify-center items-center gap-1 mr-4 p-2 rounded-lg hover:bg-gray-200 text-gray-700 hover:text-gray-700 font-bold ${activeButton === 'setkeyword' ? 'bg-white text-gray-900' : ''}`}
       >
         <MdEditDocument style={{ fontSize: '30px' }} />
         作成
@@ -126,14 +125,14 @@ const MenuGroup = () => {
 
       <button
         onClick={() => handleClickMenu("/keyword", "keyword")}
-        className={`hidden xl:flex justify-center items-center gap-1 mr-4 p-2 rounded-md hover:bg-gray-200 text-[#232E2F] hover:text-[#232E2F] font-bold ${activeButton === 'keyword' ? 'bg-white text-[#040505] border-[1px] border-[#e7e7e7]' : ''}`}
+        className={`hidden xl:flex justify-center items-center gap-1 mr-4 p-2 rounded-lg hover:bg-gray-200 text-gray-700 hover:text-gray-700 font-bold ${activeButton === 'keyword' ? 'bg-white text-gray-900' : ''}`}
       >
         <MdEditDocument style={{ fontSize: '30px' }} />
         Keyword
       </button>
       <button
         onClick={() => handleClickMenu("/artgen/generated", "generated")}
-        className={`hidden xl:flex justify-center items-center gap-1 mr-4 p-2 rounded-md hover:bg-gray-200 text-[#232E2F] hover:text-[#232E2F] font-bold ${activeButton === 'generated' ? 'bg-white text-[#040505] border-[1px] border-[#e7e7e7]' : ''}`}
+        className={`hidden xl:flex justify-center items-center gap-1 mr-4 p-2 rounded-lg hover:bg-gray-200 text-gray-700 hover:text-gray-700 font-bold ${activeButton === 'generated' ? 'bg-white text-gray-900' : ''}`}
       >
         <MdOutlineArticle style={{ fontSize: '30px' }} />
         一覧

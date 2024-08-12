@@ -46,19 +46,10 @@ function SettingMenu(props) {
 
   return (
     <>
-      <div className="flex justify-center my-5">
-        <Button
-          className="min-h-14 min-w-14 px-0 md:px-4 py-0 md:py-2 rounded-xl"
-          onClick={settingMenuClick}
-          color="inherit"
-        >
-          <Avatar className="md:mx-1">{user.displayName[0]}</Avatar>
-        </Button>
-      </div>
       <div
         open={true}
         onClose={settingMenuClose}
-        className="py-3"
+        className="pt-6 pb-3"
       >
         {!user.role || user.role.length === 0 ? (
           <>

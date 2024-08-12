@@ -4,7 +4,8 @@ import { useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { googleLogout } from '@react-oauth/google';
 
-function SignOutPage() {
+function SignOutPage(props) {
+
   const navigate =  useNavigate();
   useEffect(() => {
     setTimeout(() => {
