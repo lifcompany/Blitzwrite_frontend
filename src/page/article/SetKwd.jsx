@@ -175,10 +175,13 @@ const SetKwd = () => {
               {suggestions.map((suggestion, index) => (
                 <button
                   key={index}
-                  className={`p-2 pl-3 pr-3 border rounded-2xl mr-3 mb-2 ${selectedResults.includes(suggestion.keyword)
-                    ? "bg-[#232E2F] text-white"
-                    : "bg-gray-100 text-[#232E2F]"
-                    } hover:bg-[#232E2F] hover:text-white`}
+                  className={`p-2 pl-3 pr-3 border rounded-2xl mr-3 mb-2 ${
+                    selectedResults.includes(suggestion.keyword)
+                      ? "bg-[#232E2F] text-white"
+                      : suggestion.avg_monthly_searches < 10
+                      ? "bg-red-500 text-white" // Error style for low search volume
+                      : "bg-gray-100 text-[#232E2F]"
+                  } hover:bg-[#232E2F] hover:text-white`}
                   onClick={() => handleResultClick(suggestion.keyword)}
                 >
                   {suggestion.keyword}
@@ -187,10 +190,6 @@ const SetKwd = () => {
             </div>
           </div>
         </div>
-
-
-        
-
         <div className="fixed bottom-0 bg-white w-screen transition-all duration-900 bg-opacity-60  backdrop-blur-md ">
           <div className=" flex justify-between border-t-2 border-gray-200 items-center w-full px-40 text-[#232E2F] font-semibold p-5">
             {selectedResults.length > 2 ? (
@@ -207,7 +206,6 @@ const SetKwd = () => {
             </button>
           </div>
         </div>
-
       </div>
       <Outlet />
       <Error content={error} />
