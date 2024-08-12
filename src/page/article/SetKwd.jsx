@@ -192,7 +192,7 @@ const SetKwd = () => {
         </div>
         <div className="fixed bottom-0 bg-white w-screen transition-all duration-900 bg-opacity-60  backdrop-blur-md ">
           <div className=" flex justify-between border-t-2 border-gray-200 items-center w-full px-40 text-[#232E2F] font-semibold p-5">
-            {selectedResults.length > 2 ? (
+            {selectedResults.length > 0 ? (
               <div>検索ボリュームが十分です。記事の生成をしましょう</div>
             ) : (
               <div>検索ボリュームが不十分です。</div>
