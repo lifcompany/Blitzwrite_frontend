@@ -179,8 +179,8 @@ const SetKwd = () => {
                     selectedResults.includes(suggestion.keyword)
                       ? "bg-[#232E2F] text-white"
                       : suggestion.avg_monthly_searches < 100
-                      ? "bg-red-500 text-white" // Error style for low search volume
-                      : "bg-gray-100 text-[#232E2F]"
+                      ? " bg-gray-100 text-[#232E2F]" // Error style for low search volume
+                      : "bg-white text-[#232E2F] border-[#001021] border-[1px]"
                   } hover:bg-[#232E2F] hover:text-white`}
                   onClick={() => handleResultClick(suggestion.keyword)}
                 >
