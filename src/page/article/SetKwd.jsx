@@ -50,7 +50,7 @@ const SetKwd = () => {
   const handleResultClick = (result) => {
     const selectedSuggestion = suggestions.find((s) => s.keyword === result);
 
-    if (selectedSuggestion && selectedSuggestion.avg_monthly_searches < 10) {
+    if (selectedSuggestion && selectedSuggestion.avg_monthly_searches < 100) {
       setSelectionError("このキーワードの検索ボリュームが不十分です。");
       return;
     }
@@ -66,7 +66,7 @@ const SetKwd = () => {
   };
 
   const runProcess = () => {
-    if (selectedResults.length > 2) {
+    if (selectedResults.length > 0) {
       navigate("/artgen/progress", { state: { selectedResults } });
     } else {
       window.alert("Please select the keywords");
