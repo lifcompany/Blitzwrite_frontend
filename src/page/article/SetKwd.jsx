@@ -17,10 +17,9 @@ const SetKwd = () => {
   const [options, setOption] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
   const [error, setError] = useState("");
-
+  const [selectionError, setSelectionError] = useState("");
 
   const navigate = useNavigate();
-
   const apiUrl = process.env.REACT_APP_API_URL;
 
   const handleKeyDown = (event) => {
@@ -33,9 +32,7 @@ const SetKwd = () => {
             .post(`${apiUrl}/api/generate/keyword-suggest/`, { keyword: keyword })
             .then((response) => {
               console.log(response.data);
-
-              setSuggestions(response.data.suggestions)
-
+              setSuggestions(response.data.suggestions);
             })
             .catch((error) => {
               console.error("Backend Error:", error);
@@ -51,6 +48,14 @@ const SetKwd = () => {
   };
 
   const handleResultClick = (result) => {
+    const selectedSuggestion = suggestions.find((s) => s.keyword === result);
+
+    if (selectedSuggestion && selectedSuggestion.avg_monthly_searches < 10) {
+      setSelectionError("このキーワードの検索ボリュームが不十分です。");
+      return;
+    }
+
+    setSelectionError("");
     setSelectedResults((prevSelectedResults) => {
       if (prevSelectedResults.includes(result)) {
         return prevSelectedResults.filter((r) => r !== result);
@@ -59,7 +64,8 @@ const SetKwd = () => {
       }
     });
   };
-  const runProcess = (result) => {
+
+  const runProcess = () => {
     if (selectedResults.length > 2) {
       navigate("/artgen/progress", { state: { selectedResults } });
     } else {
@@ -83,7 +89,7 @@ const SetKwd = () => {
             },
           }
         );
-        setOption(response.data[1])
+        setOption(response.data[1]);
       } catch (error) {
         console.error("Error fetching suggestions:", error);
         setSuggestions([]);
@@ -179,7 +185,7 @@ const SetKwd = () => {
                     selectedResults.includes(suggestion.keyword)
                       ? "bg-[#232E2F] text-white"
                       : suggestion.avg_monthly_searches < 100
-                      ? " bg-gray-100 text-[#232E2F]" // Error style for low search volume
+                      ? "bg-red-500 text-white" // Error style for low search volume
                       : "bg-white text-[#232E2F] border-[#001021] border-[1px]"
                   } hover:bg-[#232E2F] hover:text-white`}
                   onClick={() => handleResultClick(suggestion.keyword)}
@@ -188,6 +194,7 @@ const SetKwd = () => {
                 </button>
               ))}
             </div>
+            {selectionError && <p className="text-red-500 mt-2">{selectionError}</p>}
           </div>
         </div>
         <div className="fixed bottom-0 bg-white w-screen transition-all duration-900 bg-opacity-60  backdrop-blur-md ">
