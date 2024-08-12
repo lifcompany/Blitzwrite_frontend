@@ -128,7 +128,7 @@ const SettingPayment = () => {
               <PaymentBox
                 isEdit={!!paymentMethod}
                 onSuccess={(successMessage) => {
-                  // refetchPaymentMethod();
+                  refetchPaymentMethod();
                   setSuccessMessage(successMessage);
                 }}
                 onError={(errorMessage) => {
