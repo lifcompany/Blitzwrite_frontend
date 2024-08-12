@@ -198,7 +198,7 @@ const SetKwd = () => {
               <div>検索ボリュームが不十分です。</div>
             )}
             <button
-              className={` text-white font-semibold border py-3 px-4  rounded-2xl  ${selectedResults.length > 2 ? "bg-blue-800" : "bg-[#A7ABAC]"
+              className={` text-white font-semibold border py-3 px-4  rounded-2xl  ${selectedResults.length > 0 ? "bg-blue-800" : "bg-[#A7ABAC]"
                 } hover:bg-[#232E2F] hover:text-white`}
               onClick={runProcess}
             >
