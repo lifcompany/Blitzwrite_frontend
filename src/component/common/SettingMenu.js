@@ -83,7 +83,7 @@ function SettingMenu(props) {
               <ListItemIcon className="min-w-40">
                 <LanguageIcon />
               </ListItemIcon>
-              <span className="hidden lg:inline">メディア</span>
+              <span className="hidden lg:inline font-noto">メディア</span>
             </MenuItem>
             <MenuItem
               component={Link}
@@ -99,7 +99,7 @@ function SettingMenu(props) {
               <ListItemIcon className="min-w-40">
                 <ApiOutlinedIcon />
               </ListItemIcon>
-              <span className="hidden lg:inline">API連携</span>
+              <span className="hidden lg:inline font-noto">API連携</span>
             </MenuItem>
             <MenuItem
               component={Link}
@@ -115,7 +115,7 @@ function SettingMenu(props) {
               <ListItemIcon className="min-w-40">
                 <CreditScoreOutlinedIcon />
               </ListItemIcon>
-              <span className="hidden lg:inline">支払い</span>
+              <span className="hidden lg:inline font-noto">支払い</span>
             </MenuItem>
             <MenuItem
               component={Link}
@@ -131,7 +131,7 @@ function SettingMenu(props) {
               <ListItemIcon className="min-w-40">
                 <ManageAccountsIcon />
               </ListItemIcon>
-              <span className="hidden lg:inline">アカウント</span>
+              <span className="hidden lg:inline font-noto">アカウント</span>
             </MenuItem>
             <div className="border-b-2 border-b-gray-300 w-[90%] my-3 m-auto"></div>
           </>
