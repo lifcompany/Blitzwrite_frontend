@@ -8,6 +8,7 @@ import { Backdrop, Box, CircularProgress, Modal } from "@mui/material";
 import PaymentBox from "../../component/setting/payment/PaymentBox";
 import PaymentMethodCard from "../../component/setting/payment/PaymentMethodCard";
 import { Button } from "@mui/material";
+// import PaymentCard from "../payment-card";
 
 const fetchPaymentMethod = async () => {
   const res = await axios.get(
@@ -31,6 +32,7 @@ const SettingPayment = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [showPaymentCard, setShowPaymentCard] = useState(false);
 
   const refetchPaymentMethod = useCallback(async () => {
     setIsLoading(true);
@@ -65,6 +67,10 @@ const SettingPayment = () => {
     }
     setIsLoading(false);
   }, []);
+
+  // const registerPayment = () => {
+  //   setShowPaymentCard((prevShowPaymentCard) => !prevShowPaymentCard); // Toggle PaymentCard visibility
+  // };
 
   useEffect(() => {
     refetchPaymentMethod();
@@ -140,6 +146,17 @@ const SettingPayment = () => {
           </Modal>
         </div>
       </div>
+
+      {/* <div className=" py-4">
+        <button
+          onClick={() => registerPayment()}
+          className="bg-blue-700 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-800 focus:outline-none"
+        >
+          支払い情報を登録
+        </button>
+      </div>
+      {showPaymentCard && <PaymentCard />} */}
+
       <Notification content={successMessage} />
       <Error content={errorMessage} />
       <Backdrop

@@ -7,6 +7,9 @@ import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
 import Header from "../../component/common/header";
 import Error from "../../component/common/error";
+import Notification from "../../component/common/notification";
+import { addTitle, clearTitles } from "../../component/indexDB/title";
+import { useSelector } from "react-redux";
 
 const SetKwd = () => {
   const [fakeButtons, setFakeButtons] = useState([]);
@@ -18,9 +21,15 @@ const SetKwd = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [error, setError] = useState("");
   const [selectionError, setSelectionError] = useState("");
+  const [mainkeyword, setMainKeyword] = useState("");
+  const [notification, setNotification] = useState("");
+
+
 
   const navigate = useNavigate();
   const apiUrl = process.env.REACT_APP_API_URL;
+  const token = localStorage.getItem("accessToken");
+  const versionName = useSelector((state) => state.version.versionName);
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
@@ -28,6 +37,7 @@ const SetKwd = () => {
       const buttons = keywords
         .map((keyword) => {
           const fakeButtons = [];
+          setMainKeyword(keyword)
           axios
             .post(`${apiUrl}/api/generate/keyword-suggest/`, { keyword: keyword })
             .then((response) => {
@@ -48,7 +58,7 @@ const SetKwd = () => {
   };
 
   const handleResultClick = (result) => {
-    const selectedSuggestion = suggestions.find((s) => s.keyword === result);
+    const selectedSuggestion = suggestions.find((s) => s.keyword === result.keyword);
 
     if (selectedSuggestion && selectedSuggestion.avg_monthly_searches < 100) {
       setSelectionError("このキーワードの検索ボリュームが不十分です。");
@@ -67,7 +77,28 @@ const SetKwd = () => {
 
   const runProcess = () => {
     if (selectedResults.length > 0) {
-      navigate("/artgen/progress", { state: { selectedResults } });
+
+      const keywordsToSend = selectedResults.map(keyword => ({
+        keyword: keyword.keyword,
+        volume: keyword.avg_monthly_searches
+      }));
+      console.log(keywordsToSend);
+      axios
+      .post(`${apiUrl}/api/generate/save_keywords/`, { keywords: keywordsToSend, main_keyword: mainkeyword }, {
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log('キーワードの保存に成功:', response.data);
+        navigate("/artgen/progress", { state: { keywordsToSend, mainkeyword } });
+      })
+      .catch((error) => {
+        console.error('キーワード保存エラー:', error);
+      });
+
+
     } else {
       window.alert("Please select the keywords");
     }
@@ -186,7 +217,7 @@ const SetKwd = () => {
                       ? " bg-gray-100 text-[#232E2F]" // Error style for low search volume
                       : "bg-white text-[#232E2F] border-[#001021] border-[1px]"
                     } hover:bg-[#232E2F] hover:text-white`}
-                  onClick={() => handleResultClick(suggestion.keyword)}
+                  onClick={() => handleResultClick(suggestion)}
                 >
                   {suggestion.keyword}
                 </button>
@@ -214,6 +245,8 @@ const SetKwd = () => {
       </div>
       <Outlet />
       <Error content={error} />
+      <Notification content={notification} />
+
     </div>
   );
 };
