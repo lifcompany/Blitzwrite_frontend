@@ -77,7 +77,7 @@ const HamburgerMenu = () => {
                         <EditIcon fontSize='18' className='mr-2' />
                         作成
                     </MenuItem>
-                    <MenuItem
+                    {/* <MenuItem
                         onClick={() => handleClickMenu('/keyword')}
                         disableRipple
                         sx={{
@@ -91,7 +91,7 @@ const HamburgerMenu = () => {
                     >
                         <FileCopyIcon fontSize='18' className='mr-2' />
                         Keyword
-                    </MenuItem>
+                    </MenuItem> */}
                     <Divider sx={{ my: 0.5 }} />
                     <MenuItem
                         onClick={() => handleClickMenu('/artgen/generated')}

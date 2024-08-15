@@ -123,13 +123,13 @@ const MenuGroup = () => {
         作成
       </button>
 
-      <button
+      {/* <button
         onClick={() => handleClickMenu("/keyword", "keyword")}
         className={`hidden xl:flex justify-center items-center gap-1 mr-4 p-2 rounded-lg hover:bg-gray-200 text-gray-700 hover:text-gray-700 font-bold ${activeButton === 'keyword' ? 'bg-white text-gray-900' : ''}`}
       >
         <MdEditDocument style={{ fontSize: '30px' }} />
         Keyword
-      </button>
+      </button> */}
       <button
         onClick={() => handleClickMenu("/artgen/generated", "generated")}
         className={`hidden xl:flex justify-center items-center gap-1 mr-4 p-2 rounded-lg hover:bg-gray-200 text-gray-700 hover:text-gray-700 font-bold ${activeButton === 'generated' ? 'bg-white text-gray-900' : ''}`}
