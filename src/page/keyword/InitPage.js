@@ -92,7 +92,6 @@ const InitPage = () => {
             setNotification("タイトルが正常に作成されました。");
             const title = response.data.title;
             await addTitle({title});
-            
             // navigate('/artgen/generated')
           })
           .catch((error) => {
