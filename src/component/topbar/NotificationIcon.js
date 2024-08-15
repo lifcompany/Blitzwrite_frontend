@@ -3,10 +3,11 @@ import Badge from '@mui/material/Badge';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 
 const NotificationIcon = ({ count_noti, array_noti }) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
-
+    const navigate = useNavigate();
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -15,6 +16,9 @@ const NotificationIcon = ({ count_noti, array_noti }) => {
         setAnchorEl(null);
     };
 
+    const handleClickMenu = (path) => {
+        navigate(path);
+    };
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
     return (
@@ -66,7 +70,9 @@ const NotificationIcon = ({ count_noti, array_noti }) => {
                 }}
             >
                 {array_noti.map((noti, index) => (
-                    <Typography sx={{ p: 2 }}>{noti}</Typography>
+                    <div className=' cursor-pointer hover:bg-blue-100' onClick={() => handleClickMenu('/artgen/generated')}>
+                        <Typography sx={{ p: 2 }}>{noti}</Typography>
+                    </div>
                 ))}
             </Popover>
         </>
