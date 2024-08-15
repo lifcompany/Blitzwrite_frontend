@@ -71,10 +71,10 @@ const HamburgerMenu = () => {
                                 backgroundColor: 'rgba(229, 231, 235, 0.5)'
                             },
                             fontSize: '18px',
-                            fontWeight: '500'
+                            fontWeight: '500',
                         }}
+                        className='font-noto'
                     >
-                        <EditIcon fontSize='18' className='mr-2' />
                         作成
                     </MenuItem>
                     {/* <MenuItem
@@ -92,7 +92,6 @@ const HamburgerMenu = () => {
                         <FileCopyIcon fontSize='18' className='mr-2' />
                         Keyword
                     </MenuItem> */}
-                    <Divider sx={{ my: 0.5 }} />
                     <MenuItem
                         onClick={() => handleClickMenu('/artgen/generated')}
 
@@ -105,22 +104,9 @@ const HamburgerMenu = () => {
                             fontSize: '18px',
                             fontWeight: '500'
                         }}
+                        className='font-noto'
                     >
-                        <ArchiveIcon fontSize='18' className='mr-2' />
                         一覧
-                    </MenuItem>
-                    <MenuItem onClick={closeMenu} disableRipple
-                        sx={{
-                            color: '#232e2f',
-                            '&:hover': {
-                                backgroundColor: 'rgba(229, 231, 235, 0.5)'
-                            },
-                            fontSize: '18px',
-                            fontWeight: '500'
-                        }}
-                    >
-                        <MoreHorizIcon fontSize='18' className='mr-2' />
-                        More
                     </MenuItem>
                 </div>
 

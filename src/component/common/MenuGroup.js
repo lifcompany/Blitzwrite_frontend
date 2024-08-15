@@ -117,7 +117,7 @@ const MenuGroup = () => {
       )}
       <button
         onClick={() => handleClickMenu("/artgen/setkeyword", "setkeyword" )}
-        className={`hidden xl:flex justify-center items-center gap-1 mr-4 p-2 rounded-lg hover:bg-gray-200 text-gray-700 hover:text-gray-700 font-bold ${activeButton === 'setkeyword' ? 'bg-white text-gray-900' : ''}`}
+        className={`hidden xl:flex justify-center items-center font-noto gap-1 mr-4 p-2 rounded-lg hover:bg-gray-200 text-gray-700 hover:text-gray-700 font-bold ${activeButton === 'setkeyword' ? 'bg-white text-gray-900' : ''}`}
       >
         <MdEditDocument style={{ fontSize: '30px' }} />
         作成
@@ -132,7 +132,7 @@ const MenuGroup = () => {
       </button> */}
       <button
         onClick={() => handleClickMenu("/artgen/generated", "generated")}
-        className={`hidden xl:flex justify-center items-center gap-1 mr-4 p-2 rounded-lg hover:bg-gray-200 text-gray-700 hover:text-gray-700 font-bold ${activeButton === 'generated' ? 'bg-white text-gray-900' : ''}`}
+        className={`hidden xl:flex justify-center items-center font-noto gap-1 mr-4 p-2 rounded-lg hover:bg-gray-200 text-gray-700 hover:text-gray-700 font-bold ${activeButton === 'generated' ? 'bg-white text-gray-900' : ''}`}
       >
         <MdOutlineArticle style={{ fontSize: '30px' }} />
         一覧
