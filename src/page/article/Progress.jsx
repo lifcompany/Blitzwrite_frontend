@@ -7,16 +7,8 @@ import api from "../../api";
 import { useSelector } from "react-redux";
 
 import axios from "axios";
-import Button from "../../component/Button";
-import ContainerDiv from "../../component/ContainerDiv";
-import KwInput from "../../component/KwInput";
-import KwTable from "../../component/KwTable";
-import Title from "../../component/Title";
-import SubTitle from "../../component/SubTitle";
-
 import Notification from "../../component/common/notification";
 import { addTitle, clearTitles } from '../../component/indexDB/title';
-import CustomTextarea from "../../component/CustomTextarea";
 
 const Progress = (props) => {
   const [progress, setProgress] = useState(1);
