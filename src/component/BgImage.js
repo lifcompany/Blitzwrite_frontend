@@ -1,6 +1,5 @@
 import React from "react";
 
-
 const BgImage = () => {
     return (
         <div className="w-full h-[400px]">

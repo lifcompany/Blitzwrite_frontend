@@ -19,28 +19,37 @@ import { addTitle, clearTitles } from '../../component/indexDB/title';
 import CustomTextarea from "../../component/CustomTextarea";
 
 const Progress = (props) => {
-  const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useState(1);
   const [isDone, setIsDone] = useState(false);
   const [error, setError] = useState("");
   const [notification, setNotification] = useState("");
   const [notificationBadget, setNotificationBadge] = useState("");
   const [configs, setConfigs] = useState([]);
   const [stringConfigs, setStringConfigs] = useState([]);
+  const [currentRequest, setCurrentRequest] = useState(0);
+  const [timerId, setTimerId] = useState(null);
 
   const SetNotification = props.SetNotification;
-  const versionName = useSelector((state) => state.version.versionName);
-  const siteUrl = useSelector((state) => state.site.siteUrl);
-  const siteAdmin = useSelector((state) => state.site.siteadmin);
-  const sitePassword = useSelector((state) => state.site.sitepassword);
+
+  const { versionName, siteUrl, siteAdmin, sitePassword } = useSelector((state) => ({
+    versionName: state.version.versionName,
+    siteUrl: state.site.siteUrl,
+    siteAdmin: state.site.siteadmin,
+    sitePassword: state.site.sitepassword
+  }));
 
   const location = useLocation();
+  const { keywordsToSend, mainkeyword } = location.state || { keywordsToSend: [], mainkeyword: '' };
+
   const navigate = useNavigate();
-  const { keywordsToSend } = location.state || { keywordsToSend: [] };
-  const { mainkeyword } = location.state || { mainkeyword: '' };
-
-
   const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem("accessToken");
+
+
+  const handleApiError = (error) => {
+    console.error(error);
+    setError(error?.response?.data?.error || "エラーが発生しました。");
+  };
 
   useEffect(() => {
     console.log(keywordsToSend);
@@ -53,9 +62,9 @@ const Progress = (props) => {
       })
       .then(async (response) => {
         await clearTitles();
-        setNotification("タイトルが正常に作成されました。");
         const title = response.data.title;
         await addTitle({ title });
+        setNotification("タイトルが正常に作成されました。");
 
         setError("");
         setTimeout(() => {
@@ -68,8 +77,6 @@ const Progress = (props) => {
             })
             .then((response) => {
               const configArray = response.data.config;
-              console.log("HHHHHHHHHHHH", configArray);
-              setNotification("構成が正常に作成されました。");
               const convertedArray = configArray.map((innerArray, arrayIndex) =>
                 innerArray.map((item, index) => ({
                   id: `config${index + 1}`,
@@ -77,106 +84,97 @@ const Progress = (props) => {
                 }))
               );
               setConfigs(convertedArray)
-              const convertedStrings = configArray.map(innerArray =>
-                innerArray.map(item => item).join('\n')
-              );
-              console.log("GGGGGGGG", convertedStrings);
+              const convertedStrings = configArray.map(innerArray => innerArray.map(item => item).join('\n'));
+              console.log(convertedStrings);
               setStringConfigs(convertedStrings)
+              setNotification("構成が正常に作成されました。");
             })
             .catch((error) => {
-              console.log('Title Generations Error:', error.response);
-              setError(error.response.data.error);
+              handleApiError(error);
             });
         }, 0);
       })
       .catch((error) => {
-        setError(error.response.data.error);
+        handleApiError(error);
       });
   }, [keywordsToSend]);
 
-
   useEffect(() => {
     if (stringConfigs.length > 0) {
-      console.log("k1k1k1k1k1k1");
-      const upload_info = {
-        site_url: siteUrl,
-        admin: siteAdmin,
-        password: sitePassword,
-        category: "category",
-      }
-      console.log(stringConfigs, upload_info);
+      const upload_info = { site_url: siteUrl, admin: siteAdmin, password: sitePassword, category: "category" };
       setError("");
-      setTimeout(() => {
+      setNotification("");
+      setProgress(2);
+      setCurrentRequest(0);
 
-        axios
-          .post(`${apiUrl}/api/generate/create-article/`, { keywordconfigs: stringConfigs, versionName: versionName, upload_info: upload_info }, {
-            headers: {
-              Accept: "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          })
-          .then((response) => {
-            console.log("Article Generation Successful", response.data);
-            setNotification("記事作成を完了しました。");
-            api
-              .get(`${apiUrl}/api/generate/send-notification`, {
+      const baseInterval = 1000; // Base interval in milliseconds
+      const dynamicInterval = baseInterval / stringConfigs.length; // Dynamic interval
+
+      const incrementProgress = () => {
+        setProgress((prev) => Math.min(prev + 1, 100)); // Increment by 1% per interval
+      };
+
+      const generateArticles = async () => {
+        for (let i = 0; i < stringConfigs.length; i++) {
+          setCurrentRequest(i + 1); // Track current request
+
+          const intervalId = setInterval(incrementProgress, dynamicInterval);
+          setTimerId(intervalId);
+
+          try {
+            const config = stringConfigs[i];
+            const response = await axios.post(`${apiUrl}/api/generate/create-article/`,
+              { keywordconfigs: config, versionName: versionName, upload_info: upload_info },
+              {
                 headers: {
+                  Accept: "application/json",
                   Authorization: `Bearer ${token}`,
                 },
-              })
-              .then((response) => {
-                console.log("Notification email is sent successfull");
-                setNotificationBadge()
-              })
-              .catch((error) => {
-                console.log("Notification email send error");
-              });
+              }
+            );
 
-            navigate("/artgen/generated");
-          })
-          .catch((error) => {
-            console.log('Article Generations Error:', error.response);
-            setError(error.response.data.error);
-          });
-      }, 0);
+            console.log(`Article Generation Successful for config ${i + 1}`, response.data);
+            setNotification(`記事作成を完了しました: ${i + 1} / ${stringConfigs.length}`);
+
+            clearInterval(intervalId);
+            setProgress(((i + 1) / stringConfigs.length) * 100);
+
+          } catch (error) {
+            console.log(`Article Generation Error for config ${i + 1}:`, error.response);
+            setError(`Error in config ${i + 1}: ${error.response.data.error}`);
+            clearInterval(intervalId);
+            break; // Optionally stop the loop on error
+          }
+        }
+
+        clearInterval(timerId);
+        SendNotificationEmail();
+        navigate("/artgen/generated");
+      };
+
+      generateArticles();
+
+      return () => clearInterval(timerId);
+
     }
-
   }, [stringConfigs, mainkeyword]);
 
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     if (progress < 100) {
-  //       setProgress((prevProgress) => prevProgress + 1);
-  //     } else {
-  //       clearInterval(interval);
-  //       setIsDone(true);
-  //       SetNotification("完了");
-  //       api
-  //         .get(`${apiUrl}/api/generate/send-notification`, {
-  //           headers: {
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         })
-  //         .then((response) => {
-  //           console.log(response);
-  //           SetNotification(response.data["success"]);
-  //         })
-  //         .catch((error) => {
-  //           console.log(error);
-  //           setError(error.response.data.error);
-  //         });
-
-  //       setTimeout(() => {
-  //         navigate("/artgen/generated");
-
-  //       }, 2000);
-  //     }
-  //   }, 50);
-
-  //   return () => clearInterval(interval);
-  // }, [navigate, progress]);
-
+  const SendNotificationEmail = () => {
+    api
+      .get(`${apiUrl}/api/generate/send-notification`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log("Notification email is sent successfull");
+        setNotificationBadge()
+      })
+      .catch((error) => {
+        console.log("Notification email send error");
+      });
+  }
 
   return (
     <div className="min-h-screen flex flex-col">

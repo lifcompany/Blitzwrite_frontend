@@ -2,7 +2,6 @@ import React from 'react';
 import Badge from '@mui/material/Badge';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 
 const NotificationIcon = ({ count_noti, array_noti }) => {
@@ -11,7 +10,6 @@ const NotificationIcon = ({ count_noti, array_noti }) => {
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
-
     const handleClose = () => {
         setAnchorEl(null);
     };
@@ -76,8 +74,6 @@ const NotificationIcon = ({ count_noti, array_noti }) => {
                 ))}
             </Popover>
         </>
-
-
     );
 };
 
