@@ -6,6 +6,9 @@ import api from "../../api";
 
 import { useSelector } from "react-redux";
 
+import { useDispatch } from 'react-redux';
+import { addNotification } from "../../features/notificationSlice";
+
 import axios from "axios";
 import Notification from "../../component/common/notification";
 import { addTitle, clearTitles } from '../../component/indexDB/title';
@@ -15,13 +18,18 @@ const Progress = (props) => {
   const [isDone, setIsDone] = useState(false);
   const [error, setError] = useState("");
   const [notification, setNotification] = useState("");
-  const [notificationBadget, setNotificationBadge] = useState("");
   const [configs, setConfigs] = useState([]);
   const [stringConfigs, setStringConfigs] = useState([]);
   const [currentRequest, setCurrentRequest] = useState(0);
   const [timerId, setTimerId] = useState(null);
+  const [successOutput, setSuccessOutput] = useState(0);
+  const [faildOutput, setFaildOutput] = useState(0);
+  const [notifications, setNotifications] = useState([]);
+  const [unreadCount, setUnreadCount] = useState(0)
+
 
   const SetNotification = props.SetNotification;
+  const dispatch = useDispatch(); 
 
   const { versionName, siteUrl, siteAdmin, sitePassword } = useSelector((state) => ({
     versionName: state.version.versionName,
@@ -53,6 +61,7 @@ const Progress = (props) => {
         },
       })
       .then(async (response) => {
+        setProgress(2);
         await clearTitles();
         const title = response.data.title;
         await addTitle({ title });
@@ -68,6 +77,7 @@ const Progress = (props) => {
               },
             })
             .then((response) => {
+              setProgress(3);
               const configArray = response.data.config;
               const convertedArray = configArray.map((innerArray, arrayIndex) =>
                 innerArray.map((item, index) => ({
@@ -96,7 +106,6 @@ const Progress = (props) => {
       const upload_info = { site_url: siteUrl, admin: siteAdmin, password: sitePassword, category: "category" };
       setError("");
       setNotification("");
-      setProgress(2);
       setCurrentRequest(0);
 
       const baseInterval = 1000; // Base interval in milliseconds
@@ -107,6 +116,7 @@ const Progress = (props) => {
       };
 
       const generateArticles = async () => {
+        let localSuccessOutput = 0;
         for (let i = 0; i < stringConfigs.length; i++) {
           setCurrentRequest(i + 1); // Track current request
 
@@ -127,17 +137,29 @@ const Progress = (props) => {
 
             console.log(`Article Generation Successful for config ${i + 1}`, response.data);
             setNotification(`記事作成を完了しました: ${i + 1} / ${stringConfigs.length}`);
-
+            localSuccessOutput += 1;
             clearInterval(intervalId);
             setProgress(((i + 1) / stringConfigs.length) * 100);
 
           } catch (error) {
             console.log(`Article Generation Error for config ${i + 1}:`, error.response);
             setError(`Error in config ${i + 1}: ${error.response.data.error}`);
+            setFaildOutput((prevCount) => prevCount + 1);
             clearInterval(intervalId);
             break; // Optionally stop the loop on error
           }
         }
+
+        setSuccessOutput(localSuccessOutput);
+        const newNotification = {
+          content: `記事作成: ${localSuccessOutput}/${stringConfigs.length}`,
+          read: false,
+          timestamp: new Date().toISOString()
+        };
+        dispatch(addNotification(newNotification));
+        // Update notifications and unread count
+        setNotifications((prevNoti) => [...prevNoti, newNotification]);
+        setUnreadCount((prevCount) => prevCount + 1);
 
         clearInterval(timerId);
         SendNotificationEmail();
@@ -161,7 +183,6 @@ const Progress = (props) => {
       })
       .then((response) => {
         console.log("Notification email is sent successfull");
-        setNotificationBadge()
       })
       .catch((error) => {
         console.log("Notification email send error");
@@ -184,7 +205,7 @@ const Progress = (props) => {
               ></div>
             </div>
             <p className="text-md mt-1">
-              {isDone ? "完了" : `[${progress}/100] 記事生成中... `}
+              {isDone ? "完了" : `${progress}%  [${keywordsToSend.length} 記事生成中...] `}
             </p>
           </div>
         </div>

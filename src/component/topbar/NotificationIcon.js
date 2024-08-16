@@ -1,15 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
 import Badge from '@mui/material/Badge';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
-
-const NotificationIcon = ({ count_noti, array_noti }) => {
-    const [anchorEl, setAnchorEl] = React.useState(null);
+import { markAllAsRead } from '../../features/notificationSlice';
+import { IoIosNotifications } from "react-icons/io";
+import { IoIosNotificationsOutline } from "react-icons/io";
+import { format } from 'date-fns'; 
+const NotificationIcon = () => {
+    const [anchorEl, setAnchorEl] = useState(null);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const { notifications, unreadCount } = useSelector((state) => state.notifications);
+
+    useEffect(() => {
+        // Fetch notifications from the backend on component load
+        axios.get('/notifications?userId=12345')
+            .then(response => {
+                // Dispatch an action to store notifications in Redux
+                dispatch({ type: 'SET_NOTIFICATIONS', payload: response.data });
+            })
+            .catch(error => console.error('Error fetching notifications:', error));
+    }, [dispatch]);
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
+        axios.put(`/notifications/markAllAsRead`)
+            .then(() => dispatch(markAllAsRead())) // Update Redux state
+            .catch(error => console.error('Error marking notifications as read:', error));
     };
+
     const handleClose = () => {
         setAnchorEl(null);
     };
@@ -17,11 +40,15 @@ const NotificationIcon = ({ count_noti, array_noti }) => {
     const handleClickMenu = (path) => {
         navigate(path);
     };
+
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
+
     return (
         <>
-            <Badge badgeContent={count_noti ? count_noti : 0} color="error"
+            <Badge
+                badgeContent={unreadCount}
+                color="error"
                 sx={{
                     '& .MuiBadge-standard': {
                         width: 17,
@@ -67,11 +94,27 @@ const NotificationIcon = ({ count_noti, array_noti }) => {
                     }
                 }}
             >
-                {array_noti.map((noti, index) => (
-                    <div className=' cursor-pointer hover:bg-blue-100' onClick={() => handleClickMenu('/artgen/generated')}>
-                        <Typography sx={{ p: 2 }}>{noti}</Typography>
-                    </div>
-                ))}
+                {notifications.length === 0 ? (
+                    <Typography sx={{ p: 2 }}>No Notifications</Typography>
+                ) : (
+                    notifications.map((noti, index) => (
+                        <div
+                            key={index}
+                            className='cursor-pointer hover:bg-blue-100 flex items-center px-4'
+                            onClick={() => handleClickMenu('/artgen/generated')}
+                        >
+                            {noti.content.read ? (
+                                <IoIosNotifications className="mr-2 text-gray-600" size={24} />
+                            ) : (
+                                < IoIosNotificationsOutline className="mr-2 text-gray-600" size={24} />
+                            )}
+                            <Typography sx={{ pt: 2, pb: 2 }}>{noti.content.content}</Typography>
+                            <Typography sx={{ p: 2, fontSize: '0.8rem', color: 'gray' }}>
+                            {format(new Date(noti.content.timestamp), 'yyyy/MM/dd HH:mm')}
+                            </Typography>
+                        </div>
+                    ))
+                )}
             </Popover>
         </>
     );
