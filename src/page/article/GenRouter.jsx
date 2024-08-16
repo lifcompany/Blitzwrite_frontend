@@ -16,7 +16,7 @@ const GenRouter = () => {
   useEffect(() => {
     if (!selectedSiteName) {
       console.log("None Selected Name");
-      navigate("/artgen");
+      // navigate("/artgen");
     }
   }, [selectedSiteName, navigate]);
   return (

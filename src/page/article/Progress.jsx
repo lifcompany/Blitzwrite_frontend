@@ -126,7 +126,7 @@ const Progress = (props) => {
           try {
             const config = stringConfigs[i];
             const response = await axios.post(`${apiUrl}/api/generate/create-article/`,
-              { keywordconfigs: config, versionName: versionName, upload_info: upload_info },
+              { keywordconfigs: config, mainkeyword :mainkeyword, versionName: versionName, upload_info: upload_info },
               {
                 headers: {
                   Accept: "application/json",

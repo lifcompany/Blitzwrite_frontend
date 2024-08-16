@@ -1,11 +1,12 @@
-import React, { useState } from "react";
-import Header from "../../component/common/header";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import FormControl from "@mui/material/FormControl";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
+import TrendingDownIcon from "@mui/icons-material/TrendingDown";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import Table from "@mui/material/Table";
@@ -13,219 +14,78 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Notification from "../../component/common/notification";
+import Header from "../../component/common/header";
 import './scrollcustom.css'
 
 const columns = [
   { id: "title", label: "タイトル", minWidth: 320 },
   { id: "amount", label: "文字数", minWidth: 100 },
-  {
-    id: "category",
-    label: "カテゴリ",
-    minWidth: 170,
-    align: "left",
-    format: (value) => value.toLocaleString("en-US"),
-  },
-  {
-    id: "status",
-    label: "ステータス",
-    minWidth: 150,
-    align: "left",
-    format: (value) => value.toLocaleString("en-US"),
-  },
-  {
-    id: "keyword",
-    label: "キーワード",
-    minWidth: 150,
-    align: "left",
-  },
-  {
-    id: "ranking",
-    label: "順位",
-    minWidth: 130,
-    align: "left",
-  },
-  {
-    id: "date",
-    label: "日付",
-    minWidth: 170,
-    align: "left",
-    format: (value) => value.toFixed(2),
-  },
+  { id: "category", label: "カテゴリ", minWidth: 170, align: "left", format: (value) => value.toLocaleString("en-US") },
+  { id: "wp_status", label: "ステータス", minWidth: 150, align: "left", format: (value) => value.toLocaleString("en-US") },
+  { id: "keywords", label: "キーワード", minWidth: 150, align: "left" },
+  { id: "ranking", label: "順位", minWidth: 200, align: "left" },
+  { id: "created_at", label: "日付", minWidth: 170, align: "left", format: (value) => value.toFixed(2) },
 ];
 
-function createData(title, amount, category, status, keyword, ranking, date) {
-  return { title, amount, category, status, keyword, ranking, date };
-}
-
-const rows = [
-  createData(
-    "最新相場で高く売れる!車買取おすすめ業者ランキング 100",
-    "3,211",
-    "車買取の基礎知識",
-    "下書き",
-    "車買取",
-    3,
-    "2024/02/02 12:00:00"
-  ),
-  createData(
-    "最新相場で高く売れる!車買取おすすめ業者ランキング 100",
-    "3,211",
-    "車買取の基礎知識",
-    "下書き",
-    "車買取",
-    3,
-    "2024/02/02 12:00:00"
-  ),
-  createData(
-    "最新相場で高く売れる!車買取おすすめ業者ランキング 100",
-    "3,211",
-    "車買取の基礎知識",
-    "下書き",
-    "車買取",
-    3,
-    "2024/02/02 12:00:00"
-  ),
-  createData(
-    "最新相場で高く売れる!車買取おすすめ業者ランキング 100",
-    "3,211",
-    "車買取の基礎知識",
-    "下書き",
-    "車買取",
-    3,
-    "2024/02/02 12:00:00"
-  ),
-  createData(
-    "最新相場で高く売れる!車買取おすすめ業者ランキング 100",
-    "3,211",
-    "車買取の基礎知識",
-    "下書き",
-    "車買取",
-    3,
-    "2024/02/02 12:00:00"
-  ),
-  createData(
-    "最新相場で高く売れる!車買取おすすめ業者ランキング 100",
-    "3,211",
-    "車買取の基礎知識",
-    "下書き",
-    "車買取",
-    3,
-    "2024/02/02 12:00:00"
-  ),
-  createData(
-    "最新相場で高く売れる!車買取おすすめ業者ランキング 100",
-    "3,211",
-    "車買取の基礎知識",
-    "下書き",
-    "車買取",
-    3,
-    "2024/02/02 12:00:00"
-  ),
-  createData(
-    "最新相場で高く売れる!車買取おすすめ業者ランキング 100",
-    "3,211",
-    "車買取の基礎知識",
-    "下書き",
-    "車買取",
-    3,
-    "2024/02/02 12:00:00"
-  ),
-  createData(
-    "最新相場で高く売れる!車買取おすすめ業者ランキング 100",
-    "3,211",
-    "車買取の基礎知識",
-    "下書き",
-    "車買取",
-    3,
-    "2024/02/02 12:00:00"
-  ),
-  createData(
-    "最新相場で高く売れる!車買取おすすめ業者ランキング 100",
-    "3,211",
-    "車買取の基礎知識",
-    "下書き",
-    "車買取",
-    3,
-    "2024/02/02 12:00:00"
-  ),
-  createData(
-    "最新相場で高く売れる!車買取おすすめ業者ランキング 100",
-    "3,211",
-    "車買取の基礎知識",
-    "下書き",
-    "車買取",
-    3,
-    "2024/02/02 12:00:00"
-  ),
-  createData(
-    "最新相場で高く売れる!車買取おすすめ業者ランキング 100",
-    "3,211",
-    "車買取の基礎知識",
-    "下書き",
-    "車買取",
-    3,
-    "2024/02/02 12:00:00"
-  ),
-  createData(
-    "最新相場で高く売れる!車買取おすすめ業者ランキング 100",
-    "3,211",
-    "車買取の基礎知識",
-    "下書き",
-    "車買取",
-    3,
-    "2024/02/02 12:00:00"
-  ),
-  createData(
-    "最新相場で高く売れる!車買取おすすめ業者ランキング 100",
-    "3,211",
-    "車買取の基礎知識",
-    "下書き",
-    "車買取",
-    3,
-    "2024/02/02 12:00:00"
-  ),
-  createData(
-    "最新相場で高く売れる!車買取おすすめ業者ランキング 100",
-    "3,211",
-    "車買取の基礎知識",
-    "下書き",
-    "車買取",
-    3,
-    "2024/02/02 12:00:00"
-  ),
-  createData(
-    "最新相場で高く売れる!車買取おすすめ業者ランキング 100",
-    "3,211",
-    "車買取の基礎知識",
-    "下書き",
-    "車買取",
-    3,
-    "2024/02/02 12:00:00"
-  ),
-];
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  return new Intl.DateTimeFormat('ja-JP', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(date);
+};
 
 const Generated = (props) => {
+  const [articles, setArticles] = useState([])
   const [auto, setAuto] = useState(false);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const content = props.content ? props.content : "";
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
+  const apiUrl = process.env.REACT_APP_API_URL;
+  const token = localStorage.getItem("accessToken");
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
+  useEffect(() => {
+    axios.get(`${apiUrl}/api/articles`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+    }).then(response => {
+      setArticles(response.data)
+    }).catch(error => {
+      console.log(error.response.data);
+    })
+  }, []);
 
   const handleChange = (event) => {
     setAuto(event.target.checked);
   };
 
+  const handlePageChange = (event, value) => {
+    setPage(value);
+  };
+
+  const pageCount = Math.ceil(articles.length / rowsPerPage);
+
+  const paginatedArticles = articles.slice(
+    (page - 1) * rowsPerPage, // Start index
+    page * rowsPerPage // End index
+  );
+
+  const getTrendingIcon = (currentClicks, previousClicks) => {
+    if (currentClicks > previousClicks) {
+      return <TrendingUpIcon sx={{ color: "#07B9A5" }} />;
+    } else if (currentClicks < previousClicks) {
+      return <TrendingDownIcon sx={{ color: "#FF5722" }} />;
+    } else {
+      return <FiberManualRecordIcon sx={{ color: "#9E9E9E" }} />;
+    }
+  };
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -250,7 +110,7 @@ const Generated = (props) => {
           </div>
         </div>
 
-        <div className="w-full pt-4 mt-8">
+        <div className="w-full mt-4">
           <TableContainer sx={{ maxHeight: 550 }}>
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
@@ -268,45 +128,49 @@ const Generated = (props) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => {
+                {/* {articles
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) */}
+                {paginatedArticles
+                  .map((article) => {
                     return (
                       <TableRow
                         hover
                         role="checkbox"
                         tabIndex={-1}
-                        key={row.code}
+                        key={article.id}
                       >
-                        {columns.map((column) => {
-                          const value = row[column.id];
-                          return (
-                            <TableCell key={column.id} align={column.align} sx={{ paddingY: "1rem" }} className="font-noto">
-                              {column.id === "status" ? (
-                                <>
-                                  <FiberManualRecordIcon
-                                    sx={{ color: "#005ed7" }}
-                                  />
-                                  {value}
-                                </>
-                              ) : column.id === "ranking" ? (
-                                <div className=" flex justify-start items-center gap-2">
-                                  <span>3</span>
-                                  <div className="bg-[#F5FCFB] py-2 px-4 rounded-full">
-                                    <TrendingUpIcon sx={{ color: "#07B9A5" }} />
-                                    <span className="ml-2 text-[#07B9A5]">
-                                      5
-                                    </span>
-                                  </div>
-                                </div>
-                              ) : column.format && typeof value === "number" ? (
-                                column.format(value)
-                              ) : (
-                                value
-                              )}
-                            </TableCell>
-                          );
-                        })}
+                        <TableCell sx={{ paddingY: "1rem" }} className="font-noto">
+                          {article.title}
+                        </TableCell>
+                        <TableCell sx={{ paddingY: "1rem" }} className="font-noto">
+                          {article.amount}
+                        </TableCell>
+                        <TableCell sx={{ paddingY: "1rem" }} className="font-noto">
+                          {article.category}
+                        </TableCell>
+                        <TableCell sx={{ paddingY: "1rem" }} className="font-noto">
+                          <FiberManualRecordIcon
+                            sx={{ color: article.wp_status === "draft" ? "gray" : "blue" }}
+                          />
+                          {article.wp_status === "draft" ? "下書き" : "公開済み"}
+                        </TableCell>
+                        <TableCell sx={{ paddingY: "1rem" }} className="font-noto">
+                          {article.keywords}
+                        </TableCell>
+                        <TableCell sx={{ paddingY: "1rem" }} className="font-noto">
+                          <div className=" flex justify-start items-center gap-2">
+                            <span>{article.current_clicks}</span>
+                            <div className="bg-[#F5FCFB] py-2 px-4 rounded-full">
+                              {getTrendingIcon(article.current_clicks, article.last_month_clicks)}
+                              <span className="ml-2 text-[#07B9A5]">
+                                {article.last_month_clicks}
+                              </span>
+                            </div>
+                          </div>
+                        </TableCell>
+                        <TableCell sx={{ paddingY: "1rem" }} className="font-noto">
+                          {formatDate(article.created_at)}
+                        </TableCell>
                       </TableRow>
                     );
                   })}
@@ -314,20 +178,16 @@ const Generated = (props) => {
             </Table>
           </TableContainer>
 
-          <Stack spacing={2}>
-            <Pagination count={10} showFirstButton showLastButton />
+          <Stack spacing={2} className=" mt-8">
+            <Pagination
+              count={pageCount} 
+              page={page}
+              onChange={handlePageChange}
+              showFirstButton
+              showLastButton
+              sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+            />
           </Stack>
-          <TablePagination
-            rowsPerPageOptions={[10, 25, 100]}
-            component="div"
-            count={rows.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            labelRowsPerPage="ページあたりの結果"
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-
         </div>
       </div>
       <Notification content={content} />
