@@ -18,6 +18,7 @@ import TableRow from "@mui/material/TableRow";
 import Notification from "../../component/common/notification";
 import Header from "../../component/common/header";
 import './scrollcustom.css'
+import { useSelector } from "react-redux";
 
 const columns = [
   { id: "title", label: "タイトル", minWidth: 320 },
@@ -46,21 +47,44 @@ const Generated = (props) => {
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
+  const selectedSiteUrl = useSelector((state) => state.site.siteUrl);
+
   const content = props.content ? props.content : "";
   const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem("accessToken");
 
   useEffect(() => {
+    console.log(selectedSiteUrl);
     axios.get(`${apiUrl}/api/articles`, {
       headers: {
         Authorization: `Bearer ${token}`
+      },
+      params: {
+        site_url: selectedSiteUrl,
       },
     }).then(response => {
       setArticles(response.data)
     }).catch(error => {
       console.log(error.response.data);
     })
-  }, []);
+  }, [selectedSiteUrl]);
+
+  // useEffect(() => {
+  //   console.log(selectedSiteUrl);
+  //   axios.get(`${apiUrl}/api/generate/fetch-clicks/`, {
+  //     headers: {
+  //       Authorization: `Bearer ${token}`
+  //     },
+  //     params: {
+  //       site_url: selectedSiteUrl,
+  //     },
+  //   }).then(response => {
+  //     console.log(response.data);
+  //   }).catch(error => {
+  //     console.log(error.response.data);
+  //   })
+  // }, [selectedSiteUrl]);
+
 
   const handleChange = (event) => {
     setAuto(event.target.checked);
