@@ -7,10 +7,20 @@ const notificationSlice = createSlice({
     unreadCount: 0,
   },
   reducers: {
-    addNotification: (state, action) => {
-      state.notifications.push({ content: action.payload, read: false });
-      state.unreadCount += 1;
-    },
+    // addNotification: (state, action) => {
+    //   state.notifications.push({ content: action.payload, read: false });
+    //    state.unreadCount += 1;
+    // },
+
+    setNotifications: (state, action) => {
+        state.notifications = action.payload;
+        state.unreadCount = action.payload.filter(noti => !noti.read).length;
+      },
+
+    clearNotifications: (state) => {
+        state.notifications = [];
+        state.unreadCount = 0;
+      },
     markAllAsRead: (state) => {
       state.notifications.forEach(noti => noti.read = true);
       state.unreadCount = 0;
@@ -18,5 +28,5 @@ const notificationSlice = createSlice({
   },
 });
 
-export const { addNotification, markAllAsRead } = notificationSlice.actions;
+export const { setNotifications,clearNotifications, markAllAsRead } = notificationSlice.actions;
 export default notificationSlice.reducer;

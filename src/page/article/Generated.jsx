@@ -323,6 +323,7 @@ const Generated = (props) => {
             count={rows.length}
             rowsPerPage={rowsPerPage}
             page={page}
+            labelRowsPerPage="ページあたりの結果"
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
           />

@@ -5,42 +5,64 @@ import Badge from '@mui/material/Badge';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
-import { markAllAsRead } from '../../features/notificationSlice';
+import { setNotifications, clearNotifications, markAllAsRead } from '../../features/notificationSlice';
 import { IoIosNotifications } from "react-icons/io";
 import { IoIosNotificationsOutline } from "react-icons/io";
-import { format } from 'date-fns'; 
+import { format } from 'date-fns';
 const NotificationIcon = () => {
     const [anchorEl, setAnchorEl] = useState(null);
+    const [visibleNotifications, setVisibleNotifications] = useState(10);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const { notifications, unreadCount } = useSelector((state) => state.notifications);
 
+    const sortedNotifications = [...notifications].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+    const apiUrl = process.env.REACT_APP_API_URL;
+    const token = localStorage.getItem("accessToken");
     useEffect(() => {
-        // Fetch notifications from the backend on component load
-        axios.get('/notifications?userId=12345')
+        dispatch(clearNotifications());
+        axios.get(`${apiUrl}/api/notifications/`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
             .then(response => {
-                // Dispatch an action to store notifications in Redux
-                dispatch({ type: 'SET_NOTIFICATIONS', payload: response.data });
+                const notification_data = response.data
+                dispatch(setNotifications(notification_data));
+                // console.log(notification_data);
+                // notification_data.forEach(notification => {
+                //     dispatch(addNotification(notification));
+                // });
             })
             .catch(error => console.error('Error fetching notifications:', error));
-    }, [dispatch]);
+    }, []);
 
-    const handleClick = (event) => {
+    const handleClick = async (event) => {
         setAnchorEl(event.currentTarget);
-        axios.put(`/notifications/markAllAsRead`)
-            .then(() => dispatch(markAllAsRead())) // Update Redux state
-            .catch(error => console.error('Error marking notifications as read:', error));
+        try {
+            await axios.post(`${apiUrl}/api/notifications/mark-all-as-read/`, {}, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+        } catch (error) {
+            console.error('Error marking notifications as read:', error);
+        }
     };
 
     const handleClose = () => {
         setAnchorEl(null);
+        dispatch(markAllAsRead());
     };
 
     const handleClickMenu = (path) => {
         navigate(path);
     };
 
+    const showMoreNotifications = () => {
+        setVisibleNotifications((prevCount) => prevCount + 10); // Show 10 more notifications
+    };
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
 
@@ -90,30 +112,39 @@ const NotificationIcon = () => {
                     sx: {
                         minWidth: '250px', // Set your desired width here
                         maxWidth: '375px',
-                        paddingY: '15px'
+                        paddingY: '15px',
+                        maxHeight: '600px',
+                        overflowY: 'hidden',
                     }
                 }}
             >
-                {notifications.length === 0 ? (
+                {sortedNotifications.length === 0 ? (
                     <Typography sx={{ p: 2 }}>No Notifications</Typography>
                 ) : (
-                    notifications.map((noti, index) => (
+                    sortedNotifications.slice(0, visibleNotifications).map((noti, index) => (
                         <div
                             key={index}
                             className='cursor-pointer hover:bg-blue-100 flex items-center px-4'
                             onClick={() => handleClickMenu('/artgen/generated')}
                         >
-                            {noti.content.read ? (
-                                <IoIosNotifications className="mr-2 text-gray-600" size={24} />
+                            {noti.read ? (
+                                <IoIosNotificationsOutline className="mr-2 text-gray-600" size={24} />
                             ) : (
-                                < IoIosNotificationsOutline className="mr-2 text-gray-600" size={24} />
+                                <IoIosNotifications className="mr-2 text-gray-600" size={24} />
                             )}
-                            <Typography sx={{ pt: 2, pb: 2 }}>{noti.content.content}</Typography>
+                            <Typography sx={{ pt: 2, pb: 2 }}>{noti.content}</Typography>
                             <Typography sx={{ p: 2, fontSize: '0.8rem', color: 'gray' }}>
-                            {format(new Date(noti.content.timestamp), 'yyyy/MM/dd HH:mm')}
+                                {format(new Date(noti.timestamp), 'yyyy/MM/dd HH:mm')}
                             </Typography>
                         </div>
                     ))
+                )}
+                {sortedNotifications.length > visibleNotifications && (
+                    <div className="cursor-pointer hover:bg-gray-200 text-center py-2" onClick={showMoreNotifications}>
+                        <Typography sx={{ px: 2, fontSize: '0.9rem', fontWeight: 'bold' }}>
+                        もっと見る
+                        </Typography>
+                    </div>
                 )}
             </Popover>
         </>

@@ -7,7 +7,7 @@ import api from "../../api";
 import { useSelector } from "react-redux";
 
 import { useDispatch } from 'react-redux';
-import { addNotification } from "../../features/notificationSlice";
+// import { addNotification } from "../../features/notificationSlice";
 
 import axios from "axios";
 import Notification from "../../component/common/notification";
@@ -29,7 +29,7 @@ const Progress = (props) => {
 
 
   const SetNotification = props.SetNotification;
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
 
   const { versionName, siteUrl, siteAdmin, sitePassword } = useSelector((state) => ({
     versionName: state.version.versionName,
@@ -156,7 +156,19 @@ const Progress = (props) => {
           read: false,
           timestamp: new Date().toISOString()
         };
-        dispatch(addNotification(newNotification));
+        // dispatch(addNotification(newNotification));
+
+
+        try {
+          await axios.post(`${apiUrl}/api/notifications/`, newNotification, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          console.log('Notification successfully stored in backend');
+        } catch (error) {
+          console.error('Failed to store notification in backend', error);
+        }
         // Update notifications and unread count
         setNotifications((prevNoti) => [...prevNoti, newNotification]);
         setUnreadCount((prevCount) => prevCount + 1);
