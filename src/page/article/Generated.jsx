@@ -69,21 +69,21 @@ const Generated = (props) => {
     })
   }, [selectedSiteUrl]);
 
-  // useEffect(() => {
-  //   console.log(selectedSiteUrl);
-  //   axios.get(`${apiUrl}/api/generate/fetch-clicks/`, {
-  //     headers: {
-  //       Authorization: `Bearer ${token}`
-  //     },
-  //     params: {
-  //       site_url: selectedSiteUrl,
-  //     },
-  //   }).then(response => {
-  //     console.log(response.data);
-  //   }).catch(error => {
-  //     console.log(error.response.data);
-  //   })
-  // }, [selectedSiteUrl]);
+  useEffect(() => {
+    console.log(selectedSiteUrl);
+    axios.get(`${apiUrl}/api/generate/fetch-clicks/`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      },
+      params: {
+        site_url: selectedSiteUrl,
+      },
+    }).then(response => {
+      console.log(response.data);
+    }).catch(error => {
+      console.log(error.response.data);
+    })
+  }, [selectedSiteUrl]);
 
 
   const handleChange = (event) => {
