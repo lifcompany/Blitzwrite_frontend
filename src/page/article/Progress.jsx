@@ -3,15 +3,19 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../../component/common/header";
 import Error from "../../component/common/error";
 import api from "../../api";
-
 import { useSelector } from "react-redux";
-
 import { useDispatch } from 'react-redux';
 // import { addNotification } from "../../features/notificationSlice";
-
 import axios from "axios";
 import Notification from "../../component/common/notification";
 import { addTitle, clearTitles } from '../../component/indexDB/title';
+
+import Backdrop from '@mui/material/Backdrop';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Fade from '@mui/material/Fade';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 const Progress = (props) => {
   const [progress, setProgress] = useState(1);
@@ -27,6 +31,16 @@ const Progress = (props) => {
   const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0)
 
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const handleClickBack =()=>{
+    navigate('/home')
+  }
+  const handleUpdatePlan =()=>{
+    navigate('/setting-payment')
+  }
 
   const SetNotification = props.SetNotification;
   const dispatch = useDispatch();
@@ -45,10 +59,24 @@ const Progress = (props) => {
   const apiUrl = process.env.REACT_APP_API_URL;
   const token = localStorage.getItem("accessToken");
 
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    boxShadow: 24,
+    p: 4,
+    borderRadius: "8px"
+  };
 
   const handleApiError = (error) => {
     console.error(error);
     setError(error?.response?.data?.error || "エラーが発生しました。");
+    if (error?.response?.data?.error === '記事を作成するためのクレジットがありません。') {
+      handleOpen();
+    }
   };
 
   useEffect(() => {
@@ -127,7 +155,7 @@ const Progress = (props) => {
           try {
             const config = stringConfigs[i];
             const response = await axios.post(`${apiUrl}/api/generate/create-article/`,
-              { keywordconfigs: config, mainkeyword :mainkeyword, versionName: versionName, upload_info: upload_info },
+              { keywordconfigs: config, mainkeyword: mainkeyword, versionName: versionName, upload_info: upload_info },
               {
                 headers: {
                   Accept: "application/json",
@@ -224,6 +252,36 @@ const Progress = (props) => {
         </div>
       </div>
       <Error content={error} />
+      <div>
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          slots={{ backdrop: Backdrop }}
+          slotProps={{
+            backdrop: {
+              timeout: 500,
+            },
+          }}
+        >
+          <Fade in={open}>
+            <Box sx={style}>
+              <Typography id="transition-modal-title" variant="h6" component="h2">
+                プランの更新
+              </Typography>
+              <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+                記事を作成するためのクレジットがありません。
+              </Typography>
+              <div className=" flex justify-end items-center gap-5">
+                <Button onClick={handleClickBack}>戻る</Button>
+                <Button onClick={handleUpdatePlan}>プランアップデート</Button>
+              </div>
+            </Box>
+          </Fade>
+        </Modal>
+      </div>
     </div>
   );
 };
