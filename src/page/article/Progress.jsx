@@ -93,6 +93,7 @@ const Progress = (props) => {
             })
             .catch((error) => {
               handleApiError(error);
+
             });
         }, 0);
       })
@@ -142,8 +143,8 @@ const Progress = (props) => {
             setProgress(((i + 1) / stringConfigs.length) * 100);
 
           } catch (error) {
-            console.log(`Article Generation Error for config ${i + 1}:`, error.response);
-            setError(`Error in config ${i + 1}: ${error.response.data.error}`);
+            // console.log(`Article Generation Error for config ${i + 1}:`, error.response);
+            handleApiError(error);
             setFaildOutput((prevCount) => prevCount + 1);
             clearInterval(intervalId);
             break; // Optionally stop the loop on error
