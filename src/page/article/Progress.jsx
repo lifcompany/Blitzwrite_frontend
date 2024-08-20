@@ -274,7 +274,7 @@ const Progress = (props) => {
               <Typography id="transition-modal-description" sx={{ mt: 2 }}>
                 記事を作成するためのクレジットがありません。
               </Typography>
-              <div className=" flex justify-end items-center gap-5">
+              <div className=" flex justify-end items-center gap-5 mt-5">
                 <Button onClick={handleClickBack}>戻る</Button>
                 <Button onClick={handleUpdatePlan}>プランアップデート</Button>
               </div>
